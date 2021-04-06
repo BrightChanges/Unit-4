@@ -1,6 +1,5 @@
 
 ### Solutions to all 32 levels for CSS Diner (https://flukeout.github.io/):
-# https://flukeout.github.io/ #
 
 01. plate
 02. bento
