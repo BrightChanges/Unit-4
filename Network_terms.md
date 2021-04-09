@@ -2,24 +2,24 @@
 #### Task:
 Define the terms:
 
-*IP address
+* IP address
 
-*IP version 4 and version 6
+* IP version 4 and version 6
 
-*SSH
+* SSH
 
-*SCP
+* SCP
 
-*Terminal commands: LS, CAT, ECHO, CD
+* Terminal commands: LS, CAT, ECHO, CD
 
-*CHMOD
+* CHMOD
 
-*Server
+* Server
 
-*Router
+* Router
 
-*Switch
+* Switch
 
-*wLAN
+* wLAN
 
-*LAN
+* LAN
