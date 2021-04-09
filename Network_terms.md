@@ -22,8 +22,8 @@ Define the terms:
 
 * Router: A router is a networking device that forwards data packets between computer networks. Routers perform the traffic directing functions on the Internet. Data sent through the internet, such as a web page or email, is in the form of data packets.
 
-* Switch: 
+* Switch: Switches facilitate the sharing of resources by connecting together all the devices, including computers, printers, and servers, in a small business network. Thanks to the switch, these connected devices can share information and talk to each other, regardless of where they are in a building or on a campus. Building a small business network is not possible without switches to tie devices together.
 
-* wLAN
+* wLAN: A wireless LAN is a wireless computer network that links two or more devices using wireless communication to form a local area network within a limited area such as a home, school, computer laboratory, campus, or office building.
 
-* LAN
+* LAN: A local area network (LAN) is a collection of devices connected together in one physical location, such as a building, office, or home. A LAN can be small or large, ranging from a home network with one user to an enterprise network with thousands of users and devices in an office or school. Regardless of size, a LAN's single defining characteristic is that it connects devices that are in a single, limited area.
