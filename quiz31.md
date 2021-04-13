@@ -37,8 +37,10 @@
 
 ###### Javascript file
 ```.js
-
-
+//TASK: There is a saboteur on the ship! An emergency meeting is called. Each crewmember may 
+// vote for who they believe is the guilty party. At the end of the meeting, if one crewmember 
+// receives more votes than any other, and more than the number of votes skipped, that person is 
+// ejected from the ship
 
 function ActivateFunction() {
     // variable for the string
@@ -96,6 +98,8 @@ function ActivateFunction() {
 
     }
 
+
+
     for (a = 0; a < members_who_got_voted.length; a++) {
         var num = 0
 
@@ -111,6 +115,7 @@ function ActivateFunction() {
     }
     console.log(voted_num_counted)
 
+    //All the code below determine the biggest vote number in the list voted_num_counted:
     var biggest_value = 0
 
     for (c = 0; c < voted_num_counted.length; c++) {
@@ -121,6 +126,8 @@ function ActivateFunction() {
 
     }
 
+    //All the code below counts how many time a biggest vote number appears in the list voted_num_counted.
+    //this is to use to determine if the votes of every member is the same or not:
     var num_biggest_value = 0
 
     for (e = 0; e < voted_num_counted.length; e++) {
@@ -131,6 +138,7 @@ function ActivateFunction() {
 
     }
 
+
     if (num_biggest_value == voted_num_counted.length){
         console.log(" No one was ejected. (Tie)")
         document.getElementById("output").innerHTML = " No one was ejected. (Tie)" ;
@@ -139,6 +147,7 @@ function ActivateFunction() {
         document.getElementById("output").innerHTML = " No one was ejected. (Skipped)" ;
 
     }else if (num_biggest_value == 1) {
+        //the for loop below get the index of the member with the highest vote numer in the list voted_num_counted
         for (d = 0; d < voted_num_counted.length; d++) {
             if (voted_num_counted[d] == biggest_value) {
                 index_of_guilty_member = d
@@ -154,6 +163,9 @@ function ActivateFunction() {
 
 
 }
+
+
+
 
 
 
