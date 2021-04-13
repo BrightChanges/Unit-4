@@ -230,3 +230,17 @@ function showSlides(n) {
 }
 
 ```
+
+-IMG_02972.jpg:
+![](https://github.com/BrightChanges/Unit-4/blob/main/IMG_02972.jpg)
+
+-IMG_0296.JPG:
+![](https://github.com/BrightChanges/Unit-4/blob/main/IMG_0296.JPG)
+
+-code1.png:
+![](https://github.com/BrightChanges/Unit-4/blob/main/code1.png)
+
+-code2.png:
+![](https://github.com/BrightChanges/Unit-4/blob/main/code2.png)
+
+
