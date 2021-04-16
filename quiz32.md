@@ -93,6 +93,10 @@ function ActivateFunction() {
 
 ![](https://github.com/BrightChanges/Unit-4/blob/main/Screen%20Shot%200003-04-16%20at%2012.10.58.png)
 
-![]()
+![](https://github.com/BrightChanges/Unit-4/blob/main/Screen%20Shot%200003-04-16%20at%2013.21.59.png)
 
-![]()
+![](https://github.com/BrightChanges/Unit-4/blob/main/Screen%20Shot%200003-04-16%20at%2013.19.54.png)
+
+![](https://github.com/BrightChanges/Unit-4/blob/main/Screen%20Shot%200003-04-16%20at%2013.21.26.png)
+
+![](https://github.com/BrightChanges/Unit-4/blob/main/Screen%20Shot%200003-04-16%20at%2013.20.12.png)
