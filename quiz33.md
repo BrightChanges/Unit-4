@@ -3,7 +3,9 @@
 
 #### Solution
 
+##### Flow Diagram:
 
+![](https://github.com/BrightChanges/Unit-4/blob/main/IMG_0394.jpg)
 
 ##### Codes:
 
