@@ -57,7 +57,10 @@ function ActivateFunction() {
     for (x = 0; x<hours.length; x++ ){
 
         for (y=0; y<minutes.length; y++){
+            //locate the location of the hour hand:
             var first_range = hours[x]
+            
+            //locate the location of the minute hand:
             var minute_hint = parseInt(minutes[y])
 
             if(minute_hint == "00"){
@@ -65,7 +68,8 @@ function ActivateFunction() {
                     }else{
                 minute_hint_updated = minute_hint
             }
-
+            
+    
             var second_range = minute_hint_updated/5
 
             var real_degree = second_range - (first_range + (minute_hint/60))
