@@ -52,7 +52,8 @@ function ActivateFunction() {
     for(i = 10; i<61 ; i++){
         minutes.push(i)
     }
-
+    
+    //looping through all the combination of hours and minutes:
     for (x = 0; x<hours.length; x++ ){
 
         for (y=0; y<minutes.length; y++){
@@ -72,7 +73,9 @@ function ActivateFunction() {
             var degree = 30 * real_degree
 
             var absolute_value_input = Math.abs(input)
-
+            
+            //the code below check if a degree of one of the combination from the loop above
+            //match the input degree or not:
             if (degree == absolute_value_input && minute_hint!=60){
 
                 if (minute_hint == "0"){
@@ -90,28 +93,7 @@ function ActivateFunction() {
     }
 
 
-    // for (z = 1; z < possible_outputs.length; z++){
-    //
-    //     var first_range = possible_outputs[z].split(":")[0]
-    //     var minute_hint = possible_outputs[z].split(":")[1]
-    //
-    //     if(minute_hint == "00"){
-    //         var minute_hint_updated= 60
-    //     }
-    //
-    //     var second_range = minute_hint_updated/5
-    //
-    //     var real_degree = parseInt(second_range) - (parseInt(first_range) + parseInt(minute_hint)/60)
-    //
-    //     var degree = 30 * real_degree
-    //
-    //     if (degree == input){
-    //         var correct_output = possible_outputs[z]
-    //         console.log(degree)
-    //         console.log(correct_output)
-    //     }
-    //
-    // }
+  
 
 
 
