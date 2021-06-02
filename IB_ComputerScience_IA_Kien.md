@@ -40,3 +40,61 @@
 
 
 ```
+
+
+
+##### Codes to convert data in an sqlite database's table to PDF using safe query with SQLAlchemy ORM:
+
+(Snack in the codes below is an sqlite database table)
+(the PDF file will be stored in CoinSnack2.pdf)
+
+```.py
+
+    def export_pdf(self):
+        s = session()
+        all_data = s.query(Snack).all()
+
+        data_list = [to_dict(item) for item in all_data]
+        print(data_list)
+
+
+        pdf = FPDF()
+        pdf.add_page()
+
+        page_width = pdf.w - 2 * pdf.l_margin
+
+        pdf.set_font('Times', 'B', 14.0)
+        pdf.cell(page_width, 0.0, 'CoinSnack Data', align='C')
+        pdf.ln(10)
+
+        pdf.set_font('Courier', '', 12)
+
+        col_width = page_width / 5
+
+        pdf.ln(1)
+
+        th = pdf.font_size
+
+
+        for x in range(1):
+            pdf.cell(col_width, th, txt="id", border=1)
+            pdf.cell(col_width, th,  txt="name", border=1)
+            pdf.cell(col_width, th,  txt="amount", border=1)
+            pdf.cell(col_width, th,  txt="price", border=1)
+            pdf.cell(col_width, th,  txt="user_id", border=1)
+            pdf.ln(th)
+
+        pdf.ln(1)
+
+        for i in range(len(data_list)):
+            pdf.cell(col_width, th, str(data_list[i]["id"]), border=1)
+            pdf.cell(col_width, th, str(data_list[i]["name"]), border=1)
+            pdf.cell(col_width, th, str(data_list[i]["amount"]), border=1)
+            pdf.cell(col_width, th, str(data_list[i]["price"]), border=1)
+            pdf.cell(col_width, th, str(data_list[i]["user_id"]), border=1)
+            pdf.ln(th)
+
+        s.close()
+        pdf.output("Coinsnack2.pdf")
+
+```
