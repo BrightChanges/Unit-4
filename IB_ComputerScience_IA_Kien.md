@@ -108,12 +108,12 @@ Step 3: Paste the codes below into the spec file:
 
 # -*- mode: python ; coding: utf-8 -*-
 
-//the hook below is very important because it connects kivymd with the package:
+#the hook below is very important because it connects kivymd with the package:
 from kivymd import hooks_path as kivymd_hooks_path
 block_cipher = None
 
-//changes the '/Users/kienletrung/Desktop/CoinSnack_MiniIA/main.py' below to the
-path to the python python file of the whole project. change the '/Users/kienletrung/Desktop/CoinSnack_MiniIA' below to the folder that holds the previous python file.
+#changes the '/Users/kienletrung/Desktop/CoinSnack_MiniIA/main.py' below to the
+#path to the python python file of the whole project. change the #'/Users/kienletrung/Desktop/CoinSnack_MiniIA' below to the folder that holds the previous python file.
 a = Analysis(['/Users/kienletrung/Desktop/CoinSnack_MiniIA/main.py'],
              pathex=['/Users/kienletrung/Desktop/CoinSnack_MiniIA'],
              binaries=[],
@@ -129,10 +129,10 @@ a = Analysis(['/Users/kienletrung/Desktop/CoinSnack_MiniIA/main.py'],
 pyz = PYZ(a.pure, a.zipped_data,
              cipher=block_cipher)
 
-//adds other files that are not the main python file with the way below: (needs to change the '/Users/kienletrung/Desktop/CoinSnack_MiniIA/main.kv' to the appropriate path to the file)
+#adds other files that are not the main python file with the way below: (needs to change the #'/Users/kienletrung/Desktop/CoinSnack_MiniIA/main.kv' to the appropriate path to the file)
 a.datas += [('main.kv', '/Users/kienletrung/Desktop/CoinSnack_MiniIA/main.kv', 'DATA')]
 
-//needs to change '/Users/kienletrung/Desktop/CoinSnack_MiniIA' to the path that holds the data that I add in the above line. change the "coinsnack" name to appropriate app name.
+#needs to change '/Users/kienletrung/Desktop/CoinSnack_MiniIA' to the path that holds the data that I add in the above line. change the "coinsnack" name to appropriate app name.
 exe = EXE(pyz, Tree('/Users/kienletrung/Desktop/CoinSnack_MiniIA', 'Data'),
           a.scripts,
           a.binaries,
