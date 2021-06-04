@@ -1,7 +1,7 @@
 # IB Computer Science IA by Kien Le Trung
 
 
-##### Codes to convert data in an sqlite database's table to Excel using safe query with SQLAlchemy ORM:
+##### 1.Codes to convert data in an sqlite database's table to Excel using safe query with SQLAlchemy ORM:
 
 (Snack in the codes below is an sqlite database table)
 (the Excel file will be stored in output.xlsx)
@@ -43,7 +43,7 @@
 
 
 
-##### Codes to convert data in an sqlite database's table to PDF using safe query with SQLAlchemy ORM:
+##### 2.Codes to convert data in an sqlite database's table to PDF using safe query with SQLAlchemy ORM:
 
 (Snack in the codes below is an sqlite database table)
 (the PDF file will be stored in CoinSnack2.pdf)
@@ -98,3 +98,89 @@
         pdf.output("Coinsnack2.pdf")
 
 ```
+
+##### 3.Codes to package the Kivy-Python-Kivy project into exe, dmg file:
+Step 1: create a spec file "something.spec" in the same directory with main.py and main.py
+Step 2: pip install kvmd on the terminal
+Step 3: Paste the codes below into the spec file:
+
+```.spec
+
+# -*- mode: python ; coding: utf-8 -*-
+
+//the hook below is very important because it connects kivymd with the package:
+from kivymd import hooks_path as kivymd_hooks_path
+block_cipher = None
+
+//changes the '/Users/kienletrung/Desktop/CoinSnack_MiniIA/main.py' below to the
+path to the python python file of the whole project. change the '/Users/kienletrung/Desktop/CoinSnack_MiniIA' below to the folder that holds the previous python file.
+a = Analysis(['/Users/kienletrung/Desktop/CoinSnack_MiniIA/main.py'],
+             pathex=['/Users/kienletrung/Desktop/CoinSnack_MiniIA'],
+             binaries=[],
+             datas=[],
+             hiddenimports=[],
+             hookspath=[kivymd_hooks_path],
+             runtime_hooks=[],
+             excludes=['_tkinter', 'Tkinter', 'enchant', 'twisted'],
+             win_no_prefer_redirects=False,
+             win_private_assemblies=False,
+             cipher=block_cipher,
+             noarchive=False)
+pyz = PYZ(a.pure, a.zipped_data,
+             cipher=block_cipher)
+
+//adds other files that are not the main python file with the way below: (needs to change the '/Users/kienletrung/Desktop/CoinSnack_MiniIA/main.kv' to the appropriate path to the file)
+a.datas += [('main.kv', '/Users/kienletrung/Desktop/CoinSnack_MiniIA/main.kv', 'DATA')]
+
+//needs to change '/Users/kienletrung/Desktop/CoinSnack_MiniIA' to the path that holds the data that I add in the above line. change the "coinsnack" name to appropriate app name.
+exe = EXE(pyz, Tree('/Users/kienletrung/Desktop/CoinSnack_MiniIA', 'Data'),
+          a.scripts,
+          a.binaries,
+          a.zipfiles,
+          a.datas,
+          [],
+          name='coinsnack',
+          debug=False,
+          bootloader_ignore_signals=False,
+          strip=False,
+          upx=True,
+          upx_exclude=[],
+          runtime_tmpdir=None,
+          console=False )
+app = BUNDLE(exe,
+             name='coinsnack.app',
+             icon=None,
+             bundle_identifier=None)
+
+
+```
+The codes above is created from the combination of the 2 tutorials below:
+1.https://stackoverflow.com/questions/35952595/kivy-compiling-to-a-single-executable
+2.https://kivymd.readthedocs.io/en/0.104.1/unincluded/kivymd/tools/packaging/pyinstaller/index.html
+
+Step 3: Run the below codes step by step in the terminal:
+```
+pyinstaller -y --clean --windowed "something".spec
+
+```
+
+then 
+
+```
+pushd dist
+
+```
+then
+
+```
+hdiutil create ./myapp.dmg -srcfolder myapp.app -ov
+```
+(change myapp to the name of your app)
+
+then
+
+```
+popd
+
+```
+After this, an exe file, a dmg file will be in the "dist" folder in the main folder. To run the exe file, the user just need to click on it. Looks like data cannot be saved on exe file.
