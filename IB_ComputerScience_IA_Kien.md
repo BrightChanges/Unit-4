@@ -101,7 +101,7 @@
 
 ##### 3.Codes to package the Kivy-Python-Kivy project into exe, dmg file:
 Step 1: create a spec file "something.spec" in the same directory with main.py and main.py
-Step 2: pip install kvmd on the terminal (not sure if this is the right step)
+Step 2: install kivymd package directly in Pycharm project congigurations
 Step 3: Paste the codes below into the spec file:
 
 ```.spec
