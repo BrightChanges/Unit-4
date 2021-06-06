@@ -175,7 +175,7 @@ then
 ```
 hdiutil create ./myapp.dmg -srcfolder myapp.app -ov
 ```
-(change myapp to the name of your app)
+(change myapp to the name of your app that you wrote in your spec file)
 
 then
 
