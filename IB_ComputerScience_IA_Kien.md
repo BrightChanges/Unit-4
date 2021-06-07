@@ -1,6 +1,23 @@
 # IB Computer Science IA by Kien Le Trung
 
+## Criterion A: Planning
+### Defining the problem
+Client Mr Lam is my father, and he works in accounting in an airline company. During Covid time, his company was unable to pay in time for many services in Japan. Because of this, he needs to take a lot more time than before to manually checks through his Oracle's invoices logs to see which invoice is overdue and which invoice needs to pay first (in order to avoid or minimize penalties based on signed contracts with those services) and fill them in Excel reports, which he will then need to send them to his company. This takes him a lot of time and he complained this to me once during our usualy family video call on May 2021. He said he wanted a program that could help him record invoices and quickly export reports to see which invoices his company needed to pay first, which invoices are paid, and more.
 
+As he was saying, I thought that I could create that program for him through my Internal Assessment. I thought that this would be very cool because he needs a Computer Science solution to his problem, and I could bring that solution to him.
+
+In order to understand more about the program for Mr Lam, I decided to schedule an interview with Mr Lam.
+(Interview 1, 2021) in Appendix
+
+### Rationale for Proposed Solution
+...
+
+### Stating Success Criteria 
+...
+The above stating success Criteria had been consulted and agreed upon with Mr Lam on our second interview. (Interview 2, 2021) in Appendix
+
+
+## Criterion C: Codings
 ##### 1.Codes to convert data in an sqlite database's table to Excel using safe query with SQLAlchemy ORM:
 
 (Snack in the codes below is an sqlite database table)
