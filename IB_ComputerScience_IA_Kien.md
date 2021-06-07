@@ -6,15 +6,15 @@ Client Mr Lam is my father, and he works in accounting in an airline company. Du
 
 As he was saying, I thought that I could create that program for him through my Internal Assessment. I thought that this would be very cool because he needs a Computer Science solution to his problem, and I could bring that solution to him. A few days later, I told him that I wanted to create the program for him, and Mr Lam accepted my offer. He then sent me an email detailing some most important functions he is looking for in the program, images of how Oracle kept track of his invoices, ways and formulas to export them to Excel files in order to give me an idea about the program he wants me to create. (Email, 2021) in Appendix
 
-In order to understand more about the program for Mr Lam and the success criterias., I decided to schedule an interview with Mr Lam.
-(Interview, 2021) in Appendix
+In order to understand more about the program for Mr Lam and the success criterias, I decided to schedule an interview with Mr Lam.
+(Interview 1, 2021) in Appendix
 
 ### Rationale for Proposed Solution
 ...
 
 ### Stating Success Criteria 
 ...
-The above stating success Criteria had been consulted and agreed upon with Mr Lam during our interview. (Interview, 2021) in Appendix in Appendix
+The above stating success Criteria had been consulted and agreed upon with Mr Lam during our interview. (Interview 2, 2021) in Appendix in Appendix
 
 
 ## Criterion C: Codings
