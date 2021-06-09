@@ -10,7 +10,20 @@ In order to understand more about the program for Mr Lam and the success criteri
 (Interview 1, 2021) in Appendix, link to Appendix: https://docs.google.com/document/d/1jqNpTUHErdX6za0PeErWIWiXw3vw4pNfHWQNZe-BNwo/edit
 
 ### Rationale for Proposed Solution
-...
+I think that a Python-Kivy-Kivymd program will be an effective solution to Mr Lam’s problem.
+
+There is a screen that lets my client input fixed data related to the Trading Partner and another screen that lets my client input non-fixed data related to the invoice. There is another screen for him to search the invoices with four filters. Searched invoices will be displayed in a data table on the screen. There are edit, clear, remove, export buttons in this screen. Finally, there is another separate screen with two buttons designed specifically to generate the two main reports my client wants to generate with the invoices. All invoices data are stored in a SQLite database and interacted through it.
+
+According to these requirements, I decided to make the program in Python, Kivy, and Kivymd because of:
+
+I am learning them at school.
+Python provides flexibility in back end codings
+Python has a large amount of libraries that I could use to ease the coding process
+Kivy and Kivymd provide pleasant and easy to use front end screens and data tables 
+Python provides compatibility with SQL and SQLAlchemy, helping me to more easily creates database and connects it to the program
+After creating one screen with Kivy and Kivymd, it is easy to creates another screen by copying and making small changes
+A Python, Kivy, Kivymd program could be compiled into one .exe file and used as a desktop application, which suits the program type my client wants
+
 
 ### Stating Success Criteria 
 1. Being able to input/update/edit/remove any or all data columns or each row of each invoice
