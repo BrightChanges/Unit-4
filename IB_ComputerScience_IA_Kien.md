@@ -40,7 +40,68 @@ A Python, Kivy, Kivymd program could be compiled into one .exe file and used as 
 12. Let the client export the filtered/search invoices tables to reports in Excel and PDF formats.
 13. Each of the 2 main types of reports will need to be structured in the way that the client want (including headers, report generated time, font type)
 
+## Criterion B: Solution Overview
 
+### Idea sketches
+![]()
+Image 1:....
+Explanation:
+
+### System diaram (digital)
+![]()
+Image 2:....
+Explanation:
+
+### Clean design of the sketches (digital)
+![]()
+Image 3:....
+Explanation:
+
+### UML diagram (digital)
+![]()
+Image 4:....
+Explanation:
+
+### ER diagram (digital)
+![]()
+Image 5:....
+Explanation:
+
+### Flow diagram of X process (digital)
+![]()
+Image 6:....
+Explanation:
+
+### Sequence diagram (maybe don't need) (digital)
+![]()
+Image 7:....
+Explanation:
+
+### Database normalization (digital)
+![]()
+Image 8:....
+Explanation:
+
+### Testing plan
+
+### Record of tasks (needed to be updated during the life of the program)
+
+| Task number | Planned action                                                                                       | Planned outcome                                                                                                                                                                                                                                                                                                                                               | Time estimated | Target completion date | Criterion |
+|-------------|------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------------|------------------------|-----------|
+| 1           | Finding a client that is in  need of a program                                                       | Chosen a problem to create a program for. Found the client I'm creating the program for                                                                                                                                                                                                                                                                       | 1 week         | May 26, 2021           | A         |
+| 2           | Have an interview with Mr Lam                                                                        | Understand about the requirements and success criteria of the program from Mr Lam                                                                                                                                                                                                                                                                             | 1 week         | June 2, 2021           | A         |
+| 3           | Finish documenting Criterion A,  writing the scenario, rationale, and  success criteria              | the whole Criterion A is fully  documented with the success criteria approved by Mr Lam                                                                                                                                                                                                                                                                       | 1 week         | June 9, 2021           | A         |
+| 4           | Designing the program                                                                                | Had a sketched of the program.Various  diagrams like UML, ER, system diagram is drawn.The sketch will be turned into a clean online design. Documentation explaining how these diagrams works will be written into Criterion B. A testing plan   will also be finished and added to Criterion B.  Also, a Record of tasks table will be added to Criterion B. | 1 week         | June 16, 2021          | B         |
+| 5.          | Finish documenting Criterion B (adding record of tasks, diagrams, diagrams' explanations, test plan) | the whole Criterion B is fully documented                                                                                                                                                                                                                                                                                                                     | 1 day          | June 17, 2021          | B         |
+| 6.          |                                                                                                      |                                                                                                                                                                                                                                                                                                                                                               |                |                        | C         |
+| 7.          |                                                                                                      |                                                                                                                                                                                                                                                                                                                                                               |                |                        | C         |
+| 8.          |                                                                                                      |                                                                                                                                                                                                                                                                                                                                                               |                |                        | C         |
+| 9.          |                                                                                                      |                                                                                                                                                                                                                                                                                                                                                               |                |                        | D         |
+| 10.         |                                                                                                      |                                                                                                                                                                                                                                                                                                                                                               |                |                        | E/A       |
+| 11.         |                                                                                                      |                                                                                                                                                                                                                                                                                                                                                               |                |                        | E         |
+| 12.         |                                                                                                      |                                                                                                                                                                                                                                                                                                                                                               |                |                        | D         |
+
+Table 1: Record of tasks's table
 
 ## Criterion C: Codings
 ##### 1.Codes to convert data in an sqlite database's table to Excel using safe query with SQLAlchemy ORM:
