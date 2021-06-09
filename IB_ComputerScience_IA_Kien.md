@@ -84,12 +84,12 @@ Explanation:
 
 ### Testing plan
 
-Before presenting the program to Mr Lam, I've decided to do various types of testings to make sure the program works as expected and fits for him.
+Before presenting the program to Mr Lam, I plan to do various types of testings to make sure the program works as expected and fits for him.
 I've create a plan that I followed to test my program:
-1. Alpha testing(I check the program by myself while going through Alpha, Beta testing table)
-2. Beta testing with a computer science expert (I asked my Computer Science classmate to check my program by using Alpha, Beta testing table)
-3. Beta testing with an external expert (I asked an external expert, who is not taking Computer Science and not interested in coding at all, to check my program by using Alpha, Beta testing table). This allowed me to make sure that my program could be used even by someone who is not familiar with Computer Science.
-4. User acceptance testing (I asked Mr Lam to use the program while using User acceptance testing table)
+1. Alpha testing (I will check the program by myself while going through Alpha, Beta testing table)
+2. Beta testing with a computer science expert (I will ask my Computer Science classmate to check my program by using Alpha, Beta testing table)
+3. Beta testing with an external expert (I will ask an external expert, who is not taking Computer Science and not interested in coding at all, to check my program by using Alpha, Beta testing table). This allowed me to make sure that my program could be used even by someone who is not familiar with Computer Science.
+4. User acceptance testing (I will ask Mr Lam to use the program while using User acceptance testing table)
 
 
 
