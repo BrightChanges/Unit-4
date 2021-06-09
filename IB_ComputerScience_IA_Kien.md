@@ -84,6 +84,15 @@ Explanation:
 
 ### Testing plan
 
+Before presenting the program to Mr Lam, I've decided to do various types of testings to make sure the program works as expected and fits for him.
+I've create a plan that I followed to test my program:
+1. Alpha testing(I check the program by myself while going through Alpha, Beta testing table)
+2. Beta testing with a computer science expert (I asked my Computer Science classmate to check my program by using Alpha, Beta testing table)
+3. Beta testing with an external expert (I asked an external expert, who is not taking Computer Science and not interested in coding at all, to check my program by using Alpha, Beta testing table). This allowed me to make sure that my program could be used even by someone who is not familiar with Computer Science.
+4. User acceptance testing (I asked Mr Lam to use the program while using User acceptance testing table)
+
+
+
 | Testing level     | Type of testing | Success Criteria (need to test all success  criteria in Criterion A)                                                                                                           | Procedures           | Criteria met? Alpha testing | Criteria met?  Beta testing with  computer science  expert | Criteria met? Beta testing with  external expert |
 |-------------------|-----------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------------------|-----------------------------|------------------------------------------------------------|--------------------------------------------------|
 | Unit Testing      |                 | Being able to input/update/edit/remove any or  all data columns or each row of each invoice                                                                                    |                      |                             |                                                            |                                                  |
@@ -116,6 +125,7 @@ Table 1: Alpha, Beta testing table
 | 11  | Let the client view the filtered/searched invoices  tables on the screen                                                                                                       |            |                  |      |
 | 12  | Let the client export the filtered/search invoices  tables to reports in Excel and PDF formats.                                                                                |            |                  |      |
 | 13  | Each of the 2 main types of reports will need to be  structured in the way that the client want  (including headers, report generated time, font type)                         |            |                  |      |
+
 Table 2: User acceptance testing table
 
 ### Record of tasks (needed to be updated during the life of the program)
