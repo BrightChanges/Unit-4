@@ -56,7 +56,7 @@ A Python, Kivy, Kivymd program could be compiled into one .exe file and used as 
 ![](https://github.com/BrightChanges/Unit-4/blob/main/IB_ComputerScience_IA/IMG_0593.jpg)
 
 
-### System diaram (digital)
+### System diagram (digital)
 ![]()
 Image 2:....
 Explanation:
