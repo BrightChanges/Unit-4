@@ -44,17 +44,24 @@ A Python, Kivy, Kivymd program could be compiled into one .exe file and used as 
 
 ## Criterion B: Solution Overview
 
-### Idea sketches
-![]()
-Image 1:....
-Explanation:
+### Idea sketches for the program screens
+![](https://github.com/BrightChanges/Unit-4/blob/main/IB_ComputerScience_IA/IMG_0589.jpg)
+
+![](https://github.com/BrightChanges/Unit-4/blob/main/IB_ComputerScience_IA/IMG_0590.jpg)
+
+![](https://github.com/BrightChanges/Unit-4/blob/main/IB_ComputerScience_IA/IMG_0591.jpg)
+
+![](https://github.com/BrightChanges/Unit-4/blob/main/IB_ComputerScience_IA/IMG_0592.jpg)
+
+![](https://github.com/BrightChanges/Unit-4/blob/main/IB_ComputerScience_IA/IMG_0593.jpg)
+
 
 ### System diaram (digital)
 ![]()
 Image 2:....
 Explanation:
 
-### Clean design of the sketches (digital)
+### Clean design of the program's screens (digital)
 ![]()
 Image 3:....
 Explanation:
