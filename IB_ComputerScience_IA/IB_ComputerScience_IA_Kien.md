@@ -16,13 +16,13 @@ There is a screen that lets my client input fixed data related to the Trading Pa
 
 According to these requirements, I decided to make the program in Python, Kivy, and Kivymd because of:
 
-I am learning them at school.
-Python provides flexibility in back end codings
-Python has a large amount of libraries that I could use to ease the coding process
-Kivy and Kivymd provide pleasant and easy to use front end screens and data tables 
-Python provides compatibility with SQL and SQLAlchemy, helping me to more easily creates database and connects it to the program
-After creating one screen with Kivy and Kivymd, it is easy to creates another screen by copying and making small changes
-A Python, Kivy, Kivymd program could be compiled into one .exe file and used as a desktop application, which suits the program type my client wants
+1. I am learning them at school.
+2. Python provides flexibility in back end codings
+3. Python has a large amount of libraries that I could use to ease the coding process
+4. Kivy and Kivymd provide pleasant and easy to use front end screens and data tables 
+5. Python provides compatibility with SQL and SQLAlchemy, helping me to more easily creates database and connects it to the program
+6. After creating one screen with Kivy and Kivymd, it is easy to creates another screen by copying and making small changes
+7. A Python, Kivy, Kivymd program could be compiled into one .exe file and used as a desktop application, which suits the program type my client wants
 
 
 ### Stating Success Criteria 
