@@ -71,9 +71,9 @@ Explanation:
 Image 4: UML diagram's Class diagram
 Explanation:
 
-### ER diagram (digital later)
-![]()
-Image 5:....
+### ER diagram 
+![](https://github.com/BrightChanges/Unit-4/blob/main/IB_ComputerScience_IA/ER%20diagram%20for%20CS%20IA.png)
+Image 5: ER diagram of the program
 Explanation:
 
 ### Flow diagram of X process (digital later)
