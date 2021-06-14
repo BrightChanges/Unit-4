@@ -66,27 +66,27 @@ Explanation:
 Image 3:....
 Explanation:
 
-### UML diagram (digital)
-![]()
-Image 4:....
+### UML diagram's Class diagram(digital later)
+![](https://github.com/BrightChanges/Unit-4/blob/main/IB_ComputerScience_IA/IMG_0601.jpg)
+Image 4: UML diagram's Class diagram
 Explanation:
 
-### ER diagram (digital)
+### ER diagram (digital later)
 ![]()
 Image 5:....
 Explanation:
 
-### Flow diagram of X process (digital)
+### Flow diagram of X process (digital later)
 ![]()
 Image 6:....
 Explanation:
 
-### Sequence diagram (maybe don't need) (digital)
+### UML diagram's Sequence diagram (maybe don't need) (digital later)
 ![]()
 Image 7:....
 Explanation:
 
-### Database normalization (digital)
+### Database normalization (digital later)
 ![]()
 Image 8:....
 Explanation:
