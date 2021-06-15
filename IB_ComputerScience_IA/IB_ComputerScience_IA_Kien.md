@@ -113,6 +113,14 @@ Explanation
 
 3. For the Invoice class:
 
+| id | invoice_date | invoice_amount | invoice_currency | invoice_added_date | tax  | description     | expired_contract_date | actual_payment_date | actual_payment_accepted_by | overdue_period | notes_for_penalty_overdue | paid | paid_amount | payment_unpaid_amount | payment_date1 | payment_date2 | added_by_user |
+|----|--------------|----------------|------------------|--------------------|------|-----------------|-----------------------|---------------------|----------------------------|----------------|---------------------------|------|-------------|-----------------------|---------------|---------------|---------------|
+| 1  | 2021-07-15   | 300000         | yen              | 2021-07-15         | 10   | invoice for xyz | 2021-08-15            | 2021-12-15          | By VNA                     | 120            | plus 12.5% annually       | 0    | 0           | 300000                |               |               | Lam           |
+| 2  | 2021-07-13   | 50000          | yen              | 2021-07-15         | 12.5 | ...             | 2021-08-13            | 2021-09-09          | Partner                    | 27             | plus 0.01% daily          | 0.5  | 20000       | 30000                 | 2021-08-10    |               | Mizawa        |
+| 3  | 2021-07-14   | 20000          | dollars          | 2021-07-15         | 10   | ....            | 2021-08-14            | 2021-11-12          | By VNA                     | 91             | plus 1% monthly           | 1    | 20000       | 0                     | 2021-11-10    | 2021-11-11    | Konoha        |
+
+Table 5:...
+Explanation
 
 ### Testing plan
 
