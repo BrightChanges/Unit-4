@@ -77,7 +77,7 @@ Image 5: ER diagram of the program
 Explanation:
 
 ### Flow diagram of X process (digital later)
-![]()
+![](https://github.com/BrightChanges/Unit-4/blob/main/IB_ComputerScience_IA/IMG_0603.jpg)
 Image 6:....
 Explanation:
 
