@@ -69,7 +69,7 @@ Explanation:
 ### UML diagram's Class diagram(digital later)
 ![](https://github.com/BrightChanges/Unit-4/blob/main/IB_ComputerScience_IA/IMG_0601.jpg)
 Image 4: UML diagram's Class diagram
-Explanation:
+Explanation: STILL lacks attributes such as "Invoices added date", "Expired contract date", "Paid", "Payment_unpaid_amount", and "Added by user". Need to add this to the digital diagram
 
 ### ER diagram 
 ![](https://github.com/BrightChanges/Unit-4/blob/main/IB_ComputerScience_IA/ER%20diagram%20for%20CS%20IA.png)
