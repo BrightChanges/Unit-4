@@ -82,7 +82,7 @@ Image 6:....
 Explanation:
 
 ### UML diagram's Sequence diagram (maybe don't need) (digital later)
-![]()
+![](https://github.com/BrightChanges/Unit-4/blob/main/IB_ComputerScience_IA/IMG_0602.jpg)
 Image 7:....
 Explanation:
 
