@@ -88,21 +88,14 @@ Explanation:
 
 ### Database normalization:
 1. For the User class:
+
 | id | username | password      |
 |----|----------|---------------|
 | 1  | Lam      | hash_password |
 | 2  | X        | hash_password |
 | 3  | Y        | hash_password |
-|    |          |               |
-|    |          |               |
-|    |          |               |
-|    |          |               |
-|    |          |               |
-|    |          |               |
-|    |          |               |
-|    |          |               |
-|    |          |               |
-|    |          |               |
+
+
 Table 3:....
 Explanation:
 
