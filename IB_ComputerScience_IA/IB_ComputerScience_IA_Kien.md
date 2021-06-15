@@ -165,8 +165,8 @@ Table 1: Alpha, Beta testing table
 | 12  | Each of the 2 main types of reports will need to be structured in the way that the client want (including headers, report generated time, font type)                                                                                |            |                  |      |
 | 13  | The program will have a login and logout screen                         |            |                  |      |
 | 14  | The program will let multiple user creates their account and passwords, storing those passwords in hashed                        |            |                  |      |
-| 15  | The program will show a message each time the client exported a report saying that he should back it up by putting it into the hard drive or hard disk
-                         |            |                  |      |
+| 15  | The program will show a message each time the client exported a report saying that he should back it up by putting it into the hard drive or hard disk |            |                  |      |
+
 
 Table 2: User acceptance testing table
 
