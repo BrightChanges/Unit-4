@@ -101,6 +101,15 @@ Explanation:
 
 2. For the Trading partner class:
 
+| id | trading_partner_name | supplier_name | sector        | contract_days | remit_to_bank_account_name | remit_to_bank_account_number | priority_rank |
+|----|----------------------|---------------|---------------|---------------|----------------------------|------------------------------|---------------|
+| 1  | X partner            | X             | Entertainment | 14            | Mistsubishi                | 00012                        | 3             |
+| 2  | YKJ                  | YKJ           | Financial     | 7             | Yuchou                     | 00001                        | 1             |
+| 3  | ooo.com              | ooo           | Security      | 14            | Miyazaki                   | 02200                        | 1             |
+
+Table 4:...
+Explanation
+
 
 3. For the Invoice class:
 
