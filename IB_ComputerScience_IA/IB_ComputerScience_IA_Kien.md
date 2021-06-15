@@ -86,10 +86,31 @@ Explanation:
 Image 7:....
 Explanation:
 
-### Database normalization (digital later)
-![]()
-Image 8:....
+### Database normalization:
+1. For the User class:
+| id | username | password      |
+|----|----------|---------------|
+| 1  | Lam      | hash_password |
+| 2  | X        | hash_password |
+| 3  | Y        | hash_password |
+|    |          |               |
+|    |          |               |
+|    |          |               |
+|    |          |               |
+|    |          |               |
+|    |          |               |
+|    |          |               |
+|    |          |               |
+|    |          |               |
+|    |          |               |
+Table 3:....
 Explanation:
+
+2. For the Trading partner class:
+
+
+3. For the Invoice class:
+
 
 ### Testing plan
 
