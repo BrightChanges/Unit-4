@@ -62,7 +62,7 @@ Image 2: System diagram of the program
 Explanation: 
 
 ### Design of the program's screens 
-![](https://github.com/BrightChanges/Unit-4/blob/main/IB_ComputerScience_IA/CSIA_Screens(1-4).png)
+![](https://github.com/BrightChanges/Unit-4/blob/main/IB_ComputerScience_IA/CSIA_Screens(1-4)%20(1).png)
 Image 3: Design of Login Screen, Register Screen, Menu Screen, Add invoices Screen
 Explanation:
 
