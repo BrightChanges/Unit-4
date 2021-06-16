@@ -56,8 +56,8 @@ According to these requirements, I decided to make the program in Python, Kivy, 
 ![](https://github.com/BrightChanges/Unit-4/blob/main/IB_ComputerScience_IA/IMG_0593.jpg)
 
 
-### System diagram (digital later)
-![](https://github.com/BrightChanges/Unit-4/blob/main/IB_ComputerScience_IA/IMG_0600.jpg)
+### System diagram 
+![](https://github.com/BrightChanges/Unit-4/blob/main/IB_ComputerScience_IA/CSIA_System%20diagram.png)
 Image 2: System diagram of the program
 Explanation: 
 
