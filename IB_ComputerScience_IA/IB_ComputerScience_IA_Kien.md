@@ -76,8 +76,8 @@ Explanation:
 Image 5: ER diagram of the program
 Explanation:
 
-### Flow diagram of general processes (digital later)
-![](https://github.com/BrightChanges/Unit-4/blob/main/IB_ComputerScience_IA/IMG_0603.jpg)
+### Flow diagram of general processes 
+![](https://github.com/BrightChanges/Unit-4/blob/main/IB_ComputerScience_IA/CSIA_Flow%20Diagram.png)
 Image 6:....
 Explanation:
 
