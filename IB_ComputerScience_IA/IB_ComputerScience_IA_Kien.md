@@ -81,8 +81,8 @@ Explanation:
 Image 6:....
 Explanation:
 
-### UML diagram/Sequence diagram (maybe don't need) (digital later)
-![](https://github.com/BrightChanges/Unit-4/blob/main/IB_ComputerScience_IA/IMG_0602.jpg)
+### UML diagram/Sequence diagram 
+![](https://github.com/BrightChanges/Unit-4/blob/main/IB_ComputerScience_IA/CSIA_Sequence%20diagram.png)
 Image 7:....
 Explanation:
 
