@@ -67,7 +67,7 @@ Image 3:....
 Explanation:
 
 ### UML diagram/Class diagram
-![](https://github.com/BrightChanges/Unit-4/blob/main/IB_ComputerScience_IA/CSIA_UML_ClassDiagram.pngg)
+![](https://github.com/BrightChanges/Unit-4/blob/main/IB_ComputerScience_IA/CSIA_UML_ClassDiagram.png)
 Image 4: UML diagram's Class diagram
 Explanation: 
 
