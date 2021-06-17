@@ -69,6 +69,9 @@ Explanation:
 ![](https://github.com/BrightChanges/Unit-4/blob/main/IB_ComputerScience_IA/CSIA_Screens(5-6).png)
 Image 4: Design of Add fixed data about trading partner Screen, Add non-fixed data about Invoice screen
 
+![](https://github.com/BrightChanges/Unit-4/blob/main/IB_ComputerScience_IA/CSIA_Screens(7-8).png)
+Image 5: Design of Filter/search invoices Screen, Filtered/searched invoices Screen
+
 ### UML diagram/Class diagram
 ![](https://github.com/BrightChanges/Unit-4/blob/main/IB_ComputerScience_IA/CSIA_UML_ClassDiagram.png)
 Image 4: UML diagram's Class diagram
