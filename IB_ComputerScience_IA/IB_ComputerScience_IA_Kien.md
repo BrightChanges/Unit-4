@@ -44,33 +44,21 @@ According to these requirements, I decided to make the program in Python, Kivy, 
 
 ## Criterion B: Solution Overview
 
-### Idea sketches for the program screens
-![](https://github.com/BrightChanges/Unit-4/blob/main/IB_ComputerScience_IA/IMG_0589.jpg)
-
-![](https://github.com/BrightChanges/Unit-4/blob/main/IB_ComputerScience_IA/IMG_0590.jpg)
-
-![](https://github.com/BrightChanges/Unit-4/blob/main/IB_ComputerScience_IA/IMG_0591.jpg)
-
-![](https://github.com/BrightChanges/Unit-4/blob/main/IB_ComputerScience_IA/IMG_0592.jpg)
-
-![](https://github.com/BrightChanges/Unit-4/blob/main/IB_ComputerScience_IA/IMG_0593.jpg)
-
-
 ### System diagram 
 ![](https://github.com/BrightChanges/Unit-4/blob/main/IB_ComputerScience_IA/CSIA_System%20diagram.png)
 Image 2: System diagram of the program
 Explanation: 
 
 ### Design of the program's screens 
-![](https://github.com/BrightChanges/Unit-4/blob/main/IB_ComputerScience_IA/CSIA_Screens(1-4)%20(1).png)
+![](https://github.com/BrightChanges/Unit-4/blob/main/IB_ComputerScience_IA/CSIA_Screens(1-4)%20(2).png)
 Image 3: Design of Login Screen, Register Screen, Menu Screen, Add invoices Screen
 Explanation:
 
-![](https://github.com/BrightChanges/Unit-4/blob/main/IB_ComputerScience_IA/CSIA_Screens(5-6).png)
+![](https://github.com/BrightChanges/Unit-4/blob/main/IB_ComputerScience_IA/CSIA_Screens(5-6)%20(1).png)
 Image 4: Design of Add fixed data about trading partner Screen, Add non-fixed data about Invoice screen
 Explanation:
 
-![](https://github.com/BrightChanges/Unit-4/blob/main/IB_ComputerScience_IA/CSIA_Screens(7-8).png)
+![](https://github.com/BrightChanges/Unit-4/blob/main/IB_ComputerScience_IA/CSIA_Screens(7-8)%20(1).png)
 Image 5: Design of Filter/search invoices Screen, Filtered/searched invoices Screen
 Explanation:
 
