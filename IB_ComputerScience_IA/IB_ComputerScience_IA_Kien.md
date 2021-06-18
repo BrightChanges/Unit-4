@@ -47,7 +47,7 @@ According to these requirements, I decided to make the program in Python, Kivy, 
 ### System diagram 
 ![](https://github.com/BrightChanges/Unit-4/blob/main/IB_ComputerScience_IA/CSIA_System%20diagram.png)
 Image 2: System diagram of the program
-Explanation: 
+Explanation: The program lets Mr Lam inputs username, password, information about various trading partners and invoices. The program will then process them through actions such as storing those inputs, categorize those data and display them on filtered/searched invoices table, calculate multiple data (such as payment_unpaid_amount = invoice_amount - paid_amount) and do multiple logical comparison (such as is report_generate_day - actuatpayment_date > 0 or <0). A lot of these actions will need to do with a SQLite Database. The program will connect with this databasae through Python and SQLAlchemy. The program will then output those processed data through an UI interface, displaying all or filtered invoices. The program will let the client export 2 unique reports as requested or any other filtered invoices table into Exce and PDF format.
 
 ### Design of the program's screens 
 ![](https://github.com/BrightChanges/Unit-4/blob/main/IB_ComputerScience_IA/CSIA_Screens(1-4)%20(2).png)
