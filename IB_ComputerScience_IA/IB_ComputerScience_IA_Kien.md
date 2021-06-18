@@ -65,7 +65,7 @@ Explanation: Once in the Filter/search invoices Screen (Screen no.7), the user c
 
 ![](https://github.com/BrightChanges/Unit-4/blob/main/IB_ComputerScience_IA/CSIA_Screens_real(9).png)
 Image 6: Design of Generate reports Screen
-Explanation:
+Explanation: Once in the Generate reports Screen (Screen no.9), the user can choose the type of report they want to export through the choice field “Type of report”, then filling out the “Invoice date” text field and choosing the export format through the choice field “Type of export format”. The user can activate this export process by clicking on the “Export” button.
 
 ### UML diagram/Class diagram
 ![](https://github.com/BrightChanges/Unit-4/blob/main/IB_ComputerScience_IA/CSIA_UML_ClassDiagram.png)
