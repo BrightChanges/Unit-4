@@ -98,8 +98,8 @@ Explanation: This diagram shows the general processes an user could carry out wi
 | 3  | Y        | hash_password |
 
 
-Table 3:....
-Explanation:
+Table 3: A data table of the User class in the database in the program with example data
+Explanation: This table shows the User data table/class in the database. The table will contain the primary key attribute “id”, the unique attribute “username”, and a normal attribute called “password”.
 
 2. For the Trading partner class:
 
@@ -109,8 +109,8 @@ Explanation:
 | 2  | YKJ                  | YKJ           | Financial     | 7             | Yuchou                     | 00001                        | 1             |
 | 3  | ooo.com              | ooo           | Security      | 14            | Miyazaki                   | 02200                        | 1             |
 
-Table 4:...
-Explanation
+Table 4: A data table of the Trading partner class in the database in the program with example data
+Explanation: This table shows the Trading partner class in the database. The table will contain the primary key attribute "id", the unique attribute "trading_partner_name", and various other normal attributes such as "supplier_name", "sector".
 
 
 3. For the Invoice class:
@@ -121,8 +121,8 @@ Explanation
 | 2  | 2021-07-13   | 50000          | yen              | 2021-07-15         | 12.5 | ...             | 2021-08-13            | 2021-09-09          | Partner                    | 27             | plus 0.01% daily          | 0.5  | 20000       | 30000                 | 2021-08-10    |               | Mizawa        |
 | 3  | 2021-07-14   | 20000          | dollars          | 2021-07-15         | 10   | ....            | 2021-08-14            | 2021-11-12          | By VNA                     | 91             | plus 1% monthly           | 1    | 20000       | 0                     | 2021-11-10    | 2021-11-11    | Konoha        |
 
-Table 5:...
-Explanation
+Table 5: A data table of the Invoice class in the database in the program with example data
+Explanation: This table shows the Invoice class in the database. The table will contain the primary key attribute "id", and various other normal attributes such as "invoice_date", "invoice_amount".
 
 ### Testing plan
 
