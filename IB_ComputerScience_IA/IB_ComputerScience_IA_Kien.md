@@ -70,7 +70,7 @@ Explanation: Once in the Generate reports Screen (Screen no.9), the user can cho
 ### UML diagram/Class diagram
 ![](https://github.com/BrightChanges/Unit-4/blob/main/IB_ComputerScience_IA/CSIA_UML_ClassDiagram.png)
 Image 4: UML diagram's Class diagram
-Explanation: 
+Explanation: The diagram shows that the program will have 3 data tables or classes in the database called “User”, “Trading Partner”, and “Invoice” as well as the attributes and methods in each data table. The diagram also demonstrates that the User data table to the Trading Partner data table has a “one to many” relationship and that the Trading Partner data table to the Invoice data table also has a “one to many” relationship.
 
 ### ER diagram 
 ![](https://github.com/BrightChanges/Unit-4/blob/main/IB_ComputerScience_IA/ER%20diagram%20for%20CS%20IA%20(1).png)
