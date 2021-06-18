@@ -98,7 +98,7 @@ Explanation: This diagram shows the general processes an user could carry out wi
 | 3  | Y        | hash_password |
 
 
-Table 3: A data table of the User class in the database in the program with example data
+Table 1: A data table of the User class in the database in the program with example data
 Explanation: This table shows the User data table/class in the database. The table will contain the primary key attribute “id”, the unique attribute “username”, and a normal attribute called “password”.
 
 2. For the Trading partner class:
@@ -109,7 +109,7 @@ Explanation: This table shows the User data table/class in the database. The tab
 | 2  | YKJ                  | YKJ           | Financial     | 7             | Yuchou                     | 00001                        | 1             |
 | 3  | ooo.com              | ooo           | Security      | 14            | Miyazaki                   | 02200                        | 1             |
 
-Table 4: A data table of the Trading partner class in the database in the program with example data
+Table 2: A data table of the Trading partner class in the database in the program with example data
 Explanation: This table shows the Trading partner class in the database. The table will contain the primary key attribute "id", the unique attribute "trading_partner_name", and various other normal attributes such as "supplier_name", "sector".
 
 
@@ -121,7 +121,7 @@ Explanation: This table shows the Trading partner class in the database. The tab
 | 2  | 2021-07-13   | 50000          | yen              | 2021-07-15         | 12.5 | ...             | 2021-08-13            | 2021-09-09          | Partner                    | 27             | plus 0.01% daily          | 0.5  | 20000       | 30000                 | 2021-08-10    |               | Mizawa        |
 | 3  | 2021-07-14   | 20000          | dollars          | 2021-07-15         | 10   | ....            | 2021-08-14            | 2021-11-12          | By VNA                     | 91             | plus 1% monthly           | 1    | 20000       | 0                     | 2021-11-10    | 2021-11-11    | Konoha        |
 
-Table 5: A data table of the Invoice class in the database in the program with example data
+Table 3: A data table of the Invoice class in the database in the program with example data
 Explanation: This table shows the Invoice class in the database. The table will contain the primary key attribute "id", and various other normal attributes such as "invoice_date", "invoice_amount".
 
 ### Testing plan
@@ -149,7 +149,7 @@ I've create a plan that I followed to test my program:
 |                   |                                                                                                                                                                                                       |            |                             |                                                            |                                                  |
 |                   |                                                                                                                                                                                                       |            |                             |                                                            |                                                  |
 |                   |                                                                                                                                                                                                       |            |                             |                                                            |                                                  |
-Table 1: Alpha, Beta testing table
+Table 4: Alpha, Beta testing table
 
 | No. | Success Criteria                                                                                                                                                               | Procedures | Expected Outcome | Met? |
 |-----|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|------------|------------------|------|
@@ -170,7 +170,7 @@ Table 1: Alpha, Beta testing table
 | 15  | The program will show a message each time the client exported a report saying that he should back it up by putting it into the hard drive or hard disk |            |                  |      |
 
 
-Table 2: User acceptance testing table
+Table 5: User acceptance testing table
 
 ### Record of tasks (needed to be updated during the life of the program)
 
@@ -189,7 +189,7 @@ Table 2: User acceptance testing table
 | 11.         |                                                                                                      |                                                                                                                                                                                                                                                                                                                                                               |                |                        | E         |
 | 12.         |                                                                                                      |                                                                                                                                                                                                                                                                                                                                                               |                |                        | D         |
 
-Table 3: Record of tasks's table
+Table 6: Record of tasks's table
 
 ## Criterion C: Codings
 ##### 1.Codes to convert data in an sqlite database's table to Excel using safe query with SQLAlchemy ORM:
