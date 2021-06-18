@@ -72,20 +72,21 @@ Explanation: Once in the Generate reports Screen (Screen no.9), the user can cho
 Image 4: UML diagram's Class diagram
 Explanation: The diagram shows that the program will have 3 data tables or classes in the database called “User”, “Trading Partner”, and “Invoice” as well as the attributes and methods in each data table. The diagram also demonstrates that the User data table to the Trading Partner data table has a “one to many” relationship and that the Trading Partner data table to the Invoice data table also has a “one to many” relationship.
 
+### UML diagram/Sequence diagram 
+![](https://github.com/BrightChanges/Unit-4/blob/main/IB_ComputerScience_IA/CSIA_Sequence%20diagram.png)
+Image 7:....
+Explanation:
+
 ### ER diagram 
 ![](https://github.com/BrightChanges/Unit-4/blob/main/IB_ComputerScience_IA/ER%20diagram%20for%20CS%20IA%20(1).png)
 Image 5: ER diagram of the program
-Explanation:
+Explanation: This diagram shows the UML diagram/Class diagram (Image 4) in a way that is easier to see the various attributes (orange circles) in each data table (white rectangles). Also, each primary key attribute is in a red circle.
 
 ### Flow diagram of general processes 
 ![](https://github.com/BrightChanges/Unit-4/blob/main/IB_ComputerScience_IA/CSIA_Flow%20Diagram.png)
 Image 6:....
 Explanation:
 
-### UML diagram/Sequence diagram 
-![](https://github.com/BrightChanges/Unit-4/blob/main/IB_ComputerScience_IA/CSIA_Sequence%20diagram.png)
-Image 7:....
-Explanation:
 
 ### Database normalization:
 1. For the User class:
