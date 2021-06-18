@@ -63,7 +63,7 @@ Explanation: Once in the Add fixed data about trading partners Screen (Screen no
 Image 5: Design of Filter/search invoices Screen, Filtered/searched invoices Screen
 Explanation: Once in the Filter/search invoices Screen (Screen no.7), the user can search multiple invoices or one invoice by filling out some or all text fields such as “Invoice number”, “Supplier name”, “Invoices added date”, “Invoices date” and choosing or not choosing an option from the choice field “Payment status”. The user can activate this searching action by clicking on the “Filter/search” button. Once in the Filtered/searched invoices Screen (Screen no.8), the user can see the filtered/searched invoices table and export that table to Excel by clicking on the “Export to Excel” button or to PDF by clicking on the “Export to PDF” button. The user can click on the “Back to previous screen” button to go back to the Filter/search invoices Screen (Screen no.7) with all input fields before filled out.
 
-![](https://github.com/BrightChanges/Unit-4/blob/main/IB_ComputerScience_IA/CSIA_Screens_real(9).png)
+![](https://github.com/BrightChanges/Unit-4/blob/main/IB_ComputerScience_IA/CSIA_Screens_real(9)%20(1).png)
 Image 6: Design of Generate reports Screen
 Explanation: Once in the Generate reports Screen (Screen no.9), the user can choose the type of report they want to export through the choice field “Type of report”, then filling out the “Invoice date” text field and choosing the export format through the choice field “Type of export format”. The user can activate this export process by clicking on the “Export” button.
 
