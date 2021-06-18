@@ -46,45 +46,45 @@ According to these requirements, I decided to make the program in Python, Kivy, 
 
 ### System diagram 
 ![](https://github.com/BrightChanges/Unit-4/blob/main/IB_ComputerScience_IA/CSIA_System%20diagram.png)
-Image 2: System diagram of the program
+Image 1: System diagram of the program
 Explanation: The program lets Mr Lam inputs username, password, information about various trading partners and invoices. The program will then process them through actions such as storing those inputs, categorize those data and display them on filtered/searched invoices table, calculate multiple data (such as payment_unpaid_amount = invoice_amount - paid_amount) and do multiple logical comparison (such as is report_generate_day - actuatpayment_date > 0 or <0). A lot of these actions will need to do with a SQLite Database. The program will connect with this databasae through Python and SQLAlchemy. The program will then output those processed data through an UI interface, displaying all or filtered invoices. The program will let the client export 2 unique reports as requested or any other filtered invoices table into Exce and PDF format.
 
 ### Design of the program's screens 
 #### (All green colored squares in all screen designs are buttons. Anything other than them are texts or text fields.)
 ![](https://github.com/BrightChanges/Unit-4/blob/main/IB_ComputerScience_IA/CSIA_Screens(1-4)%20(2).png)
-Image 3: Design of Login Screen, Register Screen, Menu Screen, Add invoices Screen
+Image 2: Design of Login Screen, Register Screen, Menu Screen, Add invoices Screen
 Explanation: The Login Screen (Screen no.1) lets the client or client's workers to login and use the program through inputting an username and a password. The user (the client or client's workers) could then click the "Login" button for authentication process. If the user hasn't created an account yet, they can click the "Register" button to go through the Register process at the Register Screen (Screen no.2). The user can create an account with an username that hasn't been registered before, and input the password twice before clicking the "Register button". After successfully registered, the user will be redirected back to the Login Screen. After successfully logged in, the user will be redirected to the Menu Screen, where user can click on the "Add invoices +" button and go to the Add invoices Screen (Screen no.4) or click on the "Filter/search invoices" button and go to the Filter/search invoices Screen (Screen no.7) or click on the "Generate reports" button and go to the Generate reports Screen (Screen no.9) or click the "Logout" button, logging out of their account and get redirected to the Login Screen (Screen no.1). Inside the Add invoices Screen, there are 2 buttons for the user to click. The "Add fixed data about Trading Partners +" button will lead the user to the Add fixed data about trading partner Screen (Screen no.5) when clicked whereas the "Add non-fixed data about Invoices" button will lead the user to the Add non-fixed data about invoices Screen (Screen no.6) when clicked. Excluding the Login Screen (Screen no.1), the Register Screen (Screen no.2), and the Menu Screen (Screen no.3), all other screen has a “Back to menu” button that when clicked, will redirect the user back to the Menu Screen (Screen no.3). 
 
 ![](https://github.com/BrightChanges/Unit-4/blob/main/IB_ComputerScience_IA/CSIA_Screens(5-6)%20(1).png)
-Image 4: Design of Add fixed data about trading partner Screen, Add non-fixed data about Invoice screen
+Image 3: Design of Add fixed data about trading partner Screen, Add non-fixed data about Invoice screen
 Explanation: Once in the Add fixed data about trading partners Screen (Screen no.5), the user can add information about a Trading Partner by filling out all the text fields of “Trading partner name”, “Supplier name”, “Sector”, “Contract days”, “Priority rank”, “Remit-To Bank Account Name”, “Remit-To Bank Account Number”. The user can activate this adding trading partner information action by clicking the “Add to database +” button. Once in the Add non-fixed data about invoices Screen (Screen no.6), the user can add information about an Invoice by filling out all the text fields, choosing from choice fields such as “Trading Partner”, “Invoice date”, “Invoice number”, “Invoice currency”, “Invoice amount”, “Tax%”, “Actual payment date accepted by”, “Description”, “Overdue period (days)”, “Notes for penalty overdue”, “Occurrent”. If the invoice is paid, or paid twice, the user can input optional text fields such as the paid amount, payment date, and 2nd payment date. The user can activate this adding invoice information action by cycling the “Add to database +” button.
 
 ![](https://github.com/BrightChanges/Unit-4/blob/main/IB_ComputerScience_IA/CSIA_Screens(7-8)%20(1).png)
-Image 5: Design of Filter/search invoices Screen, Filtered/searched invoices Screen
+Image 4: Design of Filter/search invoices Screen, Filtered/searched invoices Screen
 Explanation: Once in the Filter/search invoices Screen (Screen no.7), the user can search multiple invoices or one invoice by filling out some or all text fields such as “Invoice number”, “Supplier name”, “Invoices added date”, “Invoices date” and choosing or not choosing an option from the choice field “Payment status”. The user can activate this searching action by clicking on the “Filter/search” button. Once in the Filtered/searched invoices Screen (Screen no.8), the user can see the filtered/searched invoices table and export that table to Excel by clicking on the “Export to Excel” button or to PDF by clicking on the “Export to PDF” button. The user can click on the “Back to previous screen” button to go back to the Filter/search invoices Screen (Screen no.7) with all input fields before filled out.
 
 ![](https://github.com/BrightChanges/Unit-4/blob/main/IB_ComputerScience_IA/CSIA_Screens_real(9)%20(1).png)
-Image 6: Design of Generate reports Screen
+Image 5: Design of Generate reports Screen
 Explanation: Once in the Generate reports Screen (Screen no.9), the user can choose the type of report they want to export through the choice field “Type of report”, then filling out the “Invoice date” text field and choosing the export format through the choice field “Type of export format”. The user can activate this export process by clicking on the “Export” button.
 
 ### UML diagram/Class diagram
 ![](https://github.com/BrightChanges/Unit-4/blob/main/IB_ComputerScience_IA/CSIA_UML_ClassDiagram.png)
-Image 4: UML diagram's Class diagram
+Image 6: UML diagram's Class diagram
 Explanation: The diagram shows that the program will have 3 data tables or classes in the database called “User”, “Trading Partner”, and “Invoice” as well as the attributes and methods in each data table. The diagram also demonstrates that the User data table to the Trading Partner data table has a “one to many” relationship and that the Trading Partner data table to the Invoice data table also has a “one to many” relationship.
 
 ### UML diagram/Sequence diagram 
 ![](https://github.com/BrightChanges/Unit-4/blob/main/IB_ComputerScience_IA/CSIA_Sequence%20diagram.png)
-Image 7:....
-Explanation:
+Image 7: UML diagram/Sequence diagram of a method in the program
+Explanation: This diagram shows how a method can be carried out through the 3 data tables “User”, “Trading Partner”, “Invoice”. In this diagram, the get_info() method in the User table is being carried out. First, it needs to request wanted information (all_info) from the Trading Partner data table; the Trading Partner data table then needs to request wanted information (all_info) from the Invoice data table. This method demonstrates the filter/search invoices function the user could carry out in the program.
 
 ### ER diagram 
 ![](https://github.com/BrightChanges/Unit-4/blob/main/IB_ComputerScience_IA/ER%20diagram%20for%20CS%20IA%20(1).png)
-Image 5: ER diagram of the program
-Explanation: This diagram shows the UML diagram/Class diagram (Image 4) in a way that is easier to see the various attributes (orange circles) in each data table (white rectangles). Also, each primary key attribute is in a red circle.
+Image 8: ER diagram of the program
+Explanation: This diagram shows the UML diagram/Class diagram (Image 6) in a way that is easier to see the various attributes (orange circles) in each data table (white rectangles). Also, each primary key attribute is in a red circle.
 
 ### Flow diagram of general processes 
 ![](https://github.com/BrightChanges/Unit-4/blob/main/IB_ComputerScience_IA/CSIA_Flow%20Diagram.png)
-Image 6:....
+Image 9:....
 Explanation:
 
 
