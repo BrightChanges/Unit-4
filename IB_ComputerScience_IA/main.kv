@@ -1,5 +1,3 @@
-```.kv
-
 #:import toast kivymd.toast.toast
 #:import resource_path main.resource_path
 
@@ -15,6 +13,12 @@ ScreenManager:
 
     HomeScreen:
         name: "HomeScreen"
+
+    AddInvoiceScreen:
+        name: "AddInvoiceScreen"
+
+    TradingPartnerScreen:
+        name: "TradingPartnerScreen"
 
 #    SnackScreen:
 #        name: "SnackScreen"
@@ -791,6 +795,131 @@ ScreenManager:
                     root.parent.current = "LoginScreen"
 
 
+<AddInvoiceScreen>:
+    BoxLayout:
+        orientation: 'vertical'
+        size: root.height, root.width
+
+    MDCard:
+        size_hint: 0.5, 0.75
+        elevation: 10
+        pos_hint: {"center_x": 0.5, "center_y": 0.5}
+        orientation: "vertical"
+
+
+        MDBoxLayout:
+            id: content #id or name
+            adaptive_height: True
+            orientation: "vertical"
+            padding: dp(30)
+            spacing: dp(20)
+
+        MDRectangleFlatIconButton:
+#           icon: "account-circle"
+            pos_hint: {'x': .315}
+            text: "Add fixed data about Trading Partners+"
+            on_release:
+                root.add_trading_partner()
+
+        MDRectangleFlatIconButton:
+    #           icon: "food"
+            pos_hint: {'x': .305}
+            text: "Add non-fixed data about Invoices+"
+            on_release:
+                root.add_invoices_real()
+
+        MDRectangleFlatIconButton:
+    #           icon: "food"
+            pos_hint: {'x': .305}
+            text: "<-Back to menu"
+            on_release:
+                root.back_to_menu()
+
+
+<TradingPartnerScreen>
+    BoxLayout:
+        orientation: 'vertical'
+        size: root.height, root.width
+
+        FitImage:
+            source: resource_path("coke_snack.jpeg")
+
+    MDCard:
+        size_hint: 0.5, 0.75
+        elevation: 10
+        pos_hint: {"center_x": 0.5, "center_y": 0.5}
+        orientation: "vertical"
+
+
+
+        MDBoxLayout:
+            id: content #id or name
+            adaptive_height: True
+            orientation: "vertical"
+            padding: dp(30)
+            spacing: dp(20)
+
+
+            MDLabel:
+                text: "Financiaz"
+                font_style: "H6"
+                halign:"left"
+
+            MDLabel:
+                text: "ADD TRADING PARTNER INFO"
+                font_style: "H6"
+                halign:"left"
+
+            MDTextField:
+                id: trading_partner_name_input
+                hint_text: "Trading partner name"
+#                icon_left: "email"
+                required: True
+
+            MDTextField:
+                id:supplier_name_input
+                hint_text: "Supplier name"
+#                icon_right: "eye-off"
+                required: True
+
+            MDTextField:
+                id:sector_input
+                hint_text: "Sector"
+#                icon_right: "eye-off"
+                required: True
+
+            MDTextField:
+                id:contract_days_input
+                hint_text: "Contract days"
+#                icon_right: "eye-off"
+                required: True
+
+            MDTextField:
+                id:priority_rank_input
+                hint_text: "Priority rank (1~3) (1=highest, 3=lowest)"
+#                icon_right: "eye-off"
+                required: True
+
+            MDTextField:
+                id:remit_to_bank_account_name_input
+                hint_text: "Remit-To-Bank Account Name"
+#                icon_right: "eye-off"
+                required: True
+
+            MDTextField:
+                id:remit_to_bank_account_number_input
+                hint_text: "Remit-To-Bank Account Number"
+#                icon_right: "eye-off"
+                required: True
+
+
+            MDRectangleFlatIconButton:
+#                icon: "account-key"
+                text: "Add to database+"
+                on_release:
+                    root.add_to_database()
+
+
 
 
 #The LoginScreen
@@ -887,6 +1016,5 @@ ScreenManager:
 #                on_press:
 #                    root.export_excel()
 
-```
 
 
