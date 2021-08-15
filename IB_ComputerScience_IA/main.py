@@ -1,5 +1,3 @@
-```.py
-
 
 import hashlib, binascii, os
 import sys
@@ -426,4 +424,4 @@ MainApp().run()
 
 
 
-```
+
