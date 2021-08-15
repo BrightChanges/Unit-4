@@ -1,0 +1,892 @@
+```.kv
+
+#:import toast kivymd.toast.toast
+#:import resource_path main.resource_path
+
+#creating the screen manager for multiple screens
+ScreenManager:
+    id: scr_manager
+
+    LoginScreen:
+        name: "LoginScreen"
+
+    RegisterScreen:
+        name: "RegisterScreen"
+
+    HomeScreen:
+        name: "HomeScreen"
+
+#    SnackScreen:
+#        name: "SnackScreen"
+#
+#    CheckoutScreen:
+#        name: "CheckoutScreen"
+#
+#    ThankyouScreen:
+#        name: "ThankyouScreen"
+#
+#    MyAccountScreen:
+#        name: "MyAccountScreen"
+#
+#    ImageScreen:
+#        name: "ImageScreen"
+#
+#    TableScreen:
+#        name: "TableScreen"
+#
+#    TestingScreen:
+#        name: "TestingScreen"
+
+#<TestingScreen>:
+#
+#
+#<TableScreen>:
+#   #Implementing a scrolling option(vertical only by default)
+#    ScrollView:
+#
+#        MDCard:
+#            size_hint: 1, 0
+#            elevation: 0
+#            pos_hint: {"center_x": 0.5, "top": 1}
+#            orientation: "vertical"
+#
+#            MDCard:
+#                size_hint: 1, 0.1
+#                elevation: 0
+#                padding: 30
+#                pos_hint: {"center_x": 0.5, "top": 0.8}
+#                orientation: "horizontal"
+#
+#                MDIconButton:
+#                    icon: "keyboard-backspace"
+#                    theme_text_color: "Custom"
+#                    pos_hint: {"center_x": 0.1, "top": 0.6}
+#                    text_color: app.theme_cls.primary_color
+#                    on_press:
+#                        root.parent.current = "HomeScreen"
+#
+#                MDIconButton:
+#                    icon: "refresh"
+#                    theme_text_color: "Custom"
+#                    pos_hint: {"center_x": 0.1, "top": 0.6}
+#                    text_color: app.theme_cls.primary_color
+#                    on_press:
+#                        root.print_data()
+#
+#                MDLabel:
+#                    text: "<-- refresh to view"
+#                    pos_hint: {'center_x': 0.1, 'top': 1}
+#                    font_style: "Subtitle1"
+#                    halign: "left"
+#
+#                MDIconButton:
+#                    icon: "database"
+#                    theme_text_color: "Custom"
+#                    text: "Export table to Excel file"
+#                    pos_hint: {"center_x": 0.1, "top": 0.6}
+#                    text_color: app.theme_cls.primary_color
+#                    on_press:
+#                        root.export_excel()
+#
+#            GridLayout:
+#                id: container
+#                cols: 3
+#                padding: 50
+#                spacing: 30
+#                row_default_height: 60
+#                row_force_default: True
+#                pos_hint_y: 0
+
+        #        Column 1
+#                MDLabel:
+#                    id: col1
+#                    text: "Snack name"
+#                    font_style: "H4"
+#                    halign: "center"
+
+        #        Column 2
+#                MDLabel:
+#                    id: col2
+#                    text: "Amount"
+#                    font_style: "H4"
+#                    halign: "center"
+
+        #        Column 3
+#                MDLabel:
+#                    id: col3
+#                    text: "Price"
+#                    font_style: "H4"
+#                    halign: "center"
+
+
+
+
+
+
+#creating the title for the image
+#<MyTile@SmartTileWithLabel>
+#    size_hint_y: None
+#    height: "240dp"
+
+
+#The screen for the food images
+#<ImageScreen>
+#
+#
+#    MDBoxLayout:
+#        id: logo_box
+#        adaptive_height: True
+#        orientation: "vertical"
+#
+#
+#        Image:
+#            source: resource_path("CoinSnack_Logo.png")
+#
+#
+#    ScrollView:
+#
+#        #codeds to show the image grids
+#        MDGridLayout:
+#            cols: 3
+#            adaptive_height: True
+#            padding: dp(4), dp(4)
+#            spacing: dp(4)
+#
+#            MyTile:
+#                source: resource_path("hamburger1.jpeg")
+#                text: "[size=26]Hamburger [/size]\n[size=14]¥300[/size]"
+#                tile_text_color: app.theme_cls.accent_color
+#
+#
+#            MyTile:
+#                source: resource_path("coke.jpg")
+#                text: "[size=26]Coke [/size]\n[size=14]¥100[/size]"
+#                tile_text_color: app.theme_cls.accent_color
+#
+#            MyTile:
+#                source: resource_path("popcorn.jpg")
+#                text: "[size=26]Popcorn  [/size]\n[size=14]¥100[/size]"
+#                tile_text_color: app.theme_cls.accent_color
+#
+#
+#    MDRectangleFlatIconButton:
+#        icon: "backburger"
+#        text: "Return to ordering"
+#        halign: "center"
+#        on_release:
+#            root.go_back_to_order()
+#
+#
+#
+#
+#
+#
+#
+#<MyAccountScreen>
+#    BoxLayout:
+#        orientation: 'vertical'
+#        size: root.height, root.width
+#
+#        FitImage:
+#            source: resource_path("coke_snack.jpeg")
+#
+#
+#    MDCard:
+#        size_hint: 0.5, 0.95
+#        elevation: 10
+#        pos_hint: {"center_x": 0.5, "center_y": 0.5}
+#        orientation: "vertical"
+#
+#
+#        MDBoxLayout:
+#            id: content #id or name
+#            adaptive_height: True
+#            orientation: "vertical"
+#            padding: dp(30)
+#            spacing: dp(20)
+#
+#
+#            MDBoxLayout:
+#                id: logo_box
+#                adaptive_height: True
+#                orientation: "vertical"
+#
+#
+#                Image:
+#                    source: resource_path("CoinSnack_Logo.png")
+#
+#            MDLabel:
+#
+#            MDLabel:
+#
+#            MDLabel:
+#
+#            MDLabel:
+#
+#            MDLabel:
+#                text: "Account information:"
+#                font_style: "H4"
+#                halign: "center"
+#
+#            MDLabel:
+#
+#            MDLabel:
+#
+#            MDLabel:
+#                id: email
+#                font_style: "Subtitle2"
+#                halign: "center"
+#
+#            MDLabel:
+#                id: delivery_location
+#                font_style: "Subtitle2"
+#                halign: "center"
+#
+#            MDLabel:
+#
+#            MDLabel:
+#
+#            MDLabel:
+#
+#            MDLabel:
+#
+#            MDLabel:
+#
+#            MDLabel:
+#
+#            MDLabel:
+#
+#            MDLabel:
+#
+#            MDRectangleFlatIconButton:
+#                icon: "home"
+#                text: "Return to homepage"
+#                halign: "center"
+#                on_release:
+#                    root.home_page()
+#
+#
+##the screen for the thank you page
+#<ThankyouScreen>
+#    BoxLayout:
+#        orientation: 'vertical'
+#        size: root.height, root.width
+#
+#        FitImage:
+#            source: resource_path("coke_snack.jpeg")
+#
+#
+#    MDCard:
+#        size_hint: 0.5, 0.95
+#        elevation: 10
+#        pos_hint: {"center_x": 0.5, "center_y": 0.5}
+#        orientation: "vertical"
+#
+#
+#        MDBoxLayout:
+#            id: content #id or name
+#            adaptive_height: True
+#            orientation: "vertical"
+#            padding: dp(30)
+#            spacing: dp(20)
+#
+#
+#            MDBoxLayout:
+#                id: logo_box
+#                adaptive_height: True
+#                orientation: "vertical"
+#
+#
+#                Image:
+#                    source: resource_path("CoinSnack_Logo.png")
+#
+#            MDLabel:
+#
+#            MDLabel:
+#
+#            MDLabel:
+#
+#            MDLabel:
+#
+#            MDLabel:
+#                text: "Thank you for your order!"
+#                font_style: "H4"
+#                halign: "center"
+#
+#            MDLabel:
+#
+#            MDLabel:
+#
+#            MDLabel:
+#
+#            MDLabel:
+#                id : location_thankyou
+#                font_style: "H6"
+#                halign: "center"
+#
+#            MDLabel:
+#
+#            MDLabel:
+#
+#            MDLabel:
+#
+#            MDLabel:
+#                text: "Thank you for using CoinSnack. We hope you will have a great time with your snacks. "
+#                font_style: "Subtitle2"
+#                halign: "center"
+#
+#            MDLabel:
+#
+#            MDLabel:
+#
+#            MDLabel:
+#
+#            MDLabel:
+#
+#            MDRectangleFlatIconButton:
+#                icon: "home"
+#                text: "Return to homepage"
+#                halign: "center"
+#                pos_hint: {'center_x': .3, 'center_y': .3}
+#                on_release:
+#                    root.home_page()
+#
+#            MDLabel:
+#
+#            MDLabel:
+#
+#
+##the screen for the checkout screen
+#<CheckoutScreen>
+#    BoxLayout:
+#        orientation: 'vertical'
+#        size: root.height, root.width
+#
+#        FitImage:
+#            source: resource_path("coke_snack.jpeg")
+#
+#
+#    MDCard:
+#        size_hint: 0.5, 0.95
+#        elevation: 10
+#        pos_hint: {"center_x": 0.5, "center_y": 0.5}
+#        orientation: "vertical"
+#
+#
+#
+#        MDBoxLayout:
+#            id: content #id or name
+#            adaptive_height: True
+#            orientation: "vertical"
+#            padding: dp(30)
+#            spacing: dp(20)
+#
+#            MDBoxLayout:
+#                id: logo_box
+#                adaptive_height: True
+#                orientation: "vertical"
+#
+#
+#                Image:
+#                    source: resource_path("CoinSnack_Logo.png")
+#
+#            MDLabel:
+#                text: "Your order"
+#                font_style: "H4"
+#                halign: "center"
+#
+#
+#
+#
+#            MDLabel:
+#
+#            MDLabel:
+#                text: "Receipts:"
+#                font_style: "H5"
+#                halign: "center"
+#
+#            MDLabel:
+#
+#            MDLabel:
+#                id: my_orders
+#                font_style: "Subtitle2"
+#                halign: "center"
+#
+#            MDLabel:
+#
+#            MDLabel:
+#
+#            MDLabel:
+#
+#            MDLabel:
+#                id: total_price
+#                font_style: "Subtitle1"
+#                halign: "center"
+#
+#
+#            MDLabel:
+#
+#
+#
+#            MDLabel:
+#                text: "Payment: Cash upon delivery"
+#                font_style: "Subtitle1"
+#                halign: "center"
+#
+#
+#            MDLabel:
+#                id: delivery_location
+#                font_style: "Subtitle1"
+#                halign: "center"
+#
+#            MDLabel:
+#
+#            MDLabel:
+#
+#            MDLabel:
+#
+#
+#
+#            MDRectangleFlatIconButton:
+#                icon: "cart-check"
+#                text: "Confirm order"
+#                halign: "center"
+#                on_release:
+#                    root.confirm_order()
+#
+#            MDRectangleFlatIconButton:
+#                icon: "cart-arrow-down"
+#                text: "Return to keep ordering"
+#                halign: "center"
+#                on_release:
+#                    root.go_back_to_order()
+#
+#
+#
+#
+#
+#
+#
+## the screen to order snacks
+#<SnackScreen>:
+#
+#    BoxLayout:
+#        orientation: 'vertical'
+#        size: root.height, root.width
+#
+#        FitImage:
+#            source: resource_path("coke_snack.jpeg")
+#
+#    MDCard:
+#        size_hint: 0.5, 1
+#        elevation: 10
+#        pos_hint: {"center_x": 0.5, "center_y": 0.5}
+#        orientation: "vertical"
+#
+#        MDBoxLayout:
+#            id: content #id or name
+#            adaptive_height: True
+#            orientation: "vertical"
+#            padding: dp(30)
+#            spacing: dp(20)
+#
+#
+#            MDBoxLayout:
+#                id: logo_box
+#                adaptive_height: True
+#                orientation: "vertical"
+#
+#                Image:
+#                    source: resource_path("CoinSnack_Logo.png")
+#
+#
+#            MDLabel:
+#                text: "Order your snack:"
+#                font_style: "H6"
+#                halign: "center"
+#
+#
+#            MDRectangleFlatIconButton:
+#                icon: "food"
+#                text: "See image of the snacks"
+#                pos_hint: {'x': .18}
+#                on_release:
+#                    root.see_snacks()
+
+    ###Trying to create a swiper:
+            #MDSwiper:
+                #size_hint_y: None
+                #height: root.height
+                #y: root.height - self.height
+                #on_swipe: self.get_current_item().ids.icon.shake()
+
+                #MySwiper:
+
+                #MySwiper1:
+    ###
+
+    ###Trying to create a dropdown:
+            #MDDropDownItem:
+                #id: dropdown_item
+                #text: 'Hamburger'
+                #pos_hint: {'center_x': .5, 'center_y': .6}
+                #current_item: 'Hamburger'
+                #on_release: root.menu.open()
+
+            #MDRaisedButton:
+                #pos_hint: {'center_x': .5, 'center_y': .3}
+                #text: 'Check Item'
+                #on_release: toast(dropdown_item.current_item)
+    ###
+#            MDLabel:
+#
+#            MDLabel:
+#                font_style: "Body2"
+#                text: "We sell Hamburger, Coke, and Popcorn. Their price are: Hamburger: ¥300, Coke: ¥100, Popcorn: ¥100. To order, please type in their name down below:"
+#                halign: "center"
+#
+#
+#
+#            MDLabel:
+#
+#            MDLabel:
+#
+#            MDLabel:
+#                font_style: "Body2"
+#                text: "Please add each food each time to the cart. Once you added all the food you want to order to the cart, please click the check out button."
+#                halign: "center"
+#
+#            MDLabel:
+#
+#            MDTextField:
+#                id:snack_name
+#                hint_text: "Name of the snack"
+#                icon_right: "food"
+#                helper_text: "Invalid food"
+#                helper_text_mode: "on_error"
+#                required: True
+#
+#            MDTextField:
+#                id:snack_amount
+#                hint_text: "Amount of snack you want to order:"
+#                icon_right: "account-question"
+#                helper_text: "Invalid number"
+#                helper_text_mode: "on_error"
+#                required: True
+#
+#            MDBoxLayout:
+#                id: button
+#                adaptive_height: True
+#                orientation: "horizontal"
+#                padding: dp(10)
+#                spacing: dp(10)
+#
+#                MDRectangleFlatIconButton:
+#                    icon: "cart-arrow-down"
+#                    text: "Add to cart"
+#                    halign: "center"
+#                    pos_hint: {'center_x': .1, 'center_y': .3}
+#                    on_release:
+#                        root.add_to_cart()
+#
+#
+#                MDRectangleFlatIconButton:
+#                    icon: "cart-arrow-right"
+#                    text: "Check out"
+#                    halign: "center"
+#                    pos_hint: {'center_x': .2, 'center_y': .3}
+#                    on_release:
+#                        root.check_out()
+#
+#            MDRectangleFlatIconButton:
+#                icon: "home"
+#                text: "Return to homepage"
+#                halign: "center"
+#                pos_hint: {'center_x': .3, 'center_y': .3}
+#                on_release:
+#                    root.home_page()
+
+
+
+#the home screen
+<HomeScreen>:
+#this is for the visual
+    BoxLayout:
+        orientation: 'vertical'
+        size: root.height, root.width
+
+        FitImage:
+            source: resource_path("coke_snack.jpeg")
+
+    MDCard:
+        size_hint: 0.5, 0.75
+        elevation: 10
+        pos_hint: {"center_x": 0.5, "center_y": 0.5}
+        orientation: "vertical"
+
+
+
+        MDBoxLayout:
+            id: content #id or name
+            adaptive_height: True
+            orientation: "vertical"
+            padding: dp(30)
+            spacing: dp(20)
+
+            MDBoxLayout:
+                id: logo_box
+                adaptive_height: True
+                orientation: "vertical"
+
+
+                Image:
+                    source: resource_path("CoinSnack_Logo.png")
+
+            MDLabel:
+
+            MDRectangleFlatIconButton:
+#                icon: "account-circle"
+                pos_hint: {'x': .315}
+                text: "Add invoices+"
+                on_release:
+                    root.add_invoices()
+
+            MDRectangleFlatIconButton:
+#                icon: "food"
+                pos_hint: {'x': .305}
+                text: "Filter/search invoices"
+                on_release:
+                    root.filter_search_invoices()
+
+            MDRectangleFlatIconButton:
+#                icon: "logout"
+                pos_hint: {'x': .340}
+                text: "Generate reports"
+                on_release:
+                    root.generate_reports()
+
+            MDRectangleFlatIconButton:
+                icon: "logout"
+                pos_hint: {'x': .340}
+                text: "Log out"
+                on_release:
+                    root.log_out()
+
+
+#            MDRectangleFlatIconButton:
+#                icon: "shopping"
+#                pos_hint: {'x': .340}
+#                text: "Check orders record"
+#                on_release:
+#                    root.orders_check()
+
+            MDLabel:
+
+            MDLabel:
+
+            MDLabel:
+
+            MDLabel:
+
+            MDLabel:
+
+            MDLabel:
+
+
+
+
+
+
+
+
+#the RegisterScreen
+<RegisterScreen>:
+    BoxLayout:
+        orientation: 'vertical'
+        size: root.height, root.width
+
+        FitImage:
+            source: resource_path("coke_snack.jpeg")
+
+    MDCard:
+        size_hint: 0.5, 1
+        elevation: 10
+        pos_hint: {"center_x": 0.5, "center_y": 0.5}
+        orientation: "vertical"
+
+
+
+
+        MDBoxLayout:
+            id: content #id or name
+            adaptive_height: True
+            orientation: "vertical"
+            padding: dp(30)
+            spacing: dp(20)
+
+
+            MDBoxLayout:
+                id: logo_box
+                adaptive_height: True
+                orientation: "vertical"
+
+
+                Image:
+                    source: resource_path("CoinSnack_Logo.png")
+
+
+            MDLabel:
+                text: "Financiaz"
+                font_style: "H4"
+                halign:"center"
+
+            MDLabel:
+
+            MDLabel:
+
+            MDLabel:
+                text: "REGISTER"
+                font_style: "H6"
+                halign: "center"
+
+            MDLabel:
+
+            MDTextField:
+                id: username_input
+                hint_text: "Username"
+#                icon_left: "email"
+                helper_text: "Invalid username"
+                helper_text_mode: "on_error"
+                required: True
+
+
+            MDTextField:
+                id:password_input
+                hint_text: "Password"
+                icon_right: "eye-off"
+                helper_text: "Invalid password"
+                helper_text_mode: "on_error"
+                required: True
+                password: True
+
+            MDTextField:
+                id:password_check
+                hint_text: "Password Check"
+                icon_right: "eye-off"
+                helper_text: "Invalid password"
+                helper_text_mode: "on_error"
+                required: True
+                password: True
+
+            MDRectangleFlatIconButton:
+                icon: "food"
+                text: "Register"
+                on_release:
+                    root.try_register()
+
+            MDRectangleFlatIconButton:
+                icon: "account-key"
+                text: "Log in"
+                on_release:
+                    root.parent.current = "LoginScreen"
+
+
+
+
+#The LoginScreen
+<LoginScreen>:
+    BoxLayout:
+        orientation: 'vertical'
+        size: root.height, root.width
+
+        FitImage:
+            source: resource_path("coke_snack.jpeg")
+
+    MDCard:
+        size_hint: 0.5, 0.75
+        elevation: 10
+        pos_hint: {"center_x": 0.5, "center_y": 0.5}
+        orientation: "vertical"
+
+
+
+        MDBoxLayout:
+            id: content #id or name
+            adaptive_height: True
+            orientation: "vertical"
+            padding: dp(30)
+            spacing: dp(20)
+
+
+            MDLabel:
+                text: "Financiaz"
+                font_style: "H4"
+                halign:"center"
+
+            MDLabel:
+
+            MDLabel:
+
+            MDLabel:
+                text: "LOGIN"
+                font_style: "H6"
+                halign: "center"
+
+            MDTextField:
+                id: username_input
+                hint_text: "Username"
+#                icon_left: "email"
+                helper_text: "Invalid username"
+                helper_text_mode: "on_error"
+                required: True
+
+            MDTextField:
+                id:password_input
+                hint_text: "Password"
+                icon_right: "eye-off"
+                helper_text: "Invalid password"
+                helper_text_mode: "on_error"
+                required: True
+                password: True
+
+            MDRectangleFlatIconButton:
+                icon: "account-key"
+                text: "Log in"
+                on_release:
+                    root.try_login()
+
+            MDBoxLayout:
+                adaptive_height: True
+                halign: "right"
+
+                MDRectangleFlatIconButton:
+                    icon: "food"
+                    text: "Register"
+                    on_press:
+                        print("here")
+                        root.parent.current = "RegisterScreen"
+
+#                MDRectangleFlatIconButton:
+#                    icon: "screen"
+#                    text: "Go to test screen"
+#                    on_press:
+#                        print("here")
+#                        root.parent.current = "TestingScreen"
+
+#                MDRectangleFlatIconButton:
+#
+#                    text: "Export report with PDF"
+#                    on_press:
+#                        root.export_pdf()
+#
+#
+#
+#            MDRectangleFlatIconButton:
+#
+#                text: "Export report with Excel"
+#                on_press:
+#                    root.export_excel()
+
+```
+
+
