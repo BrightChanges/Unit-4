@@ -299,14 +299,67 @@ Base.metadata.create_all(engine)
 #     def home_page(self):
 #         self.parent.current = "HomeScreen"
 
+class TradingPartnerScreen(MDScreen):
+
+    def add_to_database(self):
+        print("Add to database button clicked")
+
+        trading_partner_name = self.ids.trading_partner_name_input.text
+        supplier_name = self.ids.supplier_name_input.text
+        sector = self.ids.sector_input.text
+        contract_days = self.ids.contract_days_input.text
+        priority_rank = self.ids.priority_rank_input.text
+        remit_to_bank_account_name = self.ids.remit_to_bank_account_name_input.text
+        remit_to_bank_account_number = self.ids.remit_to_bank_account_number_input.text
+
+        print(trading_partner_name, supplier_name, sector, contract_days, priority_rank,remit_to_bank_account_name,remit_to_bank_account_number, current_user)
+
+        s = session()
+        #checking if the trading partner is already added or not:
+        trading_partner_check = s.query(TradingPartner).filter_by(trading_partner_name=trading_partner_name).first()
+        if trading_partner_check:
+            print("Trading partner already exists")
+            s.close()
+            #HERE, THERE SHOULD BE A CODE THAT SENDS OUT A POP UP ERROR MESSAGE
+        else:
+            trading_partner = TradingPartner(trading_partner_name=trading_partner_name,
+                        supplier_name=supplier_name,
+                        sector=sector,
+                        contract_days=contract_days,
+                        priority_rank=priority_rank,
+                        remit_to_bank_account_name=remit_to_bank_account_name,
+                        remit_to_bank_account_number=remit_to_bank_account_number,
+                        trading_partner_added_by_user=LoginScreen.current_user)  # change password=hashed_password
+            s.add(trading_partner)
+
+            s.commit()
+            s.close()
+
+            self.parent.current = "HomeScreen"
+
+
+
+class AddInvoiceScreen(MDScreen):
+
+    def add_trading_partner(self):
+        print("Add fixed data about Trading Partners+ button clicked")
+        self.parent.current = "TradingPartnerScreen"
+
+    def add_invoices_real(self):
+        print("Add non-fixed data about Invoices+ button clicked")
+        # self.parent.current = "SnackScreen"
+
+    def back_to_menu(self):
+        print("Back to menu")
+        self.parent.current = "HomeScreen"
 
 class HomeScreen(MDScreen):
 
     def add_invoices(self):
         print("Add invoices button clicked")
-        # self.parent.current = "MyAccountScreen"
+        self.parent.current = "AddInvoiceScreen"
 
-    def filter_search_invoice(self):
+    def filter_search_invoices(self):
         print("Filter/search invoices button clicked")
         # self.parent.current = "SnackScreen"
 
@@ -402,6 +455,7 @@ class LoginScreen(MDScreen):
             s.close()
             print(f"login successful for user {username}")
             LoginScreen.current_user = user_check.username # getting the username of the current user
+            print("The current user is", LoginScreen.current_user)
             self.parent.current = "HomeScreen"
         else:
             print("User does not exist or wrong password/username")
@@ -416,10 +470,6 @@ class MainApp(MDApp):
 
 
 MainApp().run()
-
-
-
-
 
 
 
