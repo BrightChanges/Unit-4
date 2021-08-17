@@ -21,6 +21,9 @@ from kivymd.uix.menu import MDDropdownMenu
 from kivy.uix.label import Label
 from datetime import date
 from kivymd.uix.list import OneLineListItem
+from kivy.properties import ObjectProperty
+from kivy.clock import Clock
+from kivy.uix.scrollview import ScrollView
 
 Base = declarative_base()
 
@@ -59,7 +62,7 @@ class TradingPartner(Base):
     contract_days = Column(Integer)
     priority_rank = Column(Integer)
     remit_to_bank_account_name = Column(String)
-    remit_to_bank_account_number = Column(Integer)
+    remit_to_bank_account_number = Column(String)
 
     trading_partner_added_by_user = Column(String, ForeignKey("user.username"))
 ####PROBLEM STARTS FROM BELOW HERE:
@@ -301,6 +304,15 @@ Base.metadata.create_all(engine)
 
 class TradingPartnerScreen(MDScreen):
 
+    # container = ObjectProperty(None)
+    #
+    # def __init__(self, **kwargs):
+    #     super(TradingPartnerScreen, self).__init__(**kwargs)
+    #     Clock.schedule_once(self.setup_scrollview, 1)
+    #
+    # def setup_scrollview(self, dt):
+    #     self.container.bind(minimum_height=self.container.setter('height'))
+
     def add_to_database(self):
         print("Add to database button clicked")
 
@@ -465,6 +477,7 @@ class MainApp(MDApp):
 
     def build(self):
         self.theme_cls.primary_palette = "Indigo"
+
 
 
 
