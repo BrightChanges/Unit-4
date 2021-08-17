@@ -57,6 +57,7 @@ Explanation: The Login Screen (Screen no.1) lets the user to login and use the p
 
 ![](https://github.com/BrightChanges/Unit-4/blob/main/IB_ComputerScience_IA/CSIA_Screens(5-6)%20(1).png)
 Image 3: Design of Add fixed data about trading partner Screen, Add non-fixed data about Invoice screen
+## Forgot to add the column Invoice number into the Invoice class database. Need to add this in to the designs later.
 Explanation: Once in the Add fixed data about trading partners Screen (Screen no.5), the user can add information about a Trading Partner by filling out all the text fields of “Trading partner name”, “Supplier name”, “Sector”, “Contract days”, “Priority rank”, “Remit-To Bank Account Name”, “Remit-To Bank Account Number”. The user can activate this adding trading partner information action by clicking the “Add to database +” button. Once in the Add non-fixed data about invoices Screen (Screen no.6), the user can add information about an Invoice by filling out all the text fields, choosing from choice fields such as “Trading Partner”, “Invoice date”, “Invoice number”, “Invoice currency”, “Invoice amount”, “Tax%”, “Actual payment date accepted by”, “Description”, “Overdue period (days)”, “Notes for penalty overdue”, “Occurrent”. If the invoice is paid, or paid twice, the user can input optional text fields such as the paid amount, payment date, and 2nd payment date. The user can activate this adding invoice information action by cycling the “Add to database +” button.
 
 ![](https://github.com/BrightChanges/Unit-4/blob/main/IB_ComputerScience_IA/CSIA_Screens(7-8)%20(1).png)
@@ -80,6 +81,7 @@ Explanation: This diagram shows how a method can be carried out through the 3 da
 ### ER diagram 
 ![](https://github.com/BrightChanges/Unit-4/blob/main/IB_ComputerScience_IA/ER%20diagram%20for%20CS%20IA%20(1).png)
 Image 8: ER diagram of the program
+## Forgot to add the column Invoice number into the Invoice class database. Need to add this in to the designs later.
 Explanation: This diagram shows the UML diagram/Class diagram (Image 6) in a way that is easier to see the various attributes (orange circles) in each data table (white rectangles). Also, each primary key attribute is in a red circle.
 
 ### Flow diagram of general processes 
@@ -114,6 +116,7 @@ Explanation: This table shows the Trading partner class in the database. The tab
 
 
 3. For the Invoice class:
+## Forgot to add the column Invoice number into the Invoice class database. Need to add this in to the designs later.
 
 | id | invoice_date | invoice_amount | invoice_currency | invoice_added_date | tax  | description     | expired_contract_date | actual_payment_date | actual_payment_accepted_by | overdue_period | notes_for_penalty_overdue | paid | paid_amount | payment_unpaid_amount | payment_date1 | payment_date2 | added_by_user |
 |----|--------------|----------------|------------------|--------------------|------|-----------------|-----------------------|---------------------|----------------------------|----------------|---------------------------|------|-------------|-----------------------|---------------|---------------|---------------|
