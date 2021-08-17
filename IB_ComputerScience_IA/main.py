@@ -1,6 +1,10 @@
 
 import hashlib, binascii, os
 import sys
+# import time
+from datetime import datetime
+from datetime import timedelta
+from datetime import date
 
 from kivy.lang import Builder
 from sqlalchemy import Column, DateTime, String, Integer, ForeignKey, Float, Date
@@ -20,10 +24,13 @@ from kivymd.uix.screen import MDScreen
 from kivymd.uix.menu import MDDropdownMenu
 from kivy.uix.label import Label
 from datetime import date
+from datetime import datetime
+from datetime import timedelta
 from kivymd.uix.list import OneLineListItem
 from kivy.properties import ObjectProperty
 from kivy.clock import Clock
 from kivy.uix.scrollview import ScrollView
+from kivymd.color_definitions import colors
 
 Base = declarative_base()
 
@@ -49,7 +56,6 @@ class User(Base):
 
     # relationship "has in the ER diagram" one-to-many
     trading_partners = relationship("TradingPartner", backref="user")
-
 
 
 
@@ -82,25 +88,37 @@ class Invoice(Base):
     trading_partner_id = Column(Integer, ForeignKey("trading_partner.id"))
     trading_partner_name = Column(String, ForeignKey("trading_partner.trading_partner_name"))
 
+
     id_relationship = relationship('TradingPartner', backref='tradingid', foreign_keys=[trading_partner_id])
     name_relationship = relationship('TradingPartner', backref='tradingname', foreign_keys=[trading_partner_name])
 
+    invoice_number = Column(String)
+
     invoice_date = Column(String)
+
     invoice_amount = Column(String)
+
     invoice_currency = Column(String)
+
     invoice_added_date = Column(String)
+
     tax = Column(Integer)
     description = Column(String)
     expired_contract_date = Column(String)
+
     actual_payment_date = Column(String)
+
     actual_payment_accepted_by = Column(String)
     overdue_period = Column(Integer)
     notes_for_penalty_overdue = Column(String)
     paid = Column(Float)
+
     paid_amount = Column(Integer)
+
     payment_unpaid_amount = Column(Integer)
     payment_date1 = Column(String)
     payment_date2 = Column(String)
+    occurent = Column(String)
 
     invoice_added_by_user = Column(String, ForeignKey("user.username"))
 
@@ -302,16 +320,160 @@ Base.metadata.create_all(engine)
 #     def home_page(self):
 #         self.parent.current = "HomeScreen"
 
+
+class InvoiceScreen(MDScreen):
+
+    def back_to_menu(self):
+        print("Back to menu")
+        self.parent.current = "HomeScreen"
+
+    def add_to_database(self):
+        print("Add to database button clicked")
+
+        invoice_number = self.ids.invoice_number_input.text
+
+        invoice_date = self.ids.invoice_date_input.text
+
+        invoice_amount = self.ids.invoice_amount_input.text
+        invoice_currency = self.ids.invoice_currency_input.text
+        tax = self.ids.tax_input.text
+        actual_payment_date = self.ids.actual_payment_date_input.text
+        actual_payment_accepted_by = self.ids.actual_payment_accepted_by_input.text
+        description = self.ids.description_input.text
+        overdue_period = self.ids.overdue_period_input.text
+        notes_for_penalty_overdue = self.ids.notes_for_penalty_input.text
+        occurent = self.ids.occurent_input.text
+
+        paid_amount = self.ids.paid_amount_input.text
+        payment_date1 = self.ids.payment_date1_input.text
+        payment_date2 = self.ids.payment_date2_input.text
+
+        # the column "invoice added date" is not filled out by
+        # the user. Instead it is added by the program through
+        # determining today date (in japan time)
+        invoice_added_date = str(date.today())
+
+        invoice_added_by_user = LoginScreen.current_user
+
+        #I need to query the database to check if the trading partner
+        #is added or not. If not=> send a message to the user and say
+        #that they need to add information about this trading partner
+        #first and then come back to this page to add info about the invoice
+        #if the trading partner is in the list, set the trading_partner_name column
+        #to the input for the trading partner on the program and set the
+        #trading_partner_id column by querying using the trading partner name
+
+        trading_partner_name = self.ids.trading_partner_input.text
+
+
+        s = session()
+        trading_partner_check = s.query(TradingPartner).filter_by(trading_partner_name=trading_partner_name).first()
+        if trading_partner_check:
+            print("Trading partner exists=>good")
+            trading_partner_id = trading_partner_check.id
+            s.close()
+
+            print(invoice_number, invoice_date, invoice_amount, invoice_currency,
+                  tax, actual_payment_date, actual_payment_accepted_by,
+                  description, overdue_period, notes_for_penalty_overdue,
+                  occurent, paid_amount, payment_date1, payment_date2,
+                  invoice_added_by_user, trading_partner_name,
+                  trading_partner_id)
+
+            #Need to calculate using filled information to calculate for the "expired_contract_date",
+            #"paid", "payment_unpaid_amount"!
+
+            #"expired_contract_date" = "Invoice Date" + "Contract Days"
+            invoice_date_datetime = datetime.strptime(invoice_date, "%Y-%m-%d")
+
+            s = session()
+            trading_partner_check = s.query(TradingPartner).filter_by(trading_partner_name=trading_partner_name).first()
+            contract_days = trading_partner_check.contract_days
+
+            expired_contract_date0 = invoice_date_datetime + timedelta(days=contract_days)
+            expired_contract_date = str(expired_contract_date0)
+
+            #"actual_payment_date" is optional and can be entered by the user or
+            #calculated by taking the "expired_contract_date" + "overdue_period" (only if
+            #the user didn't enter anything because actual_payment_date could be changed
+            # even when overdue_period or other elements is not changed)
+
+            #the user might entered overdue period but forgot to also enter actual payment date,
+            #so the code below create the actual payment date for the user using the entered
+            #overdue period.
+
+            if len(actual_payment_date)== 0 and len(overdue_period) > 0:
+                actual_payment_date = str(expired_contract_date0 + timedelta(days=int(overdue_period)))
+
+
+            #"paid" = 0 if "paid_amount" = 0, = 0.5 if "paid_amount" >0 but <"invoice_amount",
+            #= 1 if "paid_amount" = "invoice_amount"
+
+            #payment_unpaid_amount is non-editable by the user, and only created in the backend
+            #by the program
+
+            paid = 0
+
+            if len(paid_amount) > 0:
+
+                payment_unpaid_amount = int(invoice_amount) - int(paid_amount)
+
+                if int(paid_amount) > 0 and int(paid_amount) < int(invoice_amount):
+                    paid = 0.5
+                elif int(paid_amount) == int(invoice_amount):
+                    paid = 1
+                paid_amount=int(paid_amount)
+
+            else:
+                paid_amount = paid_amount
+                payment_unpaid_amount = int(invoice_amount)
+                paid = 0
+
+
+            if len(overdue_period) == 0:
+                overdue_period = overdue_period
+            else:
+                overdue_period = int(overdue_period)
+
+
+            invoice = Invoice(trading_partner_id=trading_partner_id,
+                              trading_partner_name=trading_partner_name,
+                              invoice_number=invoice_number,
+                                             invoice_date=invoice_date,
+                                             invoice_amount=int(invoice_amount),
+                                             invoice_currency=invoice_currency,
+                                             tax=tax,
+                                             actual_payment_date=actual_payment_date,
+                                             actual_payment_accepted_by=actual_payment_accepted_by,
+                                             description=description, overdue_period=overdue_period,
+                              notes_for_penalty_overdue=notes_for_penalty_overdue,
+                              occurent=occurent, paid_amount=paid_amount,
+                              payment_date1=payment_date1, payment_date2=payment_date2,
+                              invoice_added_by_user=invoice_added_by_user,
+                              expired_contract_date=expired_contract_date,
+                              payment_unpaid_amount=payment_unpaid_amount,
+                              paid=paid, invoice_added_date=invoice_added_date)  # change password=hashed_password
+            s.add(invoice)
+
+            s.commit()
+            s.close()
+
+            self.parent.current = "HomeScreen"
+
+
+
+        else:
+            print("Trading partner didn't exist. Pls add it first before adding an invoice from this trading partner.")
+            self.parent.current = "TradingPartnerScreen"
+
+
+
 class TradingPartnerScreen(MDScreen):
 
-    # container = ObjectProperty(None)
-    #
-    # def __init__(self, **kwargs):
-    #     super(TradingPartnerScreen, self).__init__(**kwargs)
-    #     Clock.schedule_once(self.setup_scrollview, 1)
-    #
-    # def setup_scrollview(self, dt):
-    #     self.container.bind(minimum_height=self.container.setter('height'))
+    def back_to_menu(self):
+        print("Back to menu")
+        self.parent.current = "HomeScreen"
+
 
     def add_to_database(self):
         print("Add to database button clicked")
@@ -359,7 +521,7 @@ class AddInvoiceScreen(MDScreen):
 
     def add_invoices_real(self):
         print("Add non-fixed data about Invoices+ button clicked")
-        # self.parent.current = "SnackScreen"
+        self.parent.current = "InvoiceScreen"
 
     def back_to_menu(self):
         print("Back to menu")
