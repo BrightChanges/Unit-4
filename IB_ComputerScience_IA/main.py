@@ -638,7 +638,7 @@ class LoginScreen(MDScreen):
 class MainApp(MDApp):
 
     def build(self):
-        self.theme_cls.primary_palette = "Indigo"
+        self.theme_cls.primary_palette = "BlueGray"
 
 
 
