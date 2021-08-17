@@ -1,5 +1,6 @@
 #:import toast kivymd.toast.toast
 #:import resource_path main.resource_path
+#:import ScrollView kivy.uix.scrollview
 
 #creating the screen manager for multiple screens
 ScreenManager:
@@ -837,6 +838,7 @@ ScreenManager:
 
 
 <TradingPartnerScreen>
+
     BoxLayout:
         orientation: 'vertical'
         size: root.height, root.width
@@ -844,80 +846,103 @@ ScreenManager:
         FitImage:
             source: resource_path("coke_snack.jpeg")
 
-    MDCard:
-        size_hint: 0.5, 0.75
-        elevation: 10
-        pos_hint: {"center_x": 0.5, "center_y": 0.5}
-        orientation: "vertical"
+        MDLabel:
+            text: "Financiaz"
+            font_style: "H6"
+            halign:"left"
+
+        MDLabel:
+
+        MDLabel:
+            text: "ADD TRADING PARTNER INFO"
+            font_style: "H6"
+            halign:"left"
+
+        ScrollView:
+            size_hint_y: 50
+
+            do_scroll_x: False
+            do_scroll_y: True
+
+            GridLayout:
+                id: content #id or name
+                size: (root.width, root.height)
+                #in order for scroll view to work, need to set all size hint to None
+                size_hint_x: None
+                size_hint_y: None
+                cols: 1
+                #key for making comfortable is the height below:
+                height: root.height*2
+                #padding helps centerize elements, making better view
+                padding: dp(30)
+                #spacing put some space between elements
+                spacing: dp(20)
 
 
+                MDTextField:
+                    id: trading_partner_name_input
+                    hint_text: "Trading partner name"
+    #                icon_left: "email"
+                    required: True
 
-        MDBoxLayout:
-            id: content #id or name
-            adaptive_height: True
-            orientation: "vertical"
-            padding: dp(30)
-            spacing: dp(20)
+                MDTextField:
+                    id:supplier_name_input
+                    hint_text: "Supplier name"
+    #                icon_right: "eye-off"
+                    required: True
 
+                MDTextField:
+                    id:sector_input
+                    hint_text: "Sector"
+    #                icon_right: "eye-off"
+                    required: True
 
-            MDLabel:
-                text: "Financiaz"
-                font_style: "H6"
-                halign:"left"
+                MDTextField:
+                    id:contract_days_input
+                    hint_text: "Contract days"
+    #                icon_right: "eye-off"
+                    required: True
 
-            MDLabel:
-                text: "ADD TRADING PARTNER INFO"
-                font_style: "H6"
-                halign:"left"
+                MDTextField:
+                    id:priority_rank_input
+                    hint_text: "Priority rank (1~3) (1=highest, 3=lowest)"
+    #                icon_right: "eye-off"
+                    required: True
 
-            MDTextField:
-                id: trading_partner_name_input
-                hint_text: "Trading partner name"
-#                icon_left: "email"
-                required: True
+                MDTextField:
+                    id:remit_to_bank_account_name_input
+                    hint_text: "Remit-To-Bank Account Name"
+    #                icon_right: "eye-off"
+                    required: True
 
-            MDTextField:
-                id:supplier_name_input
-                hint_text: "Supplier name"
-#                icon_right: "eye-off"
-                required: True
-
-            MDTextField:
-                id:sector_input
-                hint_text: "Sector"
-#                icon_right: "eye-off"
-                required: True
-
-            MDTextField:
-                id:contract_days_input
-                hint_text: "Contract days"
-#                icon_right: "eye-off"
-                required: True
-
-            MDTextField:
-                id:priority_rank_input
-                hint_text: "Priority rank (1~3) (1=highest, 3=lowest)"
-#                icon_right: "eye-off"
-                required: True
-
-            MDTextField:
-                id:remit_to_bank_account_name_input
-                hint_text: "Remit-To-Bank Account Name"
-#                icon_right: "eye-off"
-                required: True
-
-            MDTextField:
-                id:remit_to_bank_account_number_input
-                hint_text: "Remit-To-Bank Account Number"
-#                icon_right: "eye-off"
-                required: True
+                MDTextField:
+                    id:remit_to_bank_account_number_input
+                    hint_text: "Remit-To-Bank Account Number"
+    #                icon_right: "eye-off"
+                    required: True
 
 
-            MDRectangleFlatIconButton:
-#                icon: "account-key"
-                text: "Add to database+"
-                on_release:
-                    root.add_to_database()
+                MDRectangleFlatIconButton:
+    #                icon: "account-key"
+                    text: "Add to database+"
+                    on_release:
+                        root.add_to_database()
+
+#    MDCard:
+#        size_hint: 0.5, 0.75
+#        elevation: 10
+#        pos_hint: {"center_x": 0.5, "center_y": 0.5}
+#        orientation: "vertical"
+#
+#
+#
+#        MDBoxLayout:
+#            id: content #id or name
+#            adaptive_height: True
+#            orientation: "vertical"
+#            padding: dp(30)
+#            spacing: dp(20)
+
 
 
 
