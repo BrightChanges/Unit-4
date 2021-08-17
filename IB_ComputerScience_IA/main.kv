@@ -1,6 +1,7 @@
 #:import toast kivymd.toast.toast
 #:import resource_path main.resource_path
 #:import ScrollView kivy.uix.scrollview
+#:import colors kivymd.color_definitions
 
 #creating the screen manager for multiple screens
 ScreenManager:
@@ -20,6 +21,9 @@ ScreenManager:
 
     TradingPartnerScreen:
         name: "TradingPartnerScreen"
+
+    InvoiceScreen:
+        name: "InvoiceScreen"
 
 #    SnackScreen:
 #        name: "SnackScreen"
@@ -836,6 +840,160 @@ ScreenManager:
             on_release:
                 root.back_to_menu()
 
+<InvoiceScreen>
+
+    BoxLayout:
+        orientation: 'vertical'
+        size: root.height, root.width
+
+        FitImage:
+            source: resource_path("coke_snack.jpeg")
+
+        MDLabel:
+            text: "Financiaz"
+            font_style: "H6"
+            halign:"left"
+
+        MDLabel:
+
+        MDLabel:
+            text: "ADD INVOICE INFO"
+            font_style: "H6"
+            halign:"left"
+
+        ScrollView:
+            size_hint_y: 50
+
+            do_scroll_x: False
+            do_scroll_y: True
+
+            GridLayout:
+                id: content #id or name
+                size: (root.width, root.height)
+                #in order for scroll view to work, need to set all size hint to None
+                size_hint_x: None
+                size_hint_y: None
+                cols: 1
+                #key for making comfortable is the height below:
+                height: root.height*3
+                #padding helps centerize elements, making better view
+                padding: dp(30)
+                #spacing put some space between elements
+                spacing: dp(20)
+
+                #the MDTextField below will be changed to a SelectField later!
+                MDTextField:
+                    id: trading_partner_input
+                    hint_text: "Select Trading Partner"
+    #                icon_left: "email"
+                    required: True
+
+
+                MDTextField:
+                    id: invoice_date_input
+                    hint_text: "Invoice date (Format YYYY-MM-DD)"
+    #                icon_left: "email"
+                    required: True
+
+                MDTextField:
+                    id:invoice_number_input
+                    hint_text: "Invoice number"
+    #                icon_right: "eye-off"
+                    required: True
+
+                MDTextField:
+                    id:invoice_amount_input
+                    hint_text: "Invoice amount"
+    #                icon_right: "eye-off"
+                    required: True
+
+                #the MDTextField below will be changed to a SelectField later!
+                MDTextField:
+                    id:invoice_currency_input
+                    hint_text: "Invoice currency"
+    #                icon_right: "eye-off"
+                    required: True
+
+
+                MDTextField:
+                    id:tax_input
+                    hint_text: "Tax%"
+    #                icon_right: "eye-off"
+                    required: True
+
+                MDTextField:
+                    id:actual_payment_date_input
+                    hint_text: "Actual payment date (Format YYYY-MM-DD)"
+    #                icon_right: "eye-off"
+                    required: False
+
+                #the MDTextField below will be changed to a SelectField later!
+                MDTextField:
+                    id:actual_payment_accepted_by_input
+                    hint_text: "Actual payment date accepted by"
+    #                icon_right: "eye-off"
+                    required: False
+
+                MDTextField:
+                    id:description_input
+                    hint_text: "Description"
+    #                icon_right: "eye-off"
+                    required: True
+
+                MDTextField:
+                    id:overdue_period_input
+                    hint_text: "Overdue period (days) "
+    #                icon_right: "eye-off"
+                    required: False
+
+                MDTextField:
+                    id:notes_for_penalty_input
+                    hint_text: "Notes for penalty overdue"
+    #                icon_right: "eye-off"
+                    required: False
+
+                #the MDTextField below will be changed to a SelectField later!
+                MDTextField:
+                    id:occurent_input
+                    hint_text: "Occurent"
+    #                icon_right: "eye-off"
+                    required: False
+
+                MDTextField:
+                    id:paid_amount_input
+                    hint_text: "If invoice is paid, input paid amount. Else, LEAVE ALL BLUE INPUTS BELOW BLANK:"
+                    fill_color: 0, 0, 0, .4 #will change to color blue later
+    #                icon_right: "eye-off"
+                    required: False
+
+                MDTextField:
+                    id:payment_date1_input
+                    hint_text: "And input payment date (Format YYYY-MM-DD)"
+                    fill_color: 0, 0, 0, .4 #will change to color blue later
+    #                icon_right: "eye-off"
+                    required: False
+
+                MDTextField:
+                    id:payment_date2_input
+                    hint_text: "If the invoices is paid 2 times (Format YYYY-MM-DD)"
+                    fill_color: 0, 0, 0, .4 #will change to color blue later
+    #                icon_right: "eye-off"
+                    required: False
+
+                MDRectangleFlatIconButton:
+    #                icon: "account-key"
+                    text: "Add to database+"
+                    on_release:
+                        root.add_to_database()
+
+                MDRectangleFlatIconButton:
+            #           icon: "food"
+                    pos_hint: {'x': .305}
+                    text: "<-Back to menu"
+                    on_release:
+                        root.back_to_menu()
+
+
 
 <TradingPartnerScreen>
 
@@ -927,6 +1085,13 @@ ScreenManager:
                     text: "Add to database+"
                     on_release:
                         root.add_to_database()
+
+                MDRectangleFlatIconButton:
+            #           icon: "food"
+                    pos_hint: {'x': .305}
+                    text: "<-Back to menu"
+                    on_release:
+                        root.back_to_menu()
 
 #    MDCard:
 #        size_hint: 0.5, 0.75
