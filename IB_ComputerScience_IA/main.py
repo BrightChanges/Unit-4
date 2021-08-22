@@ -32,6 +32,7 @@ from kivy.clock import Clock
 from kivy.uix.scrollview import ScrollView
 from kivymd.color_definitions import colors
 
+
 Base = declarative_base()
 
 def resource_path(relative_path):
@@ -137,188 +138,61 @@ session.configure(bind=engine)
 Base.metadata.create_all(engine)
 ##########
 
-# class TestingScreen(MDScreen):
-#
-#     def on_pre_enter(self, *args):
-#         self.test()
-#
-#     def test(self):
-#         s = session()
-#         date1 = s.query(Test).filter_by(id=1).first()
-#
-#         print(date1.invoice_date)
-#         print(date1.trading_partner_name)
+class FilterSearchInvoiceScreen(MDScreen):
+    #variables will needed to be created in this screen
+    #to hold the input filtered/searched info
+    #in order to pass it to the Filtered/Searched display screen
+    #where these variable can tell the class in that display screen
+    #what to do in order to query up the database:
+    #all the codes to logically uses these info will be in the
+    #codes of the display screen
 
-# class TableScreen(MDScreen):
-#
-#     # Function that prints all activity data on the screen
-#     def print_data(self):
-#         # Clearing all the widgets(in this case text) on the page
-#         # to prevent redundancy of the data
-#         self.ids.container.clear_widgets()
-#         # Getting data from the database
-#         s = session()
-#         order_check = s.query(Snack).filter_by(user_id=LoginScreen.current_user).all()
-#
-#         # Creating labels - Headings for the columns
-#         snack_name = MDLabel(text="Snack name", font_style="H4", halign="center")
-#         self.ids.container.add_widget(snack_name)
-#         amount = MDLabel(text="Amount", font_style="H4", halign="center")
-#         self.ids.container.add_widget(amount)
-#         price = MDLabel(text="Price", font_style="H4", halign="center")
-#         self.ids.container.add_widget(price)
-#
-#         # display the data such as type of the activity, distance, date
-#         for data in order_check:
-#             snack_name = MDLabel(text=str(data.name), halign="center")
-#             self.ids.container.add_widget(snack_name)
-#             amount = MDLabel(text=str(data.amount), halign="center")
-#             self.ids.container.add_widget(amount)
-#             price = MDLabel(text=str(data.price), halign="center")
-#             self.ids.container.add_widget(price)
+    invoice_number = None
+    supplier_name = None
+    invoices_added_date_from = None
+    invoices_added_date_to = None
+    invoices_date_from = None
+    invoices_date_to = None
+    payment_status = None
+    display_all = 0
+
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+
+    def on_pre_enter(self, *args):
+        self.request_items()
+
+    def request_items(self):
+        menu_items = [{"text": "Paid"}, {"text": "Not paid"}, {"text": "Partial paid"}]
+        self.menu = MDDropdownMenu(
+            caller = self.ids.payment_status_input,
+            items = menu_items,
+            position = "center",
+            width_mult = 2.25,
+        )
+        self.menu.bind(on_release=self.set_item)
 
 
-# class ImageScreen(MDScreen):
-#
-#     def go_back_to_order(self):
-#         self.parent.current = "SnackScreen"
+    def set_item(self, instance_menu, instance_menu_item):
+        self.ids.payment_status_input.set_item(instance_menu_item.text)
+        FilterSearchInvoiceScreen.payment_status = instance_menu_item.text
+        instance_menu.dismiss()
+        print(FilterSearchInvoiceScreen.payment_status)
 
 
-# class MyAccountScreen(MDScreen):
-#     def __init__(self, **kwargs):
-#         super().__init__(**kwargs)
-#         self.delivery_location = LoginScreen.delivery_location
-#         self.email = LoginScreen.email
-#
-#     def on_pre_enter(self, *args):
-#         self.my_account()
-#
-#     def my_account(self):
-#         self.ids.delivery_location.text = f"Your delivery location: {LoginScreen.delivery_location}"
-#         self.ids.email.text = f"Your email: {LoginScreen.email}"
-#
-#     def home_page(self):
-#         self.parent.current = "HomeScreen"
+    def filter_search_invoices(self):
+        print("Filter/search button clicked")
+
+        #if no info is input in the screen and the Filter/search button is clicked,
+        #this means that the client wants to see every invoices in the database.:
+        #and we keep the variable "display_all" to 0, where in the codes of the display screen,
+        #there will be something like if display_all = 0 =>query everything
 
 
-# class ThankyouScreen(MDScreen):
-#
-#     def __init__(self, **kwargs):
-#         super().__init__(**kwargs)
-#         self.delivery_location = LoginScreen.delivery_location
-#
-#     def on_pre_enter(self, *args):
-#         self.thankyou()
-#
-#     def thankyou(self):
-#         LoginScreen.delivery_location.strip()
-#         self.ids.location_thankyou.text = f"Your order will arrived to your delivery location ( {LoginScreen.delivery_location}) in under 30 minutes."
-#
-#     def home_page(self):
-#         self.parent.current = "HomeScreen"
-#
-#
-# class CheckoutScreen(MDScreen):
-#
-#     def __init__(self, **kwargs):
-#         super().__init__(**kwargs)
-#         self.id = LoginScreen.current_user
-#         self.delivery_location = LoginScreen.delivery_location
-#
-#     def on_pre_enter(self, *args):
-#         self.checkout()
-#
-#     def checkout(self):
-#         order_list = ""
-#         price = 0
-#         s = session()
-#         order_check = s.query(Snack).filter_by(user_id=LoginScreen.current_user).all()
-#
-#         print(f"Delivery location is at {LoginScreen.delivery_location}")
-#         print(f"Total order of user with id {LoginScreen.delivery_location}:")
-#         for i in range(len(order_check)):
-#             order_list += '\n' + "| No." + str(i + 1) + " | " + "Name: " + str(
-#                 order_check[i].name).capitalize() + "| Amount: " + str(order_check[i].amount) + " | Price: " + str(
-#                 order_check[i].price) + "¥ |"
-#             price += order_check[i].price
-#         print(order_list)
-#
-#         self.ids.my_orders.text = order_list
-#
-#         self.ids.delivery_location.text = f"Delivery location: {LoginScreen.delivery_location}"
-#
-#         self.ids.total_price.text = f"Total cost: {price}¥"
-#
-#     def confirm_order(self):
-#         print("Confirm button was clicked")
-#         self.parent.current = "ThankyouScreen"
-#
-#     def go_back_to_order(self):
-#         self.parent.current = "SnackScreen"
-#
-#
-# class SnackScreen(MDScreen):
-#
-#     # string123 = StringProperty("")
-#
-#     def __init__(self, **kwargs):
-#         super().__init__(**kwargs)
-#         self.id = LoginScreen.current_user
-#
-#     def see_snacks(self):
-#         self.parent.current = "ImageScreen"
-#
-#     def check_out(self):
-#         print("Checkout button was pressed")
-#         self.parent.current = "CheckoutScreen"
-#
-#     def add_to_cart(self):
-#         price_per_product = 0
-#         print("Add to cart button was pressed")
-#         # print(LoginScreen.current_user) #LoginScreen.current_user is the id of the user
-#         user_id = LoginScreen.current_user
-#         snack_name = self.ids.snack_name.text
-#         amount = self.ids.snack_amount.text
-#
-#         if snack_name != "Hamburger" and snack_name != "hamburger" and snack_name != "Coke" and snack_name != "coke" and snack_name != "Popcorn" \
-#                 and snack_name != "popcorn":
-#
-#             print("Invalid food order")
-#
-#         elif amount.isnumeric() == False:
-#             print("Invalid amount")
-#
-#         else:
-#
-#             if int(amount) > 50 or int(amount) < 1:
-#                 print("The ordering amount is too much or too little.")
-#             else:
-#                 if (snack_name == "Hamburger" or snack_name == "hamburger"):
-#                     price_per_product = 300
-#
-#
-#                 elif (
-#                         snack_name == "Coke" or snack_name == "coke" or snack_name == "Popcorn" or snack_name == "popcorn"):
-#                     price_per_product = 100
-#
-#                 price = int(int(amount) * price_per_product)
-#                 print(user_id, snack_name, int(amount), price)
-#
-#                 amount = int(amount)
-#                 price = int(price)
-#
-#                 s = session()
-#                 order = Snack(name=snack_name, amount=amount, price=price, user_id=user_id)
-#                 s.add(order)
-#                 s.commit()
-#                 s.close()
-#
-#                 print(
-#                     "order from user with user id {}: snack_name: {} , amount: {}, price {} was added to database Snack".format(
-#                         user_id, snack_name, amount, price))
-#
-#     def home_page(self):
-#         self.parent.current = "HomeScreen"
+
+
+
+
 
 
 class InvoiceScreen(MDScreen):
@@ -535,7 +409,7 @@ class HomeScreen(MDScreen):
 
     def filter_search_invoices(self):
         print("Filter/search invoices button clicked")
-        # self.parent.current = "SnackScreen"
+        self.parent.current = "FilterSearchInvoiceScreen"
 
     def generate_reports(self):
         print("Generate reports button clicked")
