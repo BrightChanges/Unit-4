@@ -30,6 +30,8 @@ ScreenManager:
     FilterSearchInvoiceScreen:
         name: "FilterSearchInvoiceScreen"
 
+    Filtered_searched_display_Screen:
+        name: "Filtered_searched_display_Screen"
 
 
 
@@ -660,7 +662,7 @@ ScreenManager:
                 MDLabel:
                     text: "Invoices added date"
                     font_style: "Subtitle2"
-                    halign:"center"
+                    halign:"left"
 
                 MDTextField:
                     id:invoices_added_date_from_input
@@ -677,7 +679,7 @@ ScreenManager:
                 MDLabel:
                     text: "Invoices date"
                     font_style: "Subtitle2"
-                    halign:"center"
+                    halign:"left"
 
                 MDTextField:
                     id:invoices_date_from_input
@@ -693,11 +695,16 @@ ScreenManager:
 
 
 
+                MDLabel:
+                    text: "Choose the payment status:"
+                    font_style: "Subtitle2"
+                    halign:"left"
+
                 MDDropDownItem:
                     id: payment_status_input
-                    text: "Paid"
+                    text: "None"
                     pos_hint: {'center_x': 0.5, 'center_y': 0.6}
-                    current_item: "Paid"
+                    current_item: "None chosen"
                     dropdown_bg: [1, 1, 1, 1]
                     on_release:
                         root.menu.open()
@@ -722,28 +729,62 @@ ScreenManager:
                         root.back_to_menu()
 
 
+<Filtered_searched_display_Screen>:
+
+    BoxLayout:
+        orientation: 'vertical'
+        size: root.height, root.width
+
+        FitImage:
+            source: resource_path("coke_snack.jpeg")
+
+        MDLabel:
+            text: "Financiaz"
+            font_style: "H6"
+            halign:"left"
+
+        MDLabel:
+
+        MDLabel:
+            text: "FILTERED/SEARCHED INVOICES SCREEN"
+            font_style: "H6"
+            halign:"left"
+
+        ScrollView:
+            size_hint_y: 50
+
+            do_scroll_x: False
+            do_scroll_y: True
+
+            GridLayout:
+                id: content #id or name
+                size: (root.width, root.height)
+                #in order for scroll view to work, need to set all size hint to None
+                size_hint_x: None
+                size_hint_y: None
+                cols: 1
+                #key for making comfortable is the height below:
+                height: root.height*2
+                #padding helps centerize elements, making better view
+                padding: dp(30)
+                #spacing put some space between elements
+                spacing: dp(20)
+
 
 
 #                MDRectangleFlatIconButton:
-#                    icon: "screen"
-#                    text: "Go to test screen"
-#                    on_press:
-#                        print("here")
-#                        root.parent.current = "TestingScreen"
+#    #                icon: "account-key"
+#                    text: "Filter/search"
+#                    on_release:
+#                        root.filter_search_invoices()
 
-#                MDRectangleFlatIconButton:
-#
-#                    text: "Export report with PDF"
-#                    on_press:
-#                        root.export_pdf()
-#
-#
-#
-#            MDRectangleFlatIconButton:
-#
-#                text: "Export report with Excel"
-#                on_press:
-#                    root.export_excel()
+                MDRectangleFlatIconButton:
+            #           icon: "food"
+                    pos_hint: {'x': .305}
+                    text: "<-Back to menu"
+                    on_release:
+                        root.back_to_menu()
+
 
 
 
