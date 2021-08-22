@@ -154,7 +154,7 @@ class FilterSearchInvoiceScreen(MDScreen):
     invoices_date_from = None
     invoices_date_to = None
     payment_status = None
-    display_all = 0
+    display_all = 1
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
@@ -163,7 +163,7 @@ class FilterSearchInvoiceScreen(MDScreen):
         self.request_items()
 
     def request_items(self):
-        menu_items = [{"text": "Paid"}, {"text": "Not paid"}, {"text": "Partial paid"}]
+        menu_items = [{"text": "Paid"}, {"text": "Not paid"}, {"text": "Partial paid"}, {"text": "Every status"}]
         self.menu = MDDropdownMenu(
             caller = self.ids.payment_status_input,
             items = menu_items,
@@ -183,15 +183,60 @@ class FilterSearchInvoiceScreen(MDScreen):
     def filter_search_invoices(self):
         print("Filter/search button clicked")
 
+        # if self.ids.payment_status_no_need:
+        #     print("deactivate filter/search for payment_status ")
+        #     FilterSearchInvoiceScreen.payment_status = "None"
+        # if (not self.ids.payment_status_no_need) or...
+
+
+        if len(self.ids.invoice_number_input.text)>0 or len(self.ids.supplier_name_input.text)>0 or len(self.ids.invoices_added_date_from_input.text)>0 or len(self.ids.invoices_added_date_to_input.text)>0 or len(self.ids.invoices_date_from_input.text)>0 or len(self.ids.invoices_date_to_input.text)>0 or ((FilterSearchInvoiceScreen.payment_status == "Paid") or (FilterSearchInvoiceScreen.payment_status =="Not paid") or (FilterSearchInvoiceScreen.payment_status=="Partial paid")):
+            display_all = 0
+            print("Pls do not display all")
+
+            FilterSearchInvoiceScreen.invoice_number = self.ids.invoice_number_input.text
+            FilterSearchInvoiceScreen.supplier_name = self.ids.supplier_name_input.text
+            FilterSearchInvoiceScreen.invoices_added_date_from = self.ids.invoices_added_date_from_input.text
+            FilterSearchInvoiceScreen.invoices_added_date_to = self.ids.invoices_added_date_to_input.text
+            FilterSearchInvoiceScreen.invoices_date_from = self.ids.invoices_date_from_input.text
+            FilterSearchInvoiceScreen.invoices_date_to = self.ids.invoices_date_to_input.text
+            FilterSearchInvoiceScreen.payment_status = FilterSearchInvoiceScreen.payment_status
+
+        else:
+            print("Pls display all")
+
+
+
         #if no info is input in the screen and the Filter/search button is clicked,
         #this means that the client wants to see every invoices in the database.:
         #and we keep the variable "display_all" to 0, where in the codes of the display screen,
-        #there will be something like if display_all = 0 =>query everything
+        #there will be something like if display_all = 1 =>query everything
+
+        self.parent.current = "Filtered_searched_display_Screen"
+
+    def back_to_menu(self):
+        print("Back to menu")
+        self.parent.current = "HomeScreen"
 
 
+class Filtered_searched_display_Screen(MDScreen):
 
+    def on_pre_enter(self, *args):
 
+        invoice_number = FilterSearchInvoiceScreen.invoice_number
+        supplier_name = FilterSearchInvoiceScreen.supplier_name
+        invoices_added_date_from = FilterSearchInvoiceScreen.invoices_added_date_from
+        invoices_added_date_to = FilterSearchInvoiceScreen.invoices_added_date_to
+        invoices_date_from = FilterSearchInvoiceScreen.invoices_date_from
+        invoices_date_to = FilterSearchInvoiceScreen.invoices_date_to
+        payment_status = FilterSearchInvoiceScreen.payment_status
+        display_all = FilterSearchInvoiceScreen.display_all
 
+        print(invoice_number, supplier_name, invoices_added_date_from, invoices_added_date_to,
+              invoices_date_from, invoices_date_to, payment_status, display_all)
+
+    def back_to_menu(self):
+        print("Back to menu")
+        self.parent.current = "HomeScreen"
 
 
 
