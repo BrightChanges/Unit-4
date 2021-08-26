@@ -236,6 +236,22 @@ Table 6: Record of tasks's table
 
 
         workbook.close()
+        
+    ##Magic code below:
+    ##the code below help make all item in all_data from the table iterable:
+    def to_dict(row):
+        if row is None:
+            return None
+
+        #creates a dictionary:
+        rtn_dict = dict()
+        #converts the column headers of the table into the keys of the dictionary
+        keys = row.__table__.columns.keys()
+
+
+        for key in keys:
+            rtn_dict[key] = getattr(row, key)
+        return rtn_dict
 
 
 ```
@@ -295,6 +311,23 @@ Table 6: Record of tasks's table
 
         s.close()
         pdf.output("Coinsnack2.pdf")
+        
+    ##Magic code below:
+    ##the code below help make all item in all_data from the table iterable:
+    def to_dict(row):
+        if row is None:
+            return None
+
+        #creates a dictionary:
+        rtn_dict = dict()
+        #converts the column headers of the table into the keys of the dictionary
+        keys = row.__table__.columns.keys()
+
+
+        for key in keys:
+            rtn_dict[key] = getattr(row, key)
+        return rtn_dict
+
 
 ```
 
