@@ -18,6 +18,7 @@ from kivy.uix.behaviors import ButtonBehavior
 from sqlalchemy.sql.functions import current_user
 
 from kivymd.app import MDApp
+from kivymd.uix.datatables import MDDataTable
 from kivymd.uix.label import MDLabel
 from kivymd.uix.picker import MDDatePicker
 from kivymd.uix.screen import MDScreen
@@ -31,6 +32,7 @@ from kivy.properties import ObjectProperty
 from kivy.clock import Clock
 from kivy.uix.scrollview import ScrollView
 from kivymd.color_definitions import colors
+from kivy.metrics import dp
 
 
 Base = declarative_base()
@@ -190,7 +192,7 @@ class FilterSearchInvoiceScreen(MDScreen):
 
 
         if len(self.ids.invoice_number_input.text)>0 or len(self.ids.supplier_name_input.text)>0 or len(self.ids.invoices_added_date_from_input.text)>0 or len(self.ids.invoices_added_date_to_input.text)>0 or len(self.ids.invoices_date_from_input.text)>0 or len(self.ids.invoices_date_to_input.text)>0 or ((FilterSearchInvoiceScreen.payment_status == "Paid") or (FilterSearchInvoiceScreen.payment_status =="Not paid") or (FilterSearchInvoiceScreen.payment_status=="Partial paid")):
-            display_all = 0
+            FilterSearchInvoiceScreen.display_all = 0
             print("Pls do not display all")
 
             FilterSearchInvoiceScreen.invoice_number = self.ids.invoice_number_input.text
@@ -218,7 +220,35 @@ class FilterSearchInvoiceScreen(MDScreen):
         self.parent.current = "HomeScreen"
 
 
+##Magic code below:
+##the code below help make all item in all_data from the table iterable:
+def to_dict(row):
+    if row is None:
+        return None
+
+    # creates a dictionary:
+    rtn_dict = dict()
+    # converts the column headers of the table into the keys of the dictionary
+    keys = row.__table__.columns.keys()
+
+    for key in keys:
+        rtn_dict[key] = getattr(row, key)
+    return rtn_dict
+
+def words_extract(row):
+    row = str(row)
+    stripped_row = "("
+
+    row=list(row)
+
+    for item in row[13:]:
+        if item != "]":
+            stripped_row += item
+
+    return stripped_row
+
 class Filtered_searched_display_Screen(MDScreen):
+
 
     def on_pre_enter(self, *args):
 
@@ -231,8 +261,135 @@ class Filtered_searched_display_Screen(MDScreen):
         payment_status = FilterSearchInvoiceScreen.payment_status
         display_all = FilterSearchInvoiceScreen.display_all
 
+
         print(invoice_number, supplier_name, invoices_added_date_from, invoices_added_date_to,
               invoices_date_from, invoices_date_to, payment_status, display_all)
+
+        if display_all == 1:
+            print("Received message display all")
+
+            # Getting data from the database
+            s = session()
+            query_all = s.query(Invoice).all()
+            print(query_all)
+
+            # Creating labels - Headings for the columns
+            id = MDLabel(text="No.", font_style="Subtitle2", halign="center")
+            self.ids.container.add_widget(id)
+            trading_partner_name = MDLabel(text="Trading partner name", font_style="Subtitle2", halign="center")
+            self.ids.container.add_widget(trading_partner_name)
+            invoice_number = MDLabel(text="Invoice number", font_style="Subtitle2", halign="center")
+            self.ids.container.add_widget(invoice_number)
+            invoice_date = MDLabel(text="Invoice date", font_style="Subtitle2", halign="center")
+            self.ids.container.add_widget(invoice_date)
+            invoice_amount = MDLabel(text="Invoice amount", font_style="Subtitle2", halign="center")
+            self.ids.container.add_widget(invoice_amount)
+            invoice_currency = MDLabel(text="Invoice currency", font_style="Subtitle2", halign="center")
+            self.ids.container.add_widget(invoice_currency)
+            invoice_added_date = MDLabel(text="Invoice added date", font_style="Subtitle2", halign="center")
+            self.ids.container.add_widget(invoice_added_date)
+            tax = MDLabel(text="Tax", font_style="Subtitle2", halign="center")
+            self.ids.container.add_widget(tax)
+            description = MDLabel(text="Description", font_style="Subtitle2", halign="center")
+            self.ids.container.add_widget(description)
+            expired_contract_date = MDLabel(text="Expired contract date", font_style="Subtitle2", halign="center")
+            self.ids.container.add_widget(expired_contract_date)
+            actual_payment_date = MDLabel(text="Actual payment date", font_style="Subtitle2", halign="center")
+            self.ids.container.add_widget(actual_payment_date)
+            actual_payment_accepted_by = MDLabel(text="Actual payment date accepted by", font_style="Subtitle2", halign="center")
+            self.ids.container.add_widget(actual_payment_accepted_by)
+            overdue_period = MDLabel(text="Overdue period", font_style="Subtitle2", halign="center")
+            self.ids.container.add_widget(overdue_period)
+
+            notes_for_penalty_overdue = MDLabel(text="Notes for penalty overdue", font_style="Subtitle2", halign="center")
+            self.ids.container.add_widget(notes_for_penalty_overdue)
+
+            paid = MDLabel(text="Paid? (1=paid, 0.5=partial paid, 0=unpaid)", font_style="Subtitle2", halign="center")
+            self.ids.container.add_widget(paid)
+
+            paid_amount = MDLabel(text="Paid amount", font_style="Subtitle2", halign="center")
+            self.ids.container.add_widget(paid_amount)
+
+            payment_unpaid_amount = MDLabel(text="Unpaid amount", font_style="Subtitle2", halign="center")
+            self.ids.container.add_widget(payment_unpaid_amount)
+
+            payment_date1  = MDLabel(text="Payment date 1", font_style="Subtitle2", halign="center")
+            self.ids.container.add_widget(payment_date1 )
+
+            payment_date2 = MDLabel(text="Payment date 2", font_style="Subtitle2", halign="center")
+            self.ids.container.add_widget( payment_date2)
+
+            occurent = MDLabel(text="Occurent", font_style="Subtitle2", halign="center")
+            self.ids.container.add_widget(occurent)
+
+            invoice_added_by_user = MDLabel(text="Invoices added by user:", font_style="Subtitle2", halign="center")
+            self.ids.container.add_widget(invoice_added_by_user)
+
+            #display the queried data:
+            for data in query_all:
+                id = MDLabel(text=str(data.id), halign="center")
+                self.ids.container.add_widget(id)
+                trading_partner_name = MDLabel(text=str(data.trading_partner_name), halign="center")
+                self.ids.container.add_widget(trading_partner_name)
+                invoice_number = MDLabel(text=str(data.invoice_number), halign="center")
+                self.ids.container.add_widget(invoice_number)
+
+                invoice_date = MDLabel(text=str(data.invoice_date), halign="center")
+                self.ids.container.add_widget(invoice_date)
+
+                invoice_amount = MDLabel(text=str(data.invoice_amount), halign="center")
+                self.ids.container.add_widget(invoice_amount)
+
+                invoice_currency = MDLabel(text=str(data.invoice_currency), halign="center")
+                self.ids.container.add_widget(invoice_currency)
+
+                invoice_added_date = MDLabel(text=str(data.invoice_added_date), halign="center")
+                self.ids.container.add_widget(invoice_added_date)
+
+                tax = MDLabel(text=str(data.tax), halign="center")
+                self.ids.container.add_widget(tax)
+
+                description  = MDLabel(text=str(data.description), halign="center")
+                self.ids.container.add_widget(description )
+
+                expired_contract_date = MDLabel(text=str(data.expired_contract_date), halign="center")
+                self.ids.container.add_widget(expired_contract_date)
+
+                actual_payment_date = MDLabel(text=str(data.actual_payment_date), halign="center")
+                self.ids.container.add_widget(actual_payment_date)
+
+                actual_payment_accepted_by = MDLabel(text=str(data.actual_payment_accepted_by), halign="center")
+                self.ids.container.add_widget(actual_payment_accepted_by)
+
+                overdue_period  = MDLabel(text=str(data.overdue_period ), halign="center")
+                self.ids.container.add_widget(overdue_period )
+
+                notes_for_penalty_overdue = MDLabel(text=str(data.notes_for_penalty_overdue), halign="center")
+                self.ids.container.add_widget(notes_for_penalty_overdue)
+
+                paid = MDLabel(text=str(data.paid), halign="center")
+                self.ids.container.add_widget(paid)
+
+                paid_amount = MDLabel(text=str(data. paid_amount), halign="center")
+                self.ids.container.add_widget( paid_amount)
+
+                payment_unpaid_amount = MDLabel(text=str(data.payment_unpaid_amount), halign="center")
+                self.ids.container.add_widget(payment_unpaid_amount)
+
+                payment_date1 = MDLabel(text=str(data.payment_date1), halign="center")
+                self.ids.container.add_widget(payment_date1)
+
+                payment_date2 = MDLabel(text=str(data.payment_date2), halign="center")
+                self.ids.container.add_widget(payment_date2)
+
+                occurent = MDLabel(text=str(data.occurent), halign="center")
+                self.ids.container.add_widget(occurent)
+
+                invoice_added_by_user = MDLabel(text=str(data.invoice_added_by_user), halign="center")
+                self.ids.container.add_widget(invoice_added_by_user)
+
+
+
 
     def back_to_menu(self):
         print("Back to menu")
