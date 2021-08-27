@@ -666,13 +666,13 @@ ScreenManager:
 
                 MDTextField:
                     id:invoices_added_date_from_input
-                    hint_text: "From"
+                    hint_text: "From (Format: YYYY-MM-DD)"
     #                icon_right: "eye-off"
                     required: False
 
                 MDTextField:
                     id:invoices_added_date_to_input
-                    hint_text: "to"
+                    hint_text: "to (Format: YYYY-MM-DD)"
     #                icon_right: "eye-off"
                     required: False
 
@@ -683,13 +683,13 @@ ScreenManager:
 
                 MDTextField:
                     id:invoices_date_from_input
-                    hint_text: "From"
+                    hint_text: "From (Format: YYYY-MM-DD)"
     #                icon_right: "eye-off"
                     required: False
 
                 MDTextField:
                     id:invoices_date_to_input
-                    hint_text: "to"
+                    hint_text: "to (Format: YYYY-MM-DD)"
     #                icon_right: "eye-off"
                     required: False
 
@@ -709,10 +709,10 @@ ScreenManager:
                     on_release:
                         root.menu.open()
 
-                MDRaisedButton:
-                    pos_hint: {'center_x': 0.5, 'center_y': 0.3}
-                    text: 'Check Your Choice'
-                    on_release: toast(payment_status_input.current_item)
+#                MDRaisedButton:
+#                    pos_hint: {'center_x': 0.5, 'center_y': 0.3}
+#                    text: 'Check Your Choice'
+#                    on_release: toast(payment_status_input.current_item)
 
 
                 MDRectangleFlatIconButton:
@@ -750,40 +750,48 @@ ScreenManager:
             font_style: "H6"
             halign:"left"
 
+        MDLabel:
+
+
+        MDRectangleFlatIconButton:
+            pos_hint: {'x': 0, "y": 1}
+            text: "<-Back to menu"
+            halign: "left"
+            on_release:
+                root.back_to_menu()
+        MDLabel:
+
+        MDLabel:
+
+
         ScrollView:
             size_hint_y: 50
+            size_hint_x: 1
 
-            do_scroll_x: False
+            do_scroll_x: True
             do_scroll_y: True
 
+
+
+
             GridLayout:
-                id: content #id or name
-                size: (root.width, root.height)
+
+                id: container #id or name
+                #the root.width*10 code below is the magic that
+                #allows the columns to have larger size while being scrollable:
+                size: (root.width*3.75, root.height)
                 #in order for scroll view to work, need to set all size hint to None
                 size_hint_x: None
                 size_hint_y: None
-                cols: 1
                 #key for making comfortable is the height below:
-                height: root.height*2
-                #padding helps centerize elements, making better view
-                padding: dp(30)
-                #spacing put some space between elements
-                spacing: dp(20)
+                height: root.height*4
+                cols:21
+                row_default_height: 60
+                row_force_default: True
 
 
 
-#                MDRectangleFlatIconButton:
-#    #                icon: "account-key"
-#                    text: "Filter/search"
-#                    on_release:
-#                        root.filter_search_invoices()
 
-                MDRectangleFlatIconButton:
-            #           icon: "food"
-                    pos_hint: {'x': .305}
-                    text: "<-Back to menu"
-                    on_release:
-                        root.back_to_menu()
 
 
 
