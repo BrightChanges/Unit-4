@@ -33,6 +33,9 @@ ScreenManager:
     Filtered_searched_display_Screen:
         name: "Filtered_searched_display_Screen"
 
+    Filtered_searched_display_with_trading_partner_info_Screen
+        name: "Filtered_searched_display_with_trading_partner_info_Screen"
+
 
 
 
@@ -752,13 +755,30 @@ ScreenManager:
 
         MDLabel:
 
+        MDLabel:
 
-        MDRectangleFlatIconButton:
-            pos_hint: {'x': 0, "y": 1}
-            text: "<-Back to menu"
-            halign: "left"
-            on_release:
-                root.back_to_menu()
+        MDCard:
+            size_hint: 1, 0.1
+            elevation: 0
+            padding: 30
+            pos_hint: {"center_x": 0.5, "top": 0.8}
+            orientation: "horizontal"
+
+            MDRectangleFlatIconButton:
+                pos_hint: {'x': 0, "y": 1}
+                text: "<-Back to menu"
+                halign: "left"
+                on_release:
+                    root.back_to_menu()
+
+            MDRectangleFlatIconButton:
+                pos_hint: {'x': 2, "y": 1}
+                text: "Include Trading Partner Info"
+                halign: "left"
+                on_release:
+                    root.include_trading_partner_info()
+
+
         MDLabel:
 
         MDLabel:
@@ -791,6 +811,82 @@ ScreenManager:
 
 
 
+<Filtered_searched_display_with_trading_partner_info_Screen>:
+
+    BoxLayout:
+        orientation: 'vertical'
+        size: root.height, root.width
+
+        FitImage:
+            source: resource_path("coke_snack.jpeg")
+
+        MDLabel:
+            text: "Financiaz"
+            font_style: "H6"
+            halign:"left"
+
+        MDLabel:
+
+        MDLabel:
+            text: "FILTERED/SEARCHED INVOICES SCREEN"
+            font_style: "H6"
+            halign:"left"
+
+        MDLabel:
+
+        MDLabel:
+
+        MDCard:
+            size_hint: 1, 0.1
+            elevation: 0
+            padding: 30
+            pos_hint: {"center_x": 0.5, "top": 0.8}
+            orientation: "horizontal"
+
+            MDRectangleFlatIconButton:
+                pos_hint: {'x': 0, "y": 1}
+                text: "<-Back to menu"
+                halign: "left"
+                on_release:
+                    root.back_to_menu()
+
+
+            MDRectangleFlatIconButton:
+                pos_hint: {'x': 4, "y": 1}
+                text: "Don't include Trading Partner Info"
+                halign: "left"
+                on_release:
+                    root.non_include_trading_partner_info()
+
+        MDLabel:
+
+        MDLabel:
+
+
+        ScrollView:
+            size_hint_y: 50
+            size_hint_x: 1
+
+            do_scroll_x: True
+            do_scroll_y: True
+
+
+
+
+            GridLayout:
+
+                id: container #id or name
+                #the root.width*10 code below is the magic that
+                #allows the columns to have larger size while being scrollable:
+                size: (root.width*3.75, root.height)
+                #in order for scroll view to work, need to set all size hint to None
+                size_hint_x: None
+                size_hint_y: None
+                #key for making comfortable is the height below:
+                height: root.height*4
+                cols:28
+                row_default_height: 60
+                row_force_default: True
 
 
 
