@@ -7,7 +7,7 @@ from datetime import timedelta
 from datetime import date
 
 from kivy.lang import Builder
-from sqlalchemy import Column, DateTime, String, Integer, ForeignKey, Float, Date
+from sqlalchemy import Column, DateTime, String, Integer, ForeignKey, Float, Date, and_
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship
 from kivy.app import App
@@ -95,7 +95,7 @@ class Invoice(Base):
     id_relationship = relationship('TradingPartner', backref='tradingid', foreign_keys=[trading_partner_id])
     name_relationship = relationship('TradingPartner', backref='tradingname', foreign_keys=[trading_partner_name])
 
-    invoice_number = Column(String)
+    invoice_number = Column(String, unique=True)
 
     invoice_date = Column(String)
 
@@ -126,6 +126,9 @@ class Invoice(Base):
     invoice_added_by_user = Column(String, ForeignKey("user.username"))
 
 
+    # def invoices_added_date(self,value1,value2):
+    #     if value
+
 
 
 # create the database and the connection
@@ -150,7 +153,7 @@ class FilterSearchInvoiceScreen(MDScreen):
     #codes of the display screen
 
     invoice_number = None
-    supplier_name = None
+    trading_partner_name = None
     invoices_added_date_from = None
     invoices_added_date_to = None
     invoices_date_from = None
@@ -191,21 +194,29 @@ class FilterSearchInvoiceScreen(MDScreen):
         # if (not self.ids.payment_status_no_need) or...
 
 
-        if len(self.ids.invoice_number_input.text)>0 or len(self.ids.supplier_name_input.text)>0 or len(self.ids.invoices_added_date_from_input.text)>0 or len(self.ids.invoices_added_date_to_input.text)>0 or len(self.ids.invoices_date_from_input.text)>0 or len(self.ids.invoices_date_to_input.text)>0 or ((FilterSearchInvoiceScreen.payment_status == "Paid") or (FilterSearchInvoiceScreen.payment_status =="Not paid") or (FilterSearchInvoiceScreen.payment_status=="Partial paid")):
+        if len(self.ids.invoice_number_input.text)>0 or len(self.ids.trading_partner_name_input.text)>0 or len(self.ids.invoices_added_date_from_input.text)>0 or len(self.ids.invoices_added_date_to_input.text)>0 or len(self.ids.invoices_date_from_input.text)>0 or len(self.ids.invoices_date_to_input.text)>0 or ((FilterSearchInvoiceScreen.payment_status == "Paid") or (FilterSearchInvoiceScreen.payment_status =="Not paid") or (FilterSearchInvoiceScreen.payment_status=="Partial paid")):
             FilterSearchInvoiceScreen.display_all = 0
             print("Pls do not display all")
 
             FilterSearchInvoiceScreen.invoice_number = self.ids.invoice_number_input.text
-            FilterSearchInvoiceScreen.supplier_name = self.ids.supplier_name_input.text
+            FilterSearchInvoiceScreen.trading_partner_name = self.ids.trading_partner_name_input.text
             FilterSearchInvoiceScreen.invoices_added_date_from = self.ids.invoices_added_date_from_input.text
             FilterSearchInvoiceScreen.invoices_added_date_to = self.ids.invoices_added_date_to_input.text
             FilterSearchInvoiceScreen.invoices_date_from = self.ids.invoices_date_from_input.text
             FilterSearchInvoiceScreen.invoices_date_to = self.ids.invoices_date_to_input.text
             FilterSearchInvoiceScreen.payment_status = FilterSearchInvoiceScreen.payment_status
 
+            print(FilterSearchInvoiceScreen.payment_status)
+            print(FilterSearchInvoiceScreen.invoices_added_date_from)
+            if len(FilterSearchInvoiceScreen.invoices_added_date_from)==0:
+                print(True)
+            if FilterSearchInvoiceScreen.payment_status is None:
+                print(True)
+
         else:
             print("Pls display all")
             FilterSearchInvoiceScreen.display_all = 1
+
 
 
 
@@ -248,6 +259,11 @@ def words_extract(row):
 
     return stripped_row
 
+
+# def query_invoices(*exps):
+#     s = session()
+#     return s.query(Invoice).filter(and_(*exps)).all()
+
 # def callback(text):
 #     print("double clicked", text)
 
@@ -279,7 +295,7 @@ class Filtered_searched_display_with_trading_partner_info_Screen(MDScreen):
 
     def on_pre_enter(self, *args):
         invoice_number = FilterSearchInvoiceScreen.invoice_number
-        supplier_name = FilterSearchInvoiceScreen.supplier_name
+        trading_partner_name = FilterSearchInvoiceScreen.trading_partner_name
         invoices_added_date_from = FilterSearchInvoiceScreen.invoices_added_date_from
         invoices_added_date_to = FilterSearchInvoiceScreen.invoices_added_date_to
         invoices_date_from = FilterSearchInvoiceScreen.invoices_date_from
@@ -288,8 +304,7 @@ class Filtered_searched_display_with_trading_partner_info_Screen(MDScreen):
         display_all = FilterSearchInvoiceScreen.display_all
 
         if display_all == 1:
-            print(
-                "Received message display all and message to include further info from Trading Partner of the the invoice")
+            print("Received message display all and message to include further info from Trading Partner of the the invoice")
             # Getting data from the database
             s = session()
             query_all = s.query(Invoice).all()
@@ -478,6 +493,17 @@ class Filtered_searched_display_with_trading_partner_info_Screen(MDScreen):
                 invoice_added_by_user = MDLabel(text=str(data.invoice_added_by_user), halign="center")
                 self.ids.container.add_widget(invoice_added_by_user)
 
+                s.close()
+        # else:
+        #     s = session()
+        #     if len(invoice_number)>0:
+        #         invoice_number_query = s.query(Invoice).filter_by(invoice_number=invoice_number).subquery()
+        #         if len(supplier_name)>0:
+        #             supplier_name_query1 = s.query(Invoice,invoice_number_query).filter_by(supplier_name=supplier_name).all()
+        #             print(supplier_name_query1)
+
+
+
     def non_include_trading_partner_info(self):
         self.parent.current = "Filtered_searched_display_Screen"
 
@@ -501,7 +527,7 @@ class Filtered_searched_display_Screen(MDScreen):
         #scrolling the user needs to do in order to see every info about an invoice
 
         invoice_number = FilterSearchInvoiceScreen.invoice_number
-        supplier_name = FilterSearchInvoiceScreen.supplier_name
+        trading_partner_name = FilterSearchInvoiceScreen.trading_partner_name
         invoices_added_date_from = FilterSearchInvoiceScreen.invoices_added_date_from
         invoices_added_date_to = FilterSearchInvoiceScreen.invoices_added_date_to
         invoices_date_from = FilterSearchInvoiceScreen.invoices_date_from
@@ -512,7 +538,7 @@ class Filtered_searched_display_Screen(MDScreen):
         print("Display all is", display_all)
 
 
-        print(invoice_number, supplier_name, invoices_added_date_from, invoices_added_date_to,
+        print(invoice_number, trading_partner_name, invoices_added_date_from, invoices_added_date_to,
               invoices_date_from, invoices_date_to, payment_status, display_all)
 
         if display_all == 1:
@@ -649,6 +675,160 @@ class Filtered_searched_display_Screen(MDScreen):
                 invoice_added_by_user = MDLabel(text=str(data.invoice_added_by_user), halign="center")
                 self.ids.container.add_widget(invoice_added_by_user)
 
+
+                s.close()
+        else:
+            print("Something")
+            s=session()
+            #when the user input the invoice number, it
+            #means that the user already know what
+            #specific invoice he is looking for,
+            #thus there is no need to query other information:
+            if len(invoice_number)>0:
+                #the code below works
+                invoice_number_query = s.query(Invoice).filter_by(invoice_number=invoice_number).all()
+                print(invoice_number_query)
+
+            else:
+                print("No invoice number input")
+                #if the user doesn't input an invoice number, he can search with
+                #each of with a few of most general combination of other 6 inputs:
+
+                #1. if the user only input trading partner name: =TESTED
+                if len(trading_partner_name)>0 and len(invoices_added_date_from)==0 and len(invoices_added_date_to)==0 and len(invoices_date_from)==0 and len(invoices_date_to)==0 and (payment_status is None or payment_status=="Every status"):
+                    print("user only input trading partner name")
+                    trading_partner_name_query = s.query(Invoice).filter(Invoice.trading_partner_name==trading_partner_name).all()
+                    for data in trading_partner_name_query:
+                        print(data.invoice_number)
+
+                #2. if the user input trading partner name with two ranges for invoices_added_date: = TESTED
+                elif len(trading_partner_name) > 0 and len(invoices_added_date_from) > 0 and len(invoices_added_date_to)>0 and len(invoices_date_from)==0 and len(invoices_date_to)==0 and (payment_status is None or payment_status=="Every status"):
+                    trading_partner_name_with_both_added_date = s.query(Invoice).filter(Invoice.trading_partner_name==trading_partner_name,and_(Invoice.invoice_added_date >= invoices_added_date_from,Invoice.invoice_added_date <= invoices_added_date_to)).all()
+
+                    for data in trading_partner_name_with_both_added_date:
+                        print(data.invoice_number)
+
+                #3. if the user input trading partner name with only the starting range for invoices_added_date: = TESTED
+                elif len(trading_partner_name) > 0 and len(invoices_added_date_from) > 0 and len(invoices_added_date_to)==0 and len(invoices_date_from)==0 and len(invoices_date_to)==0 and (payment_status is None or payment_status=="Every status"):
+                    trading_partner_name_with_staring_added_date = s.query(Invoice).filter(
+                        Invoice.trading_partner_name == trading_partner_name,Invoice.invoice_added_date >= invoices_added_date_from).all()
+
+                    for data in trading_partner_name_with_staring_added_date:
+                        print(data.invoice_number)
+
+                #4. if the user input trading partner name with only the ending range for invoices_added_date: = TESTED
+                elif len(trading_partner_name) > 0 and len(invoices_added_date_to) > 0 and len(invoices_added_date_from)==0 and len(invoices_date_from)==0 and len(invoices_date_to)==0 and (payment_status is None or payment_status=="Every status"):
+                    print("user input trading partner name with only the ending range for invoices_added_date")
+                    trading_partner_name_with_ending_added_date = s.query(Invoice).filter(
+                        Invoice.trading_partner_name == trading_partner_name,Invoice.invoice_added_date <= invoices_added_date_to).all()
+
+                    for data in trading_partner_name_with_ending_added_date:
+                        print(data.invoice_number)
+
+                #5.  if the user input trading partner name with two ranges for invoice date: = TESTED
+                elif len(trading_partner_name) > 0 and len(invoices_date_from) > 0 and len(invoices_date_to)>0 and len(invoices_added_date_from)==0 and len(invoices_added_date_to)==0 and (payment_status is None or payment_status=="Every status"):
+                    trading_partner_name_with_both_date = s.query(Invoice).filter(Invoice.trading_partner_name==trading_partner_name,and_(Invoice.invoice_date >= invoices_date_from,Invoice.invoice_date <= invoices_date_to)).all()
+
+                    for data in trading_partner_name_with_both_date:
+                        print(data.invoice_number)
+
+                #6. if the user input trading partner name with only the starting range for invoices_date: = TESTED
+                elif len(trading_partner_name) > 0 and len(invoices_date_from) > 0 and len(invoices_date_to)==0 and len(invoices_added_date_from)==0 and len(invoices_added_date_to)==0 and (payment_status is None or payment_status=="Every status"):
+                    trading_partner_name_with_staring_date = s.query(Invoice).filter(
+                        Invoice.trading_partner_name == trading_partner_name,Invoice.invoice_date >= invoices_date_from).all()
+
+                    for data in trading_partner_name_with_staring_date:
+                        print(data.invoice_number)
+
+                #7. if the user input trading partner name with only the ending range for invoices_date: = TESTED
+                elif len(trading_partner_name) > 0 and len(invoices_date_to) > 0 and len(invoices_date_from)==0 and len(invoices_added_date_from)==0 and len(invoices_added_date_to)==0 and (payment_status is None or payment_status=="Every status"):
+                    trading_partner_name_with_ending_date = s.query(Invoice).filter(
+                        Invoice.trading_partner_name == trading_partner_name,Invoice.invoice_date <= invoices_date_to).all()
+
+                    for data in trading_partner_name_with_ending_date:
+                        print(data.invoice_number)
+
+
+                #8. if the user input trading partner rame with 2 date ranges: = TESTED
+                elif len(trading_partner_name) > 0 and len(invoices_added_date_from) > 0 and len(invoices_added_date_to)>0 and len(invoices_date_from) > 0 and len(invoices_date_to)>0 and (payment_status is None or payment_status=="Every status"):
+                    print("user input trading partner rame with 2 date ranges")
+                    trading_partner_name_with_both_added_invoice_added_date_and_date = s.query(Invoice).filter(Invoice.trading_partner_name==trading_partner_name,
+                                                                                        and_(Invoice.invoice_added_date >= invoices_added_date_from,Invoice.invoice_added_date <= invoices_added_date_to),
+                                                                                        and_(Invoice.invoice_date >= invoices_date_from,Invoice.invoice_date <= invoices_date_to)).all()
+
+
+                    for data in trading_partner_name_with_both_added_invoice_added_date_and_date:
+                        print(data.invoice_number, data.invoice_date)
+                    print(invoices_date_to)
+
+
+                #9. if the user input only the payment status: = TESTED
+                elif (payment_status is not None or payment_status!="Every status") and len(trading_partner_name)== 0 and len(invoices_added_date_from)==0 and len(invoices_added_date_to)==0 and len(invoices_date_from)==0 and len(invoices_date_to)==0:
+                    print("if the user input only the payment status")
+                    if payment_status == "Paid":
+                        payment_status = 1
+                    elif payment_status == "Not paid":
+                        payment_status = 0
+                    elif payment_status == "Partial paid":
+                        payment_status = 0.5
+                    payment_status_query = s.query(Invoice).filter(Invoice.paid==payment_status).all()
+                    for data in payment_status_query:
+                        print(data.invoice_number)
+
+
+                #10. if the user input every input except the invoice_number: = TESTED
+                elif len(trading_partner_name) > 0 and len(invoices_added_date_from) > 0 and len(invoices_added_date_to) > 0 and len(invoices_date_from) > 0 and len(invoices_date_to) > 0 and (payment_status is not None or payment_status!="Every status"):
+                    print("if the user input every input except the invoice_number")
+                    if payment_status == "Paid":
+                        payment_status = 1
+                    elif payment_status == "Not paid":
+                        payment_status = 0
+                    elif payment_status == "Partial paid":
+                        payment_status = 0.5
+                    query_every_thing_except_invoice_number = s.query(Invoice).filter(Invoice.trading_partner_name==trading_partner_name,
+                                                                                        and_(Invoice.invoice_added_date >= invoices_added_date_from,Invoice.invoice_added_date <= invoices_added_date_to),
+                                                                                        and_(Invoice.invoice_date >= invoices_date_from,Invoice.invoice_date <= invoices_date_to),
+                                                                                        Invoice.paid ==payment_status).all()
+                    for data in query_every_thing_except_invoice_number:
+                        print(data.invoice_number)
+
+
+                #11. if the user if the user input trading partner name with two ranges for invoices_added_date with the payment_status: = TESTED
+                elif len(trading_partner_name) > 0 and len(invoices_added_date_from) > 0 and len(invoices_added_date_to) > 0 and len(invoices_date_from) == 0 and len(invoices_date_to) == 0 and (payment_status is not None or payment_status!="Every status"):
+                    print("if the user if the user input trading partner name with two ranges for invoices_added_date with the payment_status")
+                    if payment_status == "Paid":
+                        payment_status = 1
+                    elif payment_status == "Not paid":
+                        payment_status = 0
+                    elif payment_status == "Partial paid":
+                        payment_status = 0.5
+                    trading_partner_two_invoices_added_date_payment_status = s.query(Invoice).filter(Invoice.trading_partner_name==trading_partner_name,
+                                                                                        and_(Invoice.invoice_added_date >= invoices_added_date_from,Invoice.invoice_added_date <= invoices_added_date_to),
+                                                                                      Invoice.paid ==payment_status).all()
+                    for data in trading_partner_two_invoices_added_date_payment_status:
+                        print(data.invoice_number)
+
+
+                #12. if he user if the user input trading partner name with two ranges for invoice_date with the payment_status: = TESTED
+                elif len(trading_partner_name) >0  and len(invoices_date_from) > 0 and len(invoices_date_to) > 0 and len(invoices_added_date_from) == 0 and len(invoices_added_date_to) == 0 and (payment_status is not None or payment_status!="Every status"):
+                    if payment_status == "Paid":
+                        payment_status = 1
+                    elif payment_status == "Not paid":
+                        payment_status = 0
+                    elif payment_status == "Partial paid":
+                        payment_status = 0.5
+                    trading_partner_two_invoices_date_payment_status = s.query(Invoice).filter(Invoice.trading_partner_name==trading_partner_name,
+                                                                                        and_(Invoice.invoice_date >= invoices_date_from,Invoice.invoice_date <= invoices_date_to),
+                                                                                        Invoice.paid ==payment_status).all()
+                    for data in trading_partner_two_invoices_date_payment_status:
+                        print(data.invoice_number)
+
+
+
+
+
+
+
     def include_trading_partner_info(self):
         self.parent.current = "Filtered_searched_display_with_trading_partner_info_Screen"
 
@@ -659,7 +839,6 @@ class Filtered_searched_display_Screen(MDScreen):
     def back_to_menu(self):
         print("Back to menu")
         self.parent.current = "HomeScreen"
-
 
 
 class InvoiceScreen(MDScreen):
