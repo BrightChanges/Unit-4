@@ -517,10 +517,18 @@ class Filtered_searched_display_with_trading_partner_info_Screen(MDScreen):
 
 
 class Filtered_searched_display_Screen(MDScreen):
+    # in order to not use too much of the long display codes below,
+    # we will create a variable that hold the value of the
+    # query after we finished with the if else,
+    # simply, if some conditions is met, we could set our
+    # query variable to the value of the query in that one if else,
+    # and then display everything using that query variable:
 
+    query_variable = 0
 
     def on_pre_enter(self, *args):
         self.ids.container.clear_widgets()
+        Filtered_searched_display_Screen.query_variable = 0
         #when enter the display screen, only display info from the invoices' table
         #only display more related invoices info from Trading Partner info
         #if the user requested to decrease amount of horizontal
@@ -549,13 +557,14 @@ class Filtered_searched_display_Screen(MDScreen):
             query_all = s.query(Invoice).all()
             print(query_all)
 
-            # Creating labels - Headings for the columns
+            Filtered_searched_display_Screen.query_variable = query_all
+
+            #might need to put the long stupid code here
             id = MDLabel(text="No.", font_style="Subtitle2", halign="center")
             self.ids.container.add_widget(id)
 
             trading_partner_name = MDLabel(text="Trading partner name", font_style="Subtitle2", halign="center")
             self.ids.container.add_widget(trading_partner_name)
-
 
             invoice_number = MDLabel(text="Invoice number", font_style="Subtitle2", halign="center")
             self.ids.container.add_widget(invoice_number)
@@ -575,12 +584,14 @@ class Filtered_searched_display_Screen(MDScreen):
             self.ids.container.add_widget(expired_contract_date)
             actual_payment_date = MDLabel(text="Actual payment date", font_style="Subtitle2", halign="center")
             self.ids.container.add_widget(actual_payment_date)
-            actual_payment_accepted_by = MDLabel(text="Actual payment date accepted by", font_style="Subtitle2", halign="center")
+            actual_payment_accepted_by = MDLabel(text="Actual payment date accepted by", font_style="Subtitle2",
+                                                 halign="center")
             self.ids.container.add_widget(actual_payment_accepted_by)
             overdue_period = MDLabel(text="Overdue period", font_style="Subtitle2", halign="center")
             self.ids.container.add_widget(overdue_period)
 
-            notes_for_penalty_overdue = MDLabel(text="Notes for penalty overdue", font_style="Subtitle2", halign="center")
+            notes_for_penalty_overdue = MDLabel(text="Notes for penalty overdue", font_style="Subtitle2",
+                                                halign="center")
             self.ids.container.add_widget(notes_for_penalty_overdue)
 
             paid = MDLabel(text="Paid? (1=paid, 0.5=partial paid, 0=unpaid)", font_style="Subtitle2", halign="center")
@@ -592,11 +603,11 @@ class Filtered_searched_display_Screen(MDScreen):
             payment_unpaid_amount = MDLabel(text="Unpaid amount", font_style="Subtitle2", halign="center")
             self.ids.container.add_widget(payment_unpaid_amount)
 
-            payment_date1  = MDLabel(text="Payment date 1", font_style="Subtitle2", halign="center")
-            self.ids.container.add_widget(payment_date1 )
+            payment_date1 = MDLabel(text="Payment date 1", font_style="Subtitle2", halign="center")
+            self.ids.container.add_widget(payment_date1)
 
             payment_date2 = MDLabel(text="Payment date 2", font_style="Subtitle2", halign="center")
-            self.ids.container.add_widget( payment_date2)
+            self.ids.container.add_widget(payment_date2)
 
             occurent = MDLabel(text="Occurent", font_style="Subtitle2", halign="center")
             self.ids.container.add_widget(occurent)
@@ -604,19 +615,17 @@ class Filtered_searched_display_Screen(MDScreen):
             invoice_added_by_user = MDLabel(text="Invoices added by user:", font_style="Subtitle2", halign="center")
             self.ids.container.add_widget(invoice_added_by_user)
 
-            #display the queried data:
+            # display the queried data:
             for data in query_all:
                 id = MDLabel(text=str(data.id), halign="center")
                 self.ids.container.add_widget(id)
 
                 # trading_partner_name = MDLabel(text=str(data.trading_partner_name), halign="center")
                 ##PROBLEM WITH CALL BACK THE TEXT FROM THE DOUBLE PRESSED LABEL
-                trading_partner_name = DoubleClickableLabel(text=str(data.trading_partner_name), halign="center", on_double_press=self.callback,color=(0,0,1,1))
+                trading_partner_name = DoubleClickableLabel(text=str(data.trading_partner_name), halign="center",
+                                                            on_double_press=self.callback, color=(0, 0, 1, 1))
                 print(trading_partner_name.text)
                 self.ids.container.add_widget(trading_partner_name)
-
-
-
 
                 invoice_number = MDLabel(text=str(data.invoice_number), halign="center")
                 self.ids.container.add_widget(invoice_number)
@@ -636,8 +645,8 @@ class Filtered_searched_display_Screen(MDScreen):
                 tax = MDLabel(text=str(data.tax), halign="center")
                 self.ids.container.add_widget(tax)
 
-                description  = MDLabel(text=str(data.description), halign="center")
-                self.ids.container.add_widget(description )
+                description = MDLabel(text=str(data.description), halign="center")
+                self.ids.container.add_widget(description)
 
                 expired_contract_date = MDLabel(text=str(data.expired_contract_date), halign="center")
                 self.ids.container.add_widget(expired_contract_date)
@@ -648,8 +657,8 @@ class Filtered_searched_display_Screen(MDScreen):
                 actual_payment_accepted_by = MDLabel(text=str(data.actual_payment_accepted_by), halign="center")
                 self.ids.container.add_widget(actual_payment_accepted_by)
 
-                overdue_period  = MDLabel(text=str(data.overdue_period ), halign="center")
-                self.ids.container.add_widget(overdue_period )
+                overdue_period = MDLabel(text=str(data.overdue_period), halign="center")
+                self.ids.container.add_widget(overdue_period)
 
                 notes_for_penalty_overdue = MDLabel(text=str(data.notes_for_penalty_overdue), halign="center")
                 self.ids.container.add_widget(notes_for_penalty_overdue)
@@ -657,8 +666,8 @@ class Filtered_searched_display_Screen(MDScreen):
                 paid = MDLabel(text=str(data.paid), halign="center")
                 self.ids.container.add_widget(paid)
 
-                paid_amount = MDLabel(text=str(data. paid_amount), halign="center")
-                self.ids.container.add_widget( paid_amount)
+                paid_amount = MDLabel(text=str(data.paid_amount), halign="center")
+                self.ids.container.add_widget(paid_amount)
 
                 payment_unpaid_amount = MDLabel(text=str(data.payment_unpaid_amount), halign="center")
                 self.ids.container.add_widget(payment_unpaid_amount)
@@ -675,9 +684,11 @@ class Filtered_searched_display_Screen(MDScreen):
                 invoice_added_by_user = MDLabel(text=str(data.invoice_added_by_user), halign="center")
                 self.ids.container.add_widget(invoice_added_by_user)
 
-
                 s.close()
-        else:
+
+
+
+        elif display_all == 0:
             print("Something")
             s=session()
             #when the user input the invoice number, it
@@ -689,72 +700,93 @@ class Filtered_searched_display_Screen(MDScreen):
                 invoice_number_query = s.query(Invoice).filter_by(invoice_number=invoice_number).all()
                 print(invoice_number_query)
 
+                Filtered_searched_display_Screen.query_variable = invoice_number_query
+
             else:
+
                 print("No invoice number input")
                 #if the user doesn't input an invoice number, he can search with
                 #each of with a few of most general combination of other 6 inputs:
 
-                #1. if the user only input trading partner name: =TESTED
+                #1. if the user only input trading partner name: =TESTED TESTED
                 if len(trading_partner_name)>0 and len(invoices_added_date_from)==0 and len(invoices_added_date_to)==0 and len(invoices_date_from)==0 and len(invoices_date_to)==0 and (payment_status is None or payment_status=="Every status"):
                     print("user only input trading partner name")
                     trading_partner_name_query = s.query(Invoice).filter(Invoice.trading_partner_name==trading_partner_name).all()
+
+                    Filtered_searched_display_Screen.query_variable = trading_partner_name_query
+
                     for data in trading_partner_name_query:
                         print(data.invoice_number)
 
-                #2. if the user input trading partner name with two ranges for invoices_added_date: = TESTED
+                #2. if the user input trading partner name with two ranges for invoices_added_date: = TESTED TESTED
                 elif len(trading_partner_name) > 0 and len(invoices_added_date_from) > 0 and len(invoices_added_date_to)>0 and len(invoices_date_from)==0 and len(invoices_date_to)==0 and (payment_status is None or payment_status=="Every status"):
                     trading_partner_name_with_both_added_date = s.query(Invoice).filter(Invoice.trading_partner_name==trading_partner_name,and_(Invoice.invoice_added_date >= invoices_added_date_from,Invoice.invoice_added_date <= invoices_added_date_to)).all()
+
+                    Filtered_searched_display_Screen.query_variable = trading_partner_name_with_both_added_date
 
                     for data in trading_partner_name_with_both_added_date:
                         print(data.invoice_number)
 
-                #3. if the user input trading partner name with only the starting range for invoices_added_date: = TESTED
+                #3. if the user input trading partner name with only the starting range for invoices_added_date: = TESTED TESTED
                 elif len(trading_partner_name) > 0 and len(invoices_added_date_from) > 0 and len(invoices_added_date_to)==0 and len(invoices_date_from)==0 and len(invoices_date_to)==0 and (payment_status is None or payment_status=="Every status"):
+                    print("the user input trading partner name with only the starting range for invoices_added_date")
                     trading_partner_name_with_staring_added_date = s.query(Invoice).filter(
                         Invoice.trading_partner_name == trading_partner_name,Invoice.invoice_added_date >= invoices_added_date_from).all()
+
+                    Filtered_searched_display_Screen.query_variable = trading_partner_name_with_staring_added_date
 
                     for data in trading_partner_name_with_staring_added_date:
                         print(data.invoice_number)
 
-                #4. if the user input trading partner name with only the ending range for invoices_added_date: = TESTED
+                #4. if the user input trading partner name with only the ending range for invoices_added_date: = TESTED TESTED
                 elif len(trading_partner_name) > 0 and len(invoices_added_date_to) > 0 and len(invoices_added_date_from)==0 and len(invoices_date_from)==0 and len(invoices_date_to)==0 and (payment_status is None or payment_status=="Every status"):
                     print("user input trading partner name with only the ending range for invoices_added_date")
                     trading_partner_name_with_ending_added_date = s.query(Invoice).filter(
                         Invoice.trading_partner_name == trading_partner_name,Invoice.invoice_added_date <= invoices_added_date_to).all()
 
+                    Filtered_searched_display_Screen.query_variable = trading_partner_name_with_ending_added_date
+
                     for data in trading_partner_name_with_ending_added_date:
                         print(data.invoice_number)
 
-                #5.  if the user input trading partner name with two ranges for invoice date: = TESTED
+                #5.  if the user input trading partner name with two ranges for invoice date: = TESTED TESTED
                 elif len(trading_partner_name) > 0 and len(invoices_date_from) > 0 and len(invoices_date_to)>0 and len(invoices_added_date_from)==0 and len(invoices_added_date_to)==0 and (payment_status is None or payment_status=="Every status"):
                     trading_partner_name_with_both_date = s.query(Invoice).filter(Invoice.trading_partner_name==trading_partner_name,and_(Invoice.invoice_date >= invoices_date_from,Invoice.invoice_date <= invoices_date_to)).all()
+
+                    Filtered_searched_display_Screen.query_variable = trading_partner_name_with_both_date
 
                     for data in trading_partner_name_with_both_date:
                         print(data.invoice_number)
 
-                #6. if the user input trading partner name with only the starting range for invoices_date: = TESTED
+                #6. if the user input trading partner name with only the starting range for invoices_date: = TESTED TESTED
                 elif len(trading_partner_name) > 0 and len(invoices_date_from) > 0 and len(invoices_date_to)==0 and len(invoices_added_date_from)==0 and len(invoices_added_date_to)==0 and (payment_status is None or payment_status=="Every status"):
                     trading_partner_name_with_staring_date = s.query(Invoice).filter(
                         Invoice.trading_partner_name == trading_partner_name,Invoice.invoice_date >= invoices_date_from).all()
 
+                    Filtered_searched_display_Screen.query_variable = trading_partner_name_with_staring_date
+
                     for data in trading_partner_name_with_staring_date:
                         print(data.invoice_number)
 
-                #7. if the user input trading partner name with only the ending range for invoices_date: = TESTED
+                #7. if the user input trading partner name with only the ending range for invoices_date: = TESTED TESTED
                 elif len(trading_partner_name) > 0 and len(invoices_date_to) > 0 and len(invoices_date_from)==0 and len(invoices_added_date_from)==0 and len(invoices_added_date_to)==0 and (payment_status is None or payment_status=="Every status"):
                     trading_partner_name_with_ending_date = s.query(Invoice).filter(
                         Invoice.trading_partner_name == trading_partner_name,Invoice.invoice_date <= invoices_date_to).all()
+
+                    Filtered_searched_display_Screen.query_variable = trading_partner_name_with_ending_date
 
                     for data in trading_partner_name_with_ending_date:
                         print(data.invoice_number)
 
 
-                #8. if the user input trading partner rame with 2 date ranges: = TESTED
+                #8. if the user input trading partner rame with 2 date ranges: = TESTED TESTED
                 elif len(trading_partner_name) > 0 and len(invoices_added_date_from) > 0 and len(invoices_added_date_to)>0 and len(invoices_date_from) > 0 and len(invoices_date_to)>0 and (payment_status is None or payment_status=="Every status"):
                     print("user input trading partner rame with 2 date ranges")
                     trading_partner_name_with_both_added_invoice_added_date_and_date = s.query(Invoice).filter(Invoice.trading_partner_name==trading_partner_name,
                                                                                         and_(Invoice.invoice_added_date >= invoices_added_date_from,Invoice.invoice_added_date <= invoices_added_date_to),
                                                                                         and_(Invoice.invoice_date >= invoices_date_from,Invoice.invoice_date <= invoices_date_to)).all()
+
+                    Filtered_searched_display_Screen.query_variable = trading_partner_name_with_both_added_invoice_added_date_and_date
 
 
                     for data in trading_partner_name_with_both_added_invoice_added_date_and_date:
@@ -762,7 +794,7 @@ class Filtered_searched_display_Screen(MDScreen):
                     print(invoices_date_to)
 
 
-                #9. if the user input only the payment status: = TESTED
+                #9. if the user input only the payment status: = TESTED TESTED
                 elif (payment_status is not None or payment_status!="Every status") and len(trading_partner_name)== 0 and len(invoices_added_date_from)==0 and len(invoices_added_date_to)==0 and len(invoices_date_from)==0 and len(invoices_date_to)==0:
                     print("if the user input only the payment status")
                     if payment_status == "Paid":
@@ -772,11 +804,14 @@ class Filtered_searched_display_Screen(MDScreen):
                     elif payment_status == "Partial paid":
                         payment_status = 0.5
                     payment_status_query = s.query(Invoice).filter(Invoice.paid==payment_status).all()
+
+                    Filtered_searched_display_Screen.query_variable = payment_status_query
+
                     for data in payment_status_query:
                         print(data.invoice_number)
 
 
-                #10. if the user input every input except the invoice_number: = TESTED
+                #10. if the user input every input except the invoice_number: = TESTED TESTED
                 elif len(trading_partner_name) > 0 and len(invoices_added_date_from) > 0 and len(invoices_added_date_to) > 0 and len(invoices_date_from) > 0 and len(invoices_date_to) > 0 and (payment_status is not None or payment_status!="Every status"):
                     print("if the user input every input except the invoice_number")
                     if payment_status == "Paid":
@@ -789,11 +824,14 @@ class Filtered_searched_display_Screen(MDScreen):
                                                                                         and_(Invoice.invoice_added_date >= invoices_added_date_from,Invoice.invoice_added_date <= invoices_added_date_to),
                                                                                         and_(Invoice.invoice_date >= invoices_date_from,Invoice.invoice_date <= invoices_date_to),
                                                                                         Invoice.paid ==payment_status).all()
+
+                    Filtered_searched_display_Screen.query_variable = query_every_thing_except_invoice_number
+
                     for data in query_every_thing_except_invoice_number:
                         print(data.invoice_number)
 
 
-                #11. if the user if the user input trading partner name with two ranges for invoices_added_date with the payment_status: = TESTED
+                #11.  if the user input trading partner name with two ranges for invoices_added_date with the payment_status: = TESTED TESTED
                 elif len(trading_partner_name) > 0 and len(invoices_added_date_from) > 0 and len(invoices_added_date_to) > 0 and len(invoices_date_from) == 0 and len(invoices_date_to) == 0 and (payment_status is not None or payment_status!="Every status"):
                     print("if the user if the user input trading partner name with two ranges for invoices_added_date with the payment_status")
                     if payment_status == "Paid":
@@ -805,11 +843,14 @@ class Filtered_searched_display_Screen(MDScreen):
                     trading_partner_two_invoices_added_date_payment_status = s.query(Invoice).filter(Invoice.trading_partner_name==trading_partner_name,
                                                                                         and_(Invoice.invoice_added_date >= invoices_added_date_from,Invoice.invoice_added_date <= invoices_added_date_to),
                                                                                       Invoice.paid ==payment_status).all()
+
+                    Filtered_searched_display_Screen.query_variable = trading_partner_two_invoices_added_date_payment_status
+
                     for data in trading_partner_two_invoices_added_date_payment_status:
                         print(data.invoice_number)
 
 
-                #12. if he user if the user input trading partner name with two ranges for invoice_date with the payment_status: = TESTED
+                #12. if the user input trading partner name with two ranges for invoice_date with the payment_status: = TESTED TESTED
                 elif len(trading_partner_name) >0  and len(invoices_date_from) > 0 and len(invoices_date_to) > 0 and len(invoices_added_date_from) == 0 and len(invoices_added_date_to) == 0 and (payment_status is not None or payment_status!="Every status"):
                     if payment_status == "Paid":
                         payment_status = 1
@@ -820,8 +861,162 @@ class Filtered_searched_display_Screen(MDScreen):
                     trading_partner_two_invoices_date_payment_status = s.query(Invoice).filter(Invoice.trading_partner_name==trading_partner_name,
                                                                                         and_(Invoice.invoice_date >= invoices_date_from,Invoice.invoice_date <= invoices_date_to),
                                                                                         Invoice.paid ==payment_status).all()
+
+                    Filtered_searched_display_Screen.query_variable = trading_partner_two_invoices_date_payment_status
+
                     for data in trading_partner_two_invoices_date_payment_status:
                         print(data.invoice_number)
+
+                #13 if the user only input only the two ranges for the invoices_added_date = TESTED TESTED
+                elif len(trading_partner_name) == 0  and len(invoices_date_from) == 0 and len(invoices_date_to) == 0 and len(invoices_added_date_from) > 0 and len(invoices_added_date_to) > 0 and (payment_status is  None or payment_status=="Every status"):
+                    only_two_ranges_invoices_added_date = s.query(Invoice).filter(and_(Invoice.invoice_added_date >= invoices_added_date_from,Invoice.invoice_added_date <= invoices_added_date_to)).all()
+                    Filtered_searched_display_Screen.query_variable = only_two_ranges_invoices_added_date
+
+
+                #14 if the user only input only two ranges for the invoices date = TESTED TESTED
+                elif len(trading_partner_name) == 0  and len(invoices_date_from) > 0 and len(invoices_date_to) > 0 and len(invoices_added_date_from) == 0 and len(invoices_added_date_to) == 0 and (payment_status is  None or payment_status=="Every status"):
+                    only_two_ranges_invoices_date = s.query(Invoice).filter(and_(Invoice.invoice_date >= invoices_date_from,Invoice.invoice_date <= invoices_date_to)).all()
+                    Filtered_searched_display_Screen.query_variable =  only_two_ranges_invoices_date
+
+            # Creating labels - Headings for the columns
+            id = MDLabel(text="No.", font_style="Subtitle2", halign="center")
+            self.ids.container.add_widget(id)
+
+            trading_partner_name = MDLabel(text="Trading partner name", font_style="Subtitle2",
+                                           halign="center")
+            self.ids.container.add_widget(trading_partner_name)
+
+            invoice_number = MDLabel(text="Invoice number", font_style="Subtitle2", halign="center")
+            self.ids.container.add_widget(invoice_number)
+            invoice_date = MDLabel(text="Invoice date", font_style="Subtitle2", halign="center")
+            self.ids.container.add_widget(invoice_date)
+            invoice_amount = MDLabel(text="Invoice amount", font_style="Subtitle2", halign="center")
+            self.ids.container.add_widget(invoice_amount)
+            invoice_currency = MDLabel(text="Invoice currency", font_style="Subtitle2", halign="center")
+            self.ids.container.add_widget(invoice_currency)
+            invoice_added_date = MDLabel(text="Invoice added date", font_style="Subtitle2", halign="center")
+            self.ids.container.add_widget(invoice_added_date)
+            tax = MDLabel(text="Tax", font_style="Subtitle2", halign="center")
+            self.ids.container.add_widget(tax)
+            description = MDLabel(text="Description", font_style="Subtitle2", halign="center")
+            self.ids.container.add_widget(description)
+            expired_contract_date = MDLabel(text="Expired contract date", font_style="Subtitle2",
+                                            halign="center")
+            self.ids.container.add_widget(expired_contract_date)
+            actual_payment_date = MDLabel(text="Actual payment date", font_style="Subtitle2",
+                                          halign="center")
+            self.ids.container.add_widget(actual_payment_date)
+            actual_payment_accepted_by = MDLabel(text="Actual payment date accepted by",
+                                                 font_style="Subtitle2", halign="center")
+            self.ids.container.add_widget(actual_payment_accepted_by)
+            overdue_period = MDLabel(text="Overdue period", font_style="Subtitle2", halign="center")
+            self.ids.container.add_widget(overdue_period)
+
+            notes_for_penalty_overdue = MDLabel(text="Notes for penalty overdue", font_style="Subtitle2",
+                                                halign="center")
+            self.ids.container.add_widget(notes_for_penalty_overdue)
+
+            paid = MDLabel(text="Paid? (1=paid, 0.5=partial paid, 0=unpaid)", font_style="Subtitle2",
+                           halign="center")
+            self.ids.container.add_widget(paid)
+
+            paid_amount = MDLabel(text="Paid amount", font_style="Subtitle2", halign="center")
+            self.ids.container.add_widget(paid_amount)
+
+            payment_unpaid_amount = MDLabel(text="Unpaid amount", font_style="Subtitle2", halign="center")
+            self.ids.container.add_widget(payment_unpaid_amount)
+
+            payment_date1 = MDLabel(text="Payment date 1", font_style="Subtitle2", halign="center")
+            self.ids.container.add_widget(payment_date1)
+
+            payment_date2 = MDLabel(text="Payment date 2", font_style="Subtitle2", halign="center")
+            self.ids.container.add_widget(payment_date2)
+
+            occurent = MDLabel(text="Occurent", font_style="Subtitle2", halign="center")
+            self.ids.container.add_widget(occurent)
+
+            invoice_added_by_user = MDLabel(text="Invoices added by user:", font_style="Subtitle2",
+                                            halign="center")
+            self.ids.container.add_widget(invoice_added_by_user)
+
+            print(Filtered_searched_display_Screen.query_variable)
+            # display the queried data:
+            for data in Filtered_searched_display_Screen.query_variable:
+                id = MDLabel(text=str(data.id), halign="center")
+                self.ids.container.add_widget(id)
+
+                # trading_partner_name = MDLabel(text=str(data.trading_partner_name), halign="center")
+                ##PROBLEM WITH CALL BACK THE TEXT FROM THE DOUBLE PRESSED LABEL
+                trading_partner_name = DoubleClickableLabel(text=str(data.trading_partner_name),
+                                                            halign="center", on_double_press=self.callback,
+                                                            color=(0, 0, 1, 1))
+                print(trading_partner_name.text)
+                self.ids.container.add_widget(trading_partner_name)
+
+                invoice_number = MDLabel(text=str(data.invoice_number), halign="center")
+                self.ids.container.add_widget(invoice_number)
+
+                invoice_date = MDLabel(text=str(data.invoice_date), halign="center")
+                self.ids.container.add_widget(invoice_date)
+
+                invoice_amount = MDLabel(text=str(data.invoice_amount), halign="center")
+                self.ids.container.add_widget(invoice_amount)
+
+                invoice_currency = MDLabel(text=str(data.invoice_currency), halign="center")
+                self.ids.container.add_widget(invoice_currency)
+
+                invoice_added_date = MDLabel(text=str(data.invoice_added_date), halign="center")
+                self.ids.container.add_widget(invoice_added_date)
+
+                tax = MDLabel(text=str(data.tax), halign="center")
+                self.ids.container.add_widget(tax)
+
+                description = MDLabel(text=str(data.description), halign="center")
+                self.ids.container.add_widget(description)
+
+                expired_contract_date = MDLabel(text=str(data.expired_contract_date), halign="center")
+                self.ids.container.add_widget(expired_contract_date)
+
+                actual_payment_date = MDLabel(text=str(data.actual_payment_date), halign="center")
+                self.ids.container.add_widget(actual_payment_date)
+
+                actual_payment_accepted_by = MDLabel(text=str(data.actual_payment_accepted_by),
+                                                     halign="center")
+                self.ids.container.add_widget(actual_payment_accepted_by)
+
+                overdue_period = MDLabel(text=str(data.overdue_period), halign="center")
+                self.ids.container.add_widget(overdue_period)
+
+                notes_for_penalty_overdue = MDLabel(text=str(data.notes_for_penalty_overdue),
+                                                    halign="center")
+                self.ids.container.add_widget(notes_for_penalty_overdue)
+
+                paid = MDLabel(text=str(data.paid), halign="center")
+                self.ids.container.add_widget(paid)
+
+                paid_amount = MDLabel(text=str(data.paid_amount), halign="center")
+                self.ids.container.add_widget(paid_amount)
+
+                payment_unpaid_amount = MDLabel(text=str(data.payment_unpaid_amount), halign="center")
+                self.ids.container.add_widget(payment_unpaid_amount)
+
+                payment_date1 = MDLabel(text=str(data.payment_date1), halign="center")
+                self.ids.container.add_widget(payment_date1)
+
+                payment_date2 = MDLabel(text=str(data.payment_date2), halign="center")
+                self.ids.container.add_widget(payment_date2)
+
+                occurent = MDLabel(text=str(data.occurent), halign="center")
+                self.ids.container.add_widget(occurent)
+
+                invoice_added_by_user = MDLabel(text=str(data.invoice_added_by_user), halign="center")
+                self.ids.container.add_widget(invoice_added_by_user)
+
+                s.close()
+
+                print(data.invoice_number)
+
+                    # print(Filtered_searched_display_Screen.query_variable)
 
 
 
