@@ -746,7 +746,6 @@ ScreenManager:
             font_style: "H6"
             halign:"left"
 
-        MDLabel:
 
         MDLabel:
             text: "FILTERED/SEARCHED INVOICES SCREEN"
@@ -758,10 +757,11 @@ ScreenManager:
         MDLabel:
 
         MDCard:
+            id: card1
             size_hint: 1, 0.1
             elevation: 0
-            padding: 30
-            pos_hint: {"center_x": 0.5, "top": 0.8}
+#            padding: 30
+#            pos_hint: {"center_x": 0.5, "top": 0.8}
             orientation: "horizontal"
 
             MDRectangleFlatIconButton:
@@ -778,19 +778,132 @@ ScreenManager:
                 on_release:
                     root.include_trading_partner_info()
 
+        MDLabel:
+
+        MDCard:
+            id: card4
+            size_hint: 1, 0.1
+            elevation: 0
+#            padding: 30
+#            pos_hint_x: 0.5
+
+#            pos_hint: {"center_x": 0.5, "top": 0.6}
+            orientation: "horizontal"
+
+            MDRectangleFlatIconButton:
+        #           icon: "food"
+                pos_hint: {'x': .305}
+                text: "<-Back to search/filter screen"
+                on_release:
+                    root.back_to_search_screen()
+
+            MDRectangleFlatIconButton:
+        #           icon: "food"
+                pos_hint: {'x': .305}
+                text: "Export to Excel"
+                on_release:
+                    root.export_excel()
+
+            MDRectangleFlatIconButton:
+        #           icon: "food"
+                pos_hint: {'x': .305}
+                text: "Export to PDF"
+                on_release:
+                    root.export_pdf()
+
 
         MDLabel:
 
         MDLabel:
+
+        MDCard:
+            id: card3
+            size_hint: 1, 0.1
+            elevation: 0
+#            padding: 30
+#            pos_hint: {"center_x": 0.5, "top": 0.8}
+            orientation: "horizontal"
+
+
+            MDLabel:
+                pos_hint: {'x': 0, "y": 5}
+                text: "Edit invoice number: "
+                font_style: "Body1"
+                halign:"left"
+
+            MDTextField:
+
+                pos_hint: {'x': 1, "y": 1.7}
+                id: edit_invoice_number_input
+#                hint_text: "..."
+#                icon_left: "email"
+                helper_text: "Invalid number"
+                helper_text_mode: "on_error"
+                required: False
+                halign:"left"
+
+
+
+            MDIconButton:
+                pos_hint: {'x': 2, "y": 1.7}
+                icon:  "fountain-pen"
+                halign:"left"
+                on_release:
+                    root.edit_invoice()
+
+
+
+        MDLabel:
+
+        MDLabel:
+
+
+        MDCard:
+            id: card2
+            size_hint: 1, 0.1
+            elevation: 0
+#            padding: 30
+#            pos_hint_x: 0.5
+
+#            pos_hint: {"center_x": 0.5, "top": 0.6}
+            orientation: "horizontal"
+
+            MDLabel:
+                pos_hint: {'x': 0, "y": 5}
+                text: "Delete invoice number: "
+                font_style: "Body1"
+                halign:"left"
+
+            MDTextField:
+                pos_hint: {'x': 1, "y": 5}
+                id: delete_invoice_number_input
+#                hint_text: "..."
+#                icon_left: "email"
+                helper_text: "Invalid number"
+                helper_text_mode: "on_error"
+                required: False
+                halign:"left"
+
+
+            MDIconButton:
+                pos_hint: {'x': 2, "y": 5}
+                icon:  "trash-can"
+                halign:"left"
+                on_release:
+                    root.remove_invoice()
+
+
+        MDLabel:
+
 
 
         ScrollView:
-            size_hint_y: 50
+#            size_hint_y: 50
+            size_hint_y: 10
             size_hint_x: 1
 
             do_scroll_x: True
             do_scroll_y: True
-
 
 
 
@@ -808,6 +921,7 @@ ScreenManager:
                 cols:21
                 row_default_height: 60
                 row_force_default: True
+
 
 
 
