@@ -288,6 +288,201 @@ class DoubleClickableLabel(Label):
     def on_double_press(self, *args):
         pass
 
+class Update_invoice_Screen(MDScreen):
+
+
+    def on_pre_enter(self, *args):
+        invoice_number = Filtered_searched_display_Screen.update_invoice_number
+
+        s = session()
+        query_invoice = s.query(Invoice).filter_by(id=invoice_number).first()
+
+
+        self.ids.trading_partner_label.text = f"Trading Partner Name: {query_invoice.trading_partner_name}"
+
+        self.ids.invoice_date_label.text = f"Invoice date (Format YYYY-MM-DD): {query_invoice.invoice_date}"
+
+        self.ids.invoice_number_label.text = f"Invoice number: {query_invoice.invoice_number}"
+
+        self.ids.invoice_amount_label.text = f"Invoice amount: {query_invoice.invoice_amount}"
+
+        self.ids.invoice_currency_label.text = f"Invoice currency: {query_invoice.invoice_currency}"
+
+        self.ids.tax_input_label.text = f"Tax for invoice: {query_invoice.tax}"
+
+        self.ids.actual_payment_date_label.text = f"Actual payment date: {query_invoice.actual_payment_date}"
+
+        self.ids.actual_payment_accepted_by_label.text = f"Actual payment date accepted by: {query_invoice.actual_payment_accepted_by}"
+
+        self.ids.description_label.text = f"Description: {query_invoice.description}"
+
+        self.ids.overdue_period_label.text = f"Overdue period: {query_invoice.overdue_period}"
+
+        self.ids.notes_for_penalty_label.text = f"Notes for penalty: {query_invoice.notes_for_penalty_overdue}"
+
+        self.ids.occurent_label.text = f"Occurent: {query_invoice.occurent}"
+
+        self.ids.paid_amount_label.text = f"Paid amount: {query_invoice.paid_amount}"
+
+        self.ids.payment_date1_label.text = f"Payment date 1: {query_invoice.payment_date1}"
+
+        self.ids.payment_date2_label.text = f"Payment date 2: {query_invoice.payment_date2}"
+
+    def update_invoice(self):
+        invoice_number = Filtered_searched_display_Screen.update_invoice_number
+
+        s = session()
+        query_invoice = s.query(Invoice).filter_by(id=invoice_number).first()
+
+        if (len(self.ids.trading_partner_label.text)>0 or len(self.ids.invoice_date_label.text)>0
+                or len(self.ids.invoice_number_label.text)>0 or len(self.ids.invoice_amount_label.text)>0
+            or len(self.ids.invoice_currency_label.text)>0 or len(self.ids.tax_input_label.text)>0
+            or len(self.ids.actual_payment_date_label.text)>0 or len(self.ids.actual_payment_accepted_by_label.text)>0
+            or len(self.ids.description_label.text)>0 or len(self.ids.overdue_period_label.text)>0
+            or len(self.ids.notes_for_penalty_label.text)>0 or len(self.ids.occurent_label.text)>0
+            or len(self.ids.paid_amount_label.text)>0 or len(self.ids.payment_date1_label.text)>0
+            or len(self.ids.payment_date2_label.text)>0):
+
+            #if there is at least 1 update in any part of the invoice, the invoices_added_date and the
+            #invoices_added_user need to be update properly:
+            query_invoice.invoice_added_date = str(date.today())
+            query_invoice.invoice_added_by_user = LoginScreen.current_user
+
+            s.commit()
+
+        if len(self.ids.trading_partner_input.text)>0:
+            #for the update of the trading partner, there need to be 1 more code
+            #to check if the updated trading partner exists already or not:
+            trading_partner_check = s.query(TradingPartner).filter_by(trading_partner_name=self.ids.trading_partner_input.text).first()
+            if trading_partner_check:
+                query_invoice.trading_partner_name = self.ids.trading_partner_input.text
+                s.commit()
+            else:
+                print("Trading partner doesn't exist=> pls add information of your new trading partner first!")
+
+        if len(self.ids.invoice_date_input.text) > 0:
+            query_invoice.invoice_date = self.ids.invoice_date_input.text
+            s.commit()
+
+        if len(self.ids.invoice_number_input.text) > 0:
+            query_invoice.invoice_number = self.ids.invoice_number_input.text
+            s.commit()
+
+        if len(self.ids.invoice_amount_input.text) > 0:
+            query_invoice.invoice_amount = int(self.ids.invoice_amount_input.text)
+            s.commit()
+
+        if len(self.ids.invoice_currency_input.text) > 0:
+            query_invoice.invoice_currency = self.ids.invoice_currency_input.text
+            s.commit()
+
+        if len(self.ids.tax_input.text) > 0:
+            query_invoice.tax = int(self.ids.tax_input.text)
+            s.commit()
+
+        if len(self.ids.actual_payment_date_input.text) > 0:
+            query_invoice.actual_payment_date = self.ids.actual_payment_date_input.text
+            s.commit()
+
+        if len(self.ids.actual_payment_accepted_by_input.text) > 0:
+            query_invoice.actual_payment_accepted_by = self.ids.actual_payment_accepted_by_input.text
+            s.commit()
+
+        if len(self.ids.description_input.text)>0:
+            query_invoice.description = self.ids.description_input.text
+            s.commit()
+
+        if len(self.ids.overdue_period_input.text)>0:
+            query_invoice.overdue_period = int(self.ids.overdue_period_input.text)
+            s.commit()
+
+        if len(self.ids.notes_for_penalty_input.text)>0:
+            query_invoice.notes_for_penalty_overdue= self.ids.notes_for_penalty_input.text
+            s.commit()
+
+        if len(self.ids.occurent_input.text )>0:
+            query_invoice.occurent= self.ids.occurent_input.text
+            s.commit()
+
+###### These codes below might cause some problem, look carefully!
+        if len(self.ids.paid_amount_input.text)>0:
+            query_invoice.paid_amount= int(self.ids.paid_amount_input.text)
+            s.commit()
+
+            payment_unpaid_amount = int(query_invoice.invoice_amount) - int(query_invoice.paid_amount)
+            query_invoice.payment_unpaid_amount = payment_unpaid_amount
+            s.commit()
+
+            if int(query_invoice.paid_amount) > 0 and int(query_invoice.paid_amount) < int(query_invoice.invoice_amount):
+                paid = 0.5
+                query_invoice.paid = paid
+                s.commit()
+            elif int(query_invoice.paid_amount) == int(query_invoice.invoice_amount):
+                paid = 1
+                query_invoice.paid = paid
+                s.commit()
+
+        # else:
+        #     payment_unpaid_amount = int(query_invoice.invoice_amount)
+        #     paid = 0
+        #     query_invoice.paid = paid
+        #     s.commit()
+########
+
+        if len(self.ids.payment_date1_input.text)>0:
+            query_invoice.payment_date1= self.ids.payment_date1_input.text
+            s.commit()
+
+        if len(self.ids.payment_date2_input.text)>0:
+            query_invoice.payment_date2= self.ids.payment_date2_input.text
+            s.commit()
+
+        #similary to when an user adds a new invoice,
+        #there need to be codes that calculate updated information
+        #and automatically fill some informations into the database:
+
+        # "expired_contract_date" = "Invoice Date" + "Contract Days"
+        invoice_date_datetime = datetime.strptime(query_invoice.invoice_date, "%Y-%m-%d")
+
+        # s = session()
+        trading_partner_check = s.query(TradingPartner).filter_by(trading_partner_name=query_invoice.trading_partner_name).first()
+        contract_days = trading_partner_check.contract_days
+
+        expired_contract_date0 = invoice_date_datetime + timedelta(days=contract_days)
+        expired_contract_date = str(expired_contract_date0)
+        query_invoice.expired_contract_date = expired_contract_date
+        # s.commit()
+
+        # the user might entered overdue period but forgot to also enter actual payment date,
+        # so the code below create the actual payment date for the user using the entered
+        # overdue period.
+
+        if len(self.ids.actual_payment_date_input.text) == 0 and len(self.ids.overdue_period_input.text) > 0:
+            # s = session()
+            trading_partner_check = s.query(TradingPartner).filter_by(
+                trading_partner_name=query_invoice.trading_partner_name).first()
+            contract_days = trading_partner_check.contract_days
+            invoice_date_datetime = datetime.strptime(query_invoice.invoice_date, "%Y-%m-%d")
+
+            expired_contract_date0 = invoice_date_datetime + timedelta(days=contract_days)
+
+
+            actual_payment_date = str(expired_contract_date0 + timedelta(days=int(self.ids.overdue_period_input.text)))
+            print(actual_payment_date)
+
+            query_invoice.actual_payment_date = str(expired_contract_date0 + timedelta(days=int(self.ids.overdue_period_input.text)))
+            print(query_invoice.actual_payment_date)
+            #PROBLEM: the commit below doesn't really commit the changes!
+            s.commit()
+
+        s.commit()
+
+        print("Invoice updated!")
+
+    def back_to_menu(self):
+        print("Back to menu")
+        self.parent.current = "HomeScreen"
+
 
 class Filtered_searched_display_with_trading_partner_info_Screen(MDScreen):
 
@@ -710,6 +905,24 @@ class Filtered_searched_display_Screen(MDScreen):
     # and then display everything using that query variable:
 
     query_variable = 0
+    update_invoice_number = 0
+
+    def edit_invoice(self):
+        Filtered_searched_display_Screen.update_invoice_number = self.ids.edit_invoice_number_input.text
+        print(f"Update invoice number {Filtered_searched_display_Screen.update_invoice_number}")
+        self.parent.current = "Update_invoice_Screen"
+
+    def remove_invoice(self):
+        pass
+
+    def back_to_search_screen(self):
+        self.parent.current = "FilterSearchInvoiceScreen"
+
+    def export_excel(self):
+        pass
+
+    def export_pdf(self):
+        pass
 
     def on_pre_enter(self, *args):
         self.ids.container.clear_widgets()
