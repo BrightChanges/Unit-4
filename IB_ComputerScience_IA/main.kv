@@ -36,6 +36,9 @@ ScreenManager:
     Filtered_searched_display_with_trading_partner_info_Screen
         name: "Filtered_searched_display_with_trading_partner_info_Screen"
 
+    Update_invoice_Screen
+        name: "Update_invoice_Screen"
+
 
 
 
@@ -1002,6 +1005,243 @@ ScreenManager:
                 row_default_height: 60
                 row_force_default: True
 
+
+
+<Update_invoice_Screen>:
+
+    BoxLayout:
+        orientation: 'vertical'
+        size: root.height, root.width
+
+        FitImage:
+            source: resource_path("coke_snack.jpeg")
+
+        MDLabel:
+            text: "Financiaz"
+            font_style: "H6"
+            halign:"left"
+
+        MDLabel:
+
+        MDLabel:
+            text: "UPDATE INVOICE INFO"
+            font_style: "H6"
+            halign:"left"
+
+        ScrollView:
+            size_hint_y: 50
+
+            do_scroll_x: False
+            do_scroll_y: True
+
+            GridLayout:
+                id: content #id or name
+                size: (root.width, root.height)
+                #in order for scroll view to work, need to set all size hint to None
+                size_hint_x: None
+                size_hint_y: None
+                cols: 1
+                #key for making comfortable is the height below:
+                height: root.height*3
+                #padding helps centerize elements, making better view
+                padding: dp(30)
+                #spacing put some space between elements
+                spacing: dp(20)
+
+                MDLabel:
+                    text: "To update any data about the invoice, please type your new data into its field. After you fill all your new data, click the Update button to complete the process."
+                    font_style: "Body2"
+                    halign:"left"
+                    bold: True
+
+                MDLabel:
+                    id: trading_partner_label
+                    font_style: "Body1"
+                    halign:"left"
+
+                #the MDTextField below will be changed to a SelectField later!
+                MDTextField:
+                    id: trading_partner_input
+                    hint_text: "Update Trading Partner"
+    #                icon_left: "email"
+
+
+                MDLabel:
+                    id: invoice_date_label
+                    font_style: "Body1"
+                    halign:"left"
+
+                MDTextField:
+                    id: invoice_date_input
+                    hint_text: "Update Invoice date (Format YYYY-MM-DD)"
+    #                icon_left: "email"
+
+
+                MDLabel:
+                    id: invoice_number_label
+                    font_style: "Body1"
+                    halign:"left"
+
+                MDTextField:
+                    id:invoice_number_input
+                    hint_text: "Update Invoice number"
+    #                icon_right: "eye-off"
+
+
+                MDLabel:
+                    id: invoice_amount_label
+                    font_style: "Body1"
+                    halign:"left"
+
+                MDTextField:
+                    id:invoice_amount_input
+                    hint_text: "Update Invoice amount"
+    #                icon_right: "eye-off"
+
+
+                MDLabel:
+                    id: invoice_currency_label
+                    font_style: "Body1"
+                    halign:"left"
+
+                #the MDTextField below will be changed to a SelectField later!
+                MDTextField:
+                    id:invoice_currency_input
+                    hint_text: "Update Invoice currency"
+    #                icon_right: "eye-off"
+
+
+                MDLabel:
+                    id: tax_input_label
+                    font_style: "Body1"
+                    halign:"left"
+
+                MDTextField:
+                    id:tax_input
+                    hint_text: "Update Tax%"
+    #                icon_right: "eye-off"
+
+
+                MDLabel:
+                    id: actual_payment_date_label
+                    font_style: "Body1"
+                    halign:"left"
+
+                MDTextField:
+                    id:actual_payment_date_input
+                    hint_text: "Update Actual payment date (Format YYYY-MM-DD)"
+    #                icon_right: "eye-off"
+
+
+                MDLabel:
+                    id: actual_payment_accepted_by_label
+                    font_style: "Body1"
+                    halign:"left"
+
+                #the MDTextField below will be changed to a SelectField later!
+                MDTextField:
+                    id:actual_payment_accepted_by_input
+                    hint_text: "Update Actual payment date accepted by"
+    #                icon_right: "eye-off"
+
+
+                MDLabel:
+                    id: description_label
+                    font_style: "Body1"
+                    halign:"left"
+
+                MDTextField:
+                    id:description_input
+                    hint_text: "Update Description"
+    #                icon_right: "eye-off"
+
+
+                MDLabel:
+                    id: overdue_period_label
+                    font_style: "Body1"
+                    halign:"left"
+
+                MDTextField:
+                    id:overdue_period_input
+                    hint_text: "Update Overdue period (days) "
+    #                icon_right: "eye-off"
+
+
+                MDLabel:
+                    id: notes_for_penalty_label
+                    font_style: "Body1"
+                    halign:"left"
+
+
+                MDTextField:
+                    id:notes_for_penalty_input
+                    hint_text: "Update Notes for penalty overdue"
+    #                icon_right: "eye-off"
+
+
+
+                MDLabel:
+                    id: occurent_label
+                    font_style: "Body1"
+                    halign:"left"
+
+
+                #the MDTextField below will be changed to a SelectField later!
+                MDTextField:
+                    id:occurent_input
+                    hint_text: "Update Occurent"
+    #                icon_right: "eye-off"
+
+
+                MDLabel:
+                    id: paid_amount_label
+                    font_style: "Body1"
+                    halign:"left"
+
+                MDTextFieldRound:
+                    id:paid_amount_input
+                    hint_text: "Update paid amount"
+                    normal_color: "5191b8"
+    #                icon_right: "eye-off"
+
+
+                MDLabel:
+                    id: payment_date1_label
+                    font_style: "Body1"
+                    halign:"left"
+
+                MDTextFieldRound:
+                    id:payment_date1_input
+                    hint_text: "Update input payment date 1 (Format YYYY-MM-DD)"
+                    normal_color: "5191b8"
+    #                icon_right: "eye-off"
+
+
+                MDLabel:
+                    id: payment_date2_label
+                    font_style: "Body1"
+                    halign:"left"
+
+
+                MDTextFieldRound:
+                    id:payment_date2_input
+                    hint_text: "Update input payment date 2 (Format YYYY-MM-DD)"
+                    normal_color: "5191b8"
+    #                icon_right: "eye-off"
+
+
+                MDRectangleFlatIconButton:
+    #                icon: "account-key"
+                    text: "Update invoice"
+                    on_release:
+                        root.update_invoice()
+
+                MDRectangleFlatIconButton:
+            #           icon: "food"
+                    pos_hint: {'x': .305}
+                    text: "<-Back to menu"
+                    on_release:
+                        root.back_to_menu()
 
 
 
