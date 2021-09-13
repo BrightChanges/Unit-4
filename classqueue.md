@@ -25,6 +25,7 @@ class Queue:
         if self.isempty() == False:
             for i in range(1,len(self.data)):
                 updated_queue.append(self.data[i])
+        self.data = updated_queue
         print(self.data)
         return updated_queue
 
