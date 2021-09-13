@@ -8,8 +8,6 @@
 
 ```.py
 
-
-
 class Queue:
 
     def __init__(self, data):
@@ -18,7 +16,7 @@ class Queue:
     def enqueue(self, value):
         if self.isempty() == False:
             self.data.append(value)
-        print(self.data)
+        return self.data
 
 
 
@@ -28,7 +26,7 @@ class Queue:
             for i in range(1,len(self.data)):
                 updated_queue.append(self.data[i])
         print(self.data)
-        print(updated_queue)
+        return updated_queue
 
     def isempty(self):
         return len(self.data) == 0
@@ -36,13 +34,11 @@ class Queue:
 
 Queue1 = Queue(["printer","CPU task scheduling","call center"])
 
-Queue1.enqueue("spotify")
-Queue1.enqueue("handling of interrupt")
-Queue1.enqueue("virtual waitlist")
-Queue1.dequeue()
-Queue1.dequeue()
-
-
+print(Queue1.enqueue("spotify"))
+print(Queue1.enqueue("handling of interrupt"))
+print(Queue1.enqueue("virtual waitlist"))
+print(Queue1.dequeue())
+print(Queue1.dequeue())
 
 
 ```
