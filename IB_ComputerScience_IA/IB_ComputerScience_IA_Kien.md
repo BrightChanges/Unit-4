@@ -44,6 +44,8 @@ According to these requirements, I decided to make the program in Python, Kivy, 
 
 ## Criterion B: Solution Overview
 
+### For each diagram, adds a short explanation of why I created it!
+
 ### System diagram 
 ![](https://github.com/BrightChanges/Unit-4/blob/main/IB_ComputerScience_IA/CSIA_System%20diagram.png)
 Image 1: System diagram of the program
