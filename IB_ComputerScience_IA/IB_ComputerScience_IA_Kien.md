@@ -31,7 +31,7 @@ According to these requirements, I decided to make the program in Python, Kivy, 
 3. Program lets the client to input fixed data columns about the Trading Partner and pre-stored data in these fixed data columns for every subsequent invoices added to the program after the first time
 4. Each of data columns contains the required data format by the clients (some are number, string, date)
 5. Let the client filtered/search invoices based on required data columns such as Invoice Number, Payment information, the Actual Payment time, Priority rank, Paid, Sector, Supplier Name into tables that are viewable on the screen
-6. Let the client export the filtered/search invoices tables to reports in Excel and PDF formats.
+6. Let the client export the filtered/search invoices tables (the invoices don't need to include trading partner data columns) to reports in Excel and PDF formats.
 7. Let the client export the whole database of invoices to reports in Excel and PDF formats.
 8. Let the client create 2 main types of reports: Overdue Invoice Report and Invoice Payment Schedule Report and export them to reports in Excel and PDF formats.
 9. Each of the 2 main types of reports will need to be structured in the way that the client want (including headers, report generated time, font type)
