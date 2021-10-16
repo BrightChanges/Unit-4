@@ -288,8 +288,133 @@ class DoubleClickableLabel(Label):
     def on_double_press(self, *args):
         pass
 
+class Update_trading_partner_Screen(MDScreen):
+    def on_pre_enter(self, *args):
+        invoice_number = Filtered_searched_display_Screen.update_invoice_number
+        s = session()
+        query_invoice = s.query(Invoice).filter_by(id=invoice_number).first()
+        trading_partner = query_invoice.trading_partner_name
+
+        query_trading_partner = s.query(TradingPartner).filter_by(trading_partner_name=trading_partner).first()
+
+        self.ids.trading_partner_name_label.text = f"Trading Partner Name: {query_trading_partner.trading_partner_name}"
+
+        self.ids.supplier_name_label.text = f"Supplier Name: {query_trading_partner.supplier_name}"
+
+        self.ids.sector_label.text = f"Sector: {query_trading_partner.sector}"
+
+        self.ids.contract_days_label.text = f"Contract days: {query_trading_partner.contract_days}"
+
+        self.ids.priority_rank_label.text = f"Priority rank: {query_trading_partner.priority_rank}"
+
+        self.ids.remit_to_bank_account_name_label.text = f"Remit to bank account name: {query_trading_partner.remit_to_bank_account_name}"
+
+        self.ids.remit_to_bank_account_number_label.text = f"Remit to bank account number: {query_trading_partner.remit_to_bank_account_number}"
+
+    def update_trading_partner(self):
+        #Need to update any field that is updated about the Trading Partner
+        #then do a for loop through every invoices with the trading partner id
+        #and update all the updated information about the Trading Partner into the invoices:
+        invoice_number = Filtered_searched_display_Screen.update_invoice_number
+        s = session()
+        query_invoice = s.query(Invoice).filter_by(id=invoice_number).first()
+        trading_partner = query_invoice.trading_partner_name
+
+        query_trading_partner = s.query(TradingPartner).filter_by(trading_partner_name=trading_partner).first()
+        all_needed_to_be_update_invoices = s.query(Invoice).filter_by(trading_partner_name=trading_partner)
+
+        for invoices in all_needed_to_be_update_invoices:
+            print(invoices.trading_partner_name, invoices.invoice_number)
+
+        if (len(self.ids.trading_partner_name_input.text) > 0 or len(self.ids.supplier_name_input.text) > 0
+                or len(self.ids.sector_input.text) > 0 or len(self.ids.contract_days_input.text) > 0
+                or len(self.ids.priority_rank_input.text) > 0 or len(self.ids.remit_to_bank_account_name_input.text) > 0
+                or len(self.ids.remit_to_bank_account_number_input.text)>0):
+
+            #First, if anything is changed with the trading partner, the user who upload this trading partner
+            # will be updated to the user who made the new update: = TESTED
+            query_trading_partner.trading_partner_added_by_user = LoginScreen.current_user
+
+            #Second, if trading_partner_name is changed, we need to make sure
+            #that it cannot be changed to an exisitng trading parter due to data integrity: = TESTED
+
+            if len(self.ids.trading_partner_name_input.text) > 0:
+                # for the update of the trading partner, there need to be 1 more code
+                # to check if the updated trading partner exists already or not:
+                trading_partner_check = s.query(TradingPartner).filter_by(
+                    trading_partner_name=self.ids.trading_partner_name_input.text).first()
+                if trading_partner_check:
+                    print("The trading partner that you wanted to update to already existed. Pls update to a non-exisiting trading partner")
+                else:
+                    # update the trading partner name in the Trading partner data table:
+                    query_trading_partner.trading_partner_name = self.ids.trading_partner_name_input.text
+                    s.commit()
+                    # update the trading partner name for all invoices with the updated
+                    # trading partner name:
+                    for invoices in all_needed_to_be_update_invoices:
+                        invoices.trading_partner_name = self.ids.trading_partner_name_input.text
+                        s.commit()
+
+            #little bit more complicated code below for
+            # I will need to update the "Expired Contract Date" in each invoice
+            # as well:
+            # (with Expired Contract Date = Invoice date plus the updated Contract Days) = TESTED
+            if len(self.ids.contract_days_input.text) > 0:
+                # first, update the contract days in the trading parter:
+                query_trading_partner.contract_days = self.ids.contract_days_input.text
+                s.commit()
+                #second, update all expired contract date of each invoice:
+                for invoices in all_needed_to_be_update_invoices:
+                    invoice_date_datetime = datetime.strptime(invoices.invoice_date, "%Y-%m-%d")
+                    expired_contract_date0 = invoice_date_datetime + timedelta(days=int(self.ids.contract_days_input.text))
+                    invoices.expired_contract_date = str(expired_contract_date0)
+                    s.commit()
+
+            if len(self.ids.supplier_name_input.text) > 0: # = TESTED
+                # for the update of the supplier name, there need to be 1 more code
+                # to check if the updated supplier name exists already or not:
+                supplier_name_check = s.query(TradingPartner).filter_by(
+                    supplier_name=self.ids.supplier_name_input.text).first()
+                if supplier_name_check:
+                    print("The supplier name that you wanted to update to already existed. Pls update to a non-exisiting supplier name")
+                else:
+                    # update the trading partner name in the Trading partner data table:
+                    query_trading_partner.supplier_name = self.ids.supplier_name_input.text
+                    s.commit()
+
+            if len(self.ids.sector_input.text) > 0: # = TESTED
+                query_trading_partner.sector = self.ids.sector_input.text
+                s.commit()
+
+            if len(self.ids.priority_rank_input.text) > 0: # = TESTED
+                query_trading_partner.priority_rank = self.ids.priority_rank_input.text
+                s.commit()
+
+            if len(self.ids.remit_to_bank_account_name_input.text) > 0: # = TESTED
+                query_trading_partner.remit_to_bank_account_name = self.ids.remit_to_bank_account_name_input.text
+                s.commit()
+
+            if len(self.ids.remit_to_bank_account_number_input.text)>0: # = TESTED
+                query_trading_partner.remit_to_bank_account_number = self.ids.remit_to_bank_account_number_input.text
+                s.commit()
+
+
+    def back_to_menu(self):
+        print("Back to menu")
+        self.parent.current = "HomeScreen"
+
+
+
 class Update_invoice_Screen(MDScreen):
 
+    def update_trading_partner(self):
+
+
+        print("To update trading partner screen")
+        self.parent.current = "Update_trading_partner_Screen"
+
+
+        ##Need to redirect the user to the Update trading partner Screen
 
     def on_pre_enter(self, *args):
         invoice_number = Filtered_searched_display_Screen.update_invoice_number
@@ -299,6 +424,8 @@ class Update_invoice_Screen(MDScreen):
 
 
         self.ids.trading_partner_label.text = f"Trading Partner Name: {query_invoice.trading_partner_name}"
+
+        # self.ids.update_trading_partner_button_text.text = f"Update trading partner's info"
 
         self.ids.invoice_date_label.text = f"Invoice date (Format YYYY-MM-DD): {query_invoice.invoice_date}"
 
@@ -322,7 +449,10 @@ class Update_invoice_Screen(MDScreen):
 
         self.ids.occurent_label.text = f"Occurent: {query_invoice.occurent}"
 
-        self.ids.paid_amount_label.text = f"Paid amount: {query_invoice.paid_amount}"
+        if isinstance(query_invoice.paid_amount, int):
+            self.ids.paid_amount_label.text = f"Paid amount: {query_invoice.paid_amount}"
+        else:
+            self.ids.paid_amount_label.text = f"Paid amount: 0"
 
         self.ids.payment_date1_label.text = f"Payment date 1: {query_invoice.payment_date1}"
 
@@ -334,14 +464,14 @@ class Update_invoice_Screen(MDScreen):
         s = session()
         query_invoice = s.query(Invoice).filter_by(id=invoice_number).first()
 
-        if (len(self.ids.trading_partner_label.text)>0 or len(self.ids.invoice_date_label.text)>0
-                or len(self.ids.invoice_number_label.text)>0 or len(self.ids.invoice_amount_label.text)>0
-            or len(self.ids.invoice_currency_label.text)>0 or len(self.ids.tax_input_label.text)>0
-            or len(self.ids.actual_payment_date_label.text)>0 or len(self.ids.actual_payment_accepted_by_label.text)>0
-            or len(self.ids.description_label.text)>0 or len(self.ids.overdue_period_label.text)>0
-            or len(self.ids.notes_for_penalty_label.text)>0 or len(self.ids.occurent_label.text)>0
-            or len(self.ids.paid_amount_label.text)>0 or len(self.ids.payment_date1_label.text)>0
-            or len(self.ids.payment_date2_label.text)>0):
+        #TESTED
+        if (len(self.ids.invoice_date_input.text)>0 or len(self.ids.invoice_number_input.text)>0
+                or len(self.ids.invoice_amount_input.text)>0 or len(self.ids.invoice_currency_input.text)>0
+            or len(self.ids.tax_input.text)>0 or len(self.ids.actual_payment_date_input.text)>0
+            or len(self.ids.actual_payment_accepted_by_input.text)>0 or len(self.ids.description_input.text)>0
+            or len(self.ids.overdue_period_input.text)>0 or len(self.ids.notes_for_penalty_input.text)>0
+            or len(self.ids.occurent_input.text)>0 or len(self.ids.paid_amount_input.text)>0
+            or len(self.ids.payment_date1_input.text)>0 or len(self.ids.payment_date2_input.text)>0):
 
             #if there is at least 1 update in any part of the invoice, the invoices_added_date and the
             #invoices_added_user need to be update properly:
@@ -350,6 +480,13 @@ class Update_invoice_Screen(MDScreen):
 
             s.commit()
 
+        #TESTED
+        #For data integrity, trading partner of an invoice cannot be changed.
+        #However, information about a trading partner can be changed
+        #after any partner's info is change, a for loop for updating
+        #all invoices with that partner's info is neccessary.
+        #the user who updated the trading partner will also be updated
+        #as the user who entered the trading partner
         if len(self.ids.trading_partner_input.text)>0:
             #for the update of the trading partner, there need to be 1 more code
             #to check if the updated trading partner exists already or not:
@@ -364,47 +501,57 @@ class Update_invoice_Screen(MDScreen):
             query_invoice.invoice_date = self.ids.invoice_date_input.text
             s.commit()
 
+        #TESTED
         if len(self.ids.invoice_number_input.text) > 0:
             query_invoice.invoice_number = self.ids.invoice_number_input.text
             s.commit()
+
+        #TESTED but PROBLEM with updating unpaid amount!!
 
         if len(self.ids.invoice_amount_input.text) > 0:
             query_invoice.invoice_amount = int(self.ids.invoice_amount_input.text)
             s.commit()
 
+        #TESTED
         if len(self.ids.invoice_currency_input.text) > 0:
             query_invoice.invoice_currency = self.ids.invoice_currency_input.text
             s.commit()
 
+        #TESTED
         if len(self.ids.tax_input.text) > 0:
             query_invoice.tax = int(self.ids.tax_input.text)
             s.commit()
 
+        #TESTED
         if len(self.ids.actual_payment_date_input.text) > 0:
             query_invoice.actual_payment_date = self.ids.actual_payment_date_input.text
             s.commit()
 
+        #TESTED
         if len(self.ids.actual_payment_accepted_by_input.text) > 0:
             query_invoice.actual_payment_accepted_by = self.ids.actual_payment_accepted_by_input.text
             s.commit()
 
+        #TESTED
         if len(self.ids.description_input.text)>0:
             query_invoice.description = self.ids.description_input.text
             s.commit()
 
+        #TESTED
         if len(self.ids.overdue_period_input.text)>0:
             query_invoice.overdue_period = int(self.ids.overdue_period_input.text)
             s.commit()
 
+        #TESTED
         if len(self.ids.notes_for_penalty_input.text)>0:
             query_invoice.notes_for_penalty_overdue= self.ids.notes_for_penalty_input.text
             s.commit()
-
+        #TESTED
         if len(self.ids.occurent_input.text )>0:
             query_invoice.occurent= self.ids.occurent_input.text
             s.commit()
 
-###### These codes below might cause some problem, look carefully!
+        #TESTED
         if len(self.ids.paid_amount_input.text)>0:
             query_invoice.paid_amount= int(self.ids.paid_amount_input.text)
             s.commit()
@@ -422,41 +569,19 @@ class Update_invoice_Screen(MDScreen):
                 query_invoice.paid = paid
                 s.commit()
 
-        # else:
-        #     payment_unpaid_amount = int(query_invoice.invoice_amount)
-        #     paid = 0
-        #     query_invoice.paid = paid
-        #     s.commit()
-########
 
+        #TESTED
         if len(self.ids.payment_date1_input.text)>0:
             query_invoice.payment_date1= self.ids.payment_date1_input.text
             s.commit()
 
+        #TESTED
         if len(self.ids.payment_date2_input.text)>0:
             query_invoice.payment_date2= self.ids.payment_date2_input.text
             s.commit()
 
-        #similary to when an user adds a new invoice,
-        #there need to be codes that calculate updated information
-        #and automatically fill some informations into the database:
 
-        # "expired_contract_date" = "Invoice Date" + "Contract Days"
-        invoice_date_datetime = datetime.strptime(query_invoice.invoice_date, "%Y-%m-%d")
-
-        # s = session()
-        trading_partner_check = s.query(TradingPartner).filter_by(trading_partner_name=query_invoice.trading_partner_name).first()
-        contract_days = trading_partner_check.contract_days
-
-        expired_contract_date0 = invoice_date_datetime + timedelta(days=contract_days)
-        expired_contract_date = str(expired_contract_date0)
-        query_invoice.expired_contract_date = expired_contract_date
-        # s.commit()
-
-        # the user might entered overdue period but forgot to also enter actual payment date,
-        # so the code below create the actual payment date for the user using the entered
-        # overdue period.
-
+        #TESTED
         if len(self.ids.actual_payment_date_input.text) == 0 and len(self.ids.overdue_period_input.text) > 0:
             # s = session()
             trading_partner_check = s.query(TradingPartner).filter_by(
@@ -912,8 +1037,14 @@ class Filtered_searched_display_Screen(MDScreen):
         print(f"Update invoice number {Filtered_searched_display_Screen.update_invoice_number}")
         self.parent.current = "Update_invoice_Screen"
 
-    def remove_invoice(self):
-        pass
+    def remove_invoice(self): # = TESTED
+        delete_invoice_number = self.ids.delete_invoice_number_input.text
+        s = session()
+        s.query(Invoice).filter_by(id=delete_invoice_number).delete()
+        s.commit()
+        print(f"Invoice no. {delete_invoice_number} is deleted")
+        self.parent.current = "HomeScreen"
+
 
     def back_to_search_screen(self):
         self.parent.current = "FilterSearchInvoiceScreen"
