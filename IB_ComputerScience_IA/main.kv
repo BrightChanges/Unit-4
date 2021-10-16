@@ -39,6 +39,10 @@ ScreenManager:
     Update_invoice_Screen
         name: "Update_invoice_Screen"
 
+    Update_trading_partner_Screen
+        name: "Update_trading_partner_Screen"
+
+
 
 
 
@@ -1006,6 +1010,144 @@ ScreenManager:
                 row_force_default: True
 
 
+<Update_trading_partner_Screen>:
+
+    BoxLayout:
+        orientation: 'vertical'
+        size: root.height, root.width
+
+        FitImage:
+            source: resource_path("coke_snack.jpeg")
+
+        MDLabel:
+            text: "Financiaz"
+            font_style: "H6"
+            halign:"left"
+
+        MDLabel:
+
+        MDLabel:
+            text: "UPDATE TRADING PARTNER INFO"
+            font_style: "H6"
+            halign:"left"
+
+        ScrollView:
+            size_hint_y: 50
+
+            do_scroll_x: False
+            do_scroll_y: True
+
+            GridLayout:
+                id: content #id or name
+                size: (root.width, root.height)
+                #in order for scroll view to work, need to set all size hint to None
+                size_hint_x: None
+                size_hint_y: None
+                cols: 1
+                #key for making comfortable is the height below:
+                height: root.height*3
+                #padding helps centerize elements, making better view
+                padding: dp(30)
+                #spacing put some space between elements
+                spacing: dp(20)
+
+                MDLabel:
+                    text: "To update any data about the trading partner, please type your new data into its field. After you fill all your new data, click the Update button to complete the process."
+                    font_style: "Body2"
+                    halign:"left"
+                    bold: True
+
+                MDLabel:
+                    id: trading_partner_name_label
+                    font_style: "Body1"
+#                    halign:"left"
+
+                MDTextField:
+                    id: trading_partner_name_input
+                    hint_text: "Update Trading Partner Name"
+    #                icon_right: "eye-off"
+
+
+                MDLabel:
+                    id: supplier_name_label
+                    font_style: "Body1"
+                    halign:"left"
+
+                MDTextField:
+                    id: supplier_name_input
+                    hint_text: "Update Supplier Name"
+    #                icon_left: "email"
+
+
+                MDLabel:
+                    id: sector_label
+                    font_style: "Body1"
+                    halign:"left"
+
+                MDTextField:
+                    id:sector_input
+                    hint_text: "Update Sector"
+    #                icon_right: "eye-off"
+
+
+                MDLabel:
+                    id: contract_days_label
+                    font_style: "Body1"
+                    halign:"left"
+
+                MDTextField:
+                    id:contract_days_input
+                    hint_text: "Update Contract Days"
+    #                icon_right: "eye-off"
+
+
+                MDLabel:
+                    id: priority_rank_label
+                    font_style: "Body1"
+                    halign:"left"
+
+
+                MDTextField:
+                    id:priority_rank_input
+                    hint_text: "Update Priority Rank"
+    #                icon_right: "eye-off"
+
+
+                MDLabel:
+                    id: remit_to_bank_account_name_label
+                    font_style: "Body1"
+                    halign:"left"
+
+                MDTextField:
+                    id:remit_to_bank_account_name_input
+                    hint_text: "Update Remit to bank account name"
+    #                icon_right: "eye-off"
+
+
+                MDLabel:
+                    id: remit_to_bank_account_number_label
+                    font_style: "Body1"
+                    halign:"left"
+
+                MDTextField:
+                    id:remit_to_bank_account_number_input
+                    hint_text: "Update Remit to bank account number"
+    #                icon_right: "eye-off"
+
+
+                MDRectangleFlatIconButton:
+    #                icon: "account-key"
+                    text: "Update trading partner"
+                    on_release:
+                        root.update_trading_partner()
+
+                MDRectangleFlatIconButton:
+            #           icon: "food"
+                    pos_hint: {'x': .305}
+                    text: "<-Back to menu"
+                    on_release:
+                        root.back_to_menu()
+
 
 <Update_invoice_Screen>:
 
@@ -1059,12 +1201,15 @@ ScreenManager:
                     font_style: "Body1"
                     halign:"left"
 
-                #the MDTextField below will be changed to a SelectField later!
-                MDTextField:
-                    id: trading_partner_input
-                    hint_text: "Update Trading Partner"
-    #                icon_left: "email"
+                MDLabel:
+                    font_style: "Body2"
+                    text: "For data integrity, once an invoice is added, its trading partner cannot be changed. However, you can click the icon below to update the information of the current trading partner:"
 
+
+                MDIconButton:
+                    icon: "factory"
+                    on_release:
+                        root.update_trading_partner()
 
                 MDLabel:
                     id: invoice_date_label
