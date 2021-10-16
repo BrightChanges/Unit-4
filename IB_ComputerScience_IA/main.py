@@ -1,6 +1,7 @@
 
 import hashlib, binascii, os
 import sys
+from sqlalchemy import desc, asc
 # import time
 from datetime import datetime
 from datetime import timedelta
@@ -290,6 +291,173 @@ class DoubleClickableLabel(Label):
     def on_double_press(self, *args):
         pass
 
+
+class Generate_reports_Screen(MDScreen):
+
+    def generate_overdue_invoice_report(self):
+        print("Generate OVERDUE INVOICE REPORT now ")
+
+        ranking_sorted_list = []
+
+        report_generated_date = str(date.today())
+        s = session()
+        overdue_invoices = s.query(Invoice).filter(Invoice.actual_payment_date<report_generated_date,
+                                                   Invoice.paid == 0).order_by(asc(Invoice.actual_payment_date)).all()
+
+        for invoices in overdue_invoices:
+            ranking_of_invoice = s.query(TradingPartner).filter(TradingPartner.trading_partner_name==invoices.trading_partner_name).first().priority_rank
+
+            print(invoices.invoice_number, ranking_of_invoice)
+
+        #was able to generate all overdue invoices, now I need to also order them by ranking
+        #for those that have same actual_payment_date:
+        #I can add all of them into a list and then sort them out into order
+        #and then I would query each of the invoice using the invoice number
+        #in the list and adds it in the excel, creating a group of overdue invoices
+        #in order of most importance
+
+            to_be_ordered_by_ranking_invoice_item = str(invoices.invoice_number) + str(ranking_of_invoice)
+            ranking_sorted_list.append(to_be_ordered_by_ranking_invoice_item)
+
+        print(ranking_sorted_list)
+        for invoice_index in range(len(ranking_sorted_list)):
+            # print(ranking_sorted_list[invoice_index][0:-1])
+
+            for invoice_index in range(len(ranking_sorted_list)-1):
+
+                actual_payment_date_of_current_index_invoice = s.query(Invoice).filter_by(invoice_number = ranking_sorted_list[invoice_index][0:-1]).first().actual_payment_date
+                ranking_of__current_index_invoice = ranking_sorted_list[invoice_index][-1]
+
+                actual_payment_date_of_next_index_invoice = s.query(Invoice).filter_by(invoice_number = ranking_sorted_list[invoice_index+1][0:-1]).first().actual_payment_date
+                ranking_of__next_index_invoice = ranking_sorted_list[invoice_index+1][-1]
+
+                if actual_payment_date_of_current_index_invoice == actual_payment_date_of_next_index_invoice:
+                    if ranking_of__next_index_invoice < ranking_of__current_index_invoice:
+                        holder = ranking_sorted_list[invoice_index]
+                        ranking_sorted_list[invoice_index] = ranking_sorted_list[invoice_index+1]
+                        ranking_sorted_list[invoice_index + 1] = holder
+
+        print(ranking_sorted_list)
+
+        workbook_name = str(report_generated_date) + ".xlsx"
+        workbook = xlsxwriter.Workbook(workbook_name)
+        worksheet = workbook.add_worksheet()
+
+        worksheet.write(0, 0, "OVERDUE INVOICE REPORT")
+        worksheet.write(1, 0, f"Report generated date: {report_generated_date}")
+
+
+        worksheet.write(2, 0, "ID")
+        worksheet.write(2, 1, "Trading partner ID")
+        worksheet.write(2, 2, "Trading partner name")
+        worksheet.write(2, 3, "Invoice number")
+        worksheet.write(2, 4, "Invoice date")
+        worksheet.write(2, 5, "Invoice amount")
+        worksheet.write(2, 6, "Invoice currency")
+        worksheet.write(2, 7, "Invoice added date")
+        worksheet.write(2, 8, "Tax")
+        worksheet.write(2, 9, "Description")
+        worksheet.write(2, 10, "Expired contract date")
+        worksheet.write(2, 11, "Actual payment date")
+        worksheet.write(2, 12, "Actual payment date accepted by")
+        worksheet.write(2, 13, "Overdue period")
+        worksheet.write(2, 14, "Notes for penalty overdue")
+        worksheet.write(2, 15, "Paid")
+        worksheet.write(2, 16, "Paid amount")
+        worksheet.write(2, 17, "Payment unpaid amount")
+        worksheet.write(2, 18, "Payment date 1")
+        worksheet.write(2, 19, "Payment date 2")
+        worksheet.write(2, 20, "Occurent")
+        worksheet.write(2, 21, "Invoice added by user")
+
+        row_index = 2
+
+        for invoice_index in range(len(ranking_sorted_list)):
+            row_index += 1
+            column_index = 0
+
+            invoice_query = s.query(Invoice).filter_by(invoice_number = ranking_sorted_list[invoice_index][0:-1]).first()
+
+
+            worksheet.write(row_index, column_index, invoice_query.id)
+            column_index += 1
+            worksheet.write(row_index, column_index, invoice_query.trading_partner_id)
+            column_index += 1
+            worksheet.write(row_index, column_index, invoice_query.trading_partner_name)
+            column_index += 1
+            worksheet.write(row_index, column_index, invoice_query.invoice_number)
+            column_index += 1
+            worksheet.write(row_index, column_index, invoice_query.invoice_date)
+            column_index += 1
+            worksheet.write(row_index, column_index, invoice_query.invoice_amount)
+            column_index += 1
+            worksheet.write(row_index, column_index, invoice_query.invoice_currency)
+            column_index += 1
+            worksheet.write(row_index, column_index, invoice_query.invoice_added_date)
+            column_index += 1
+            worksheet.write(row_index, column_index, invoice_query.tax)
+            column_index += 1
+            worksheet.write(row_index, column_index, invoice_query.description)
+            column_index += 1
+            worksheet.write(row_index, column_index, invoice_query.expired_contract_date)
+            column_index += 1
+            worksheet.write(row_index, column_index, invoice_query.actual_payment_date)
+            column_index += 1
+            worksheet.write(row_index, column_index, invoice_query.actual_payment_accepted_by)
+            column_index += 1
+            worksheet.write(row_index, column_index, invoice_query.overdue_period)
+            column_index += 1
+            worksheet.write(row_index, column_index, invoice_query.notes_for_penalty_overdue)
+            column_index += 1
+            worksheet.write(row_index, column_index, invoice_query.paid)
+            column_index += 1
+            worksheet.write(row_index, column_index, invoice_query.paid_amount)
+            column_index += 1
+            worksheet.write(row_index, column_index, invoice_query.payment_unpaid_amount)
+            column_index += 1
+            worksheet.write(row_index, column_index, invoice_query.payment_date1)
+            column_index += 1
+            worksheet.write(row_index, column_index, invoice_query.payment_date2)
+            column_index += 1
+            worksheet.write(row_index, column_index, invoice_query.occurent)
+            column_index += 1
+            worksheet.write(row_index, column_index, invoice_query.invoice_added_by_user)
+
+        workbook.close()
+
+        ##the code below help make all item in all_data from the table iterable:
+
+    def to_dict(row):
+        if row is None:
+            return None
+
+        # creates a dictionary:
+        rtn_dict = dict()
+        # converts the column headers of the table into the keys of the dictionary
+        keys = row.__table__.columns.keys()
+
+        for key in keys:
+            rtn_dict[key] = getattr(row, key)
+        return rtn_dict
+
+
+
+
+
+
+
+
+
+
+
+
+    def generate_invoice_payment_schedule_report(self):
+        print("Generate INVOICE PAYMENT SCHEDULE REPORT now")
+
+    def back_to_menu(self):
+        print("Back to menu")
+        self.parent.current = "HomeScreen"
+
 class Export_excel_filtered_table_Screen(MDScreen):
 
     def back_to_menu(self):
@@ -560,15 +728,15 @@ class Update_invoice_Screen(MDScreen):
         #all invoices with that partner's info is neccessary.
         #the user who updated the trading partner will also be updated
         #as the user who entered the trading partner
-        if len(self.ids.trading_partner_input.text)>0:
-            #for the update of the trading partner, there need to be 1 more code
-            #to check if the updated trading partner exists already or not:
-            trading_partner_check = s.query(TradingPartner).filter_by(trading_partner_name=self.ids.trading_partner_input.text).first()
-            if trading_partner_check:
-                query_invoice.trading_partner_name = self.ids.trading_partner_input.text
-                s.commit()
-            else:
-                print("Trading partner doesn't exist=> pls add information of your new trading partner first!")
+        # if len(self.ids.trading_partner_input.text)>0:
+        #     #for the update of the trading partner, there need to be 1 more code
+        #     #to check if the updated trading partner exists already or not:
+        #     trading_partner_check = s.query(TradingPartner).filter_by(trading_partner_name=self.ids.trading_partner_input.text).first()
+        #     if trading_partner_check:
+        #         query_invoice.trading_partner_name = self.ids.trading_partner_input.text
+        #         s.commit()
+        #     else:
+        #         print("Trading partner doesn't exist=> pls add information of your new trading partner first!")
 
         if len(self.ids.invoice_date_input.text) > 0:
             query_invoice.invoice_date = self.ids.invoice_date_input.text
@@ -1688,6 +1856,7 @@ class InvoiceScreen(MDScreen):
             trading_partner_id = trading_partner_check.id
             s.close()
 
+
             print(invoice_number, invoice_date, invoice_amount, invoice_currency,
                   tax, actual_payment_date, actual_payment_accepted_by,
                   description, overdue_period, notes_for_penalty_overdue,
@@ -1712,6 +1881,8 @@ class InvoiceScreen(MDScreen):
             #calculated by taking the "expired_contract_date" + "overdue_period" (only if
             #the user didn't enter anything because actual_payment_date could be changed
             # even when overdue_period or other elements is not changed)
+            if len(actual_payment_date) == 0 and len(overdue_period) == 0:
+                actual_payment_date = expired_contract_date
 
             #the user might entered overdue period but forgot to also enter actual payment date,
             #so the code below create the actual payment date for the user using the entered
@@ -1854,7 +2025,7 @@ class HomeScreen(MDScreen):
 
     def generate_reports(self):
         print("Generate reports button clicked")
-        # self.parent.current = "SnackScreen"
+        self.parent.current = "Generate_reports_Screen"
 
     def log_out(self):
         self.parent.current = "LoginScreen"
