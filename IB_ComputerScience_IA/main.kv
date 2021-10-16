@@ -42,6 +42,13 @@ ScreenManager:
     Update_trading_partner_Screen
         name: "Update_trading_partner_Screen"
 
+    Export_excel_filtered_table_Screen:
+        name: "Export_excel_filtered_table_Screen"
+
+    Export_pdf_filtered_table_Screen:
+        name: "Export_pdf_filtered_table_Screen"
+
+
 
 
 
@@ -1387,6 +1394,53 @@ ScreenManager:
                     text: "<-Back to menu"
                     on_release:
                         root.back_to_menu()
+
+
+<Export_excel_filtered_table_Screen>:
+
+    BoxLayout:
+        orientation: 'vertical'
+        size: root.height, root.width
+
+        FitImage:
+            source: resource_path("coke_snack.jpeg")
+
+        MDLabel:
+            text: "Financiaz"
+            font_style: "H6"
+            halign:"left"
+
+
+        MDLabel:
+            text: "EXPORT FILTERED TABLE TO EXCEL"
+            font_style: "H6"
+            halign:"left"
+
+
+        MDLabel:
+            id: excel_filename_label
+            font_style: "Body1"
+            halign:"left"
+
+
+        MDTextFieldRound:
+            id:excel_filename_input
+            hint_text: "Input the filename of your export Excel file:"
+
+        MDRectangleFlatIconButton:
+            text: "Export =>"
+            on_release:
+                root.export()
+
+        MDRectangleFlatIconButton:
+    #           icon: "food"
+            text: "<-Back to menu"
+            on_release:
+                root.back_to_menu()
+
+
+
+#<Export_pdf_filtered_table_Screen>:
 
 
 
