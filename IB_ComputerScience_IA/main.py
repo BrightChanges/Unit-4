@@ -6,6 +6,7 @@ from datetime import datetime
 from datetime import timedelta
 from datetime import date
 
+
 import xlsxwriter
 from kivy.lang import Builder
 from sqlalchemy import Column, DateTime, String, Integer, ForeignKey, Float, Date, and_
@@ -306,25 +307,26 @@ class Export_excel_filtered_table_Screen(MDScreen):
 
         worksheet.write(0, 0, "ID")
         worksheet.write(0, 1, "Trading partner ID")
-        worksheet.write(0, 2, "Invoice number")
-        worksheet.write(0, 3, "Invoice date")
-        worksheet.write(0, 4, "Invoice amount")
-        worksheet.write(0, 5, "Invoice currency")
-        worksheet.write(0, 6, "Invoice added date")
-        worksheet.write(0, 7, "Tax")
-        worksheet.write(0, 8, "Description")
-        worksheet.write(0, 9, "Expired contract date")
-        worksheet.write(0, 10, "Actual payment date")
-        worksheet.write(0, 11, "Actual payment date accepted by")
-        worksheet.write(0, 12, "Overdue period")
-        worksheet.write(0, 13, "Notes for penalty overdue")
-        worksheet.write(0, 14, "Paid")
-        worksheet.write(0, 15, "Paid amount")
-        worksheet.write(0, 16, "Payment unpaid amount")
-        worksheet.write(0, 17, "Payment date 1")
-        worksheet.write(0, 18, "Payment date 2")
-        worksheet.write(0, 19, "Occurent")
-        worksheet.write(0, 20, "Invoice added by user")
+        worksheet.write(0, 2, "Trading partner name")
+        worksheet.write(0, 3, "Invoice number")
+        worksheet.write(0, 4, "Invoice date")
+        worksheet.write(0, 5, "Invoice amount")
+        worksheet.write(0, 6, "Invoice currency")
+        worksheet.write(0, 7, "Invoice added date")
+        worksheet.write(0, 8, "Tax")
+        worksheet.write(0, 9, "Description")
+        worksheet.write(0, 10, "Expired contract date")
+        worksheet.write(0, 11, "Actual payment date")
+        worksheet.write(0, 12, "Actual payment date accepted by")
+        worksheet.write(0, 13, "Overdue period")
+        worksheet.write(0, 14, "Notes for penalty overdue")
+        worksheet.write(0, 15, "Paid")
+        worksheet.write(0, 16, "Paid amount")
+        worksheet.write(0, 17, "Payment unpaid amount")
+        worksheet.write(0, 18, "Payment date 1")
+        worksheet.write(0, 19, "Payment date 2")
+        worksheet.write(0, 20, "Occurent")
+        worksheet.write(0, 21, "Invoice added by user")
 
 
         # I can basically manipuulate the whole area where I should place the table
@@ -357,8 +359,7 @@ class Export_excel_filtered_table_Screen(MDScreen):
             rtn_dict[key] = getattr(row, key)
         return rtn_dict
 
-class Export_pdf_filtered_table_Screen(MDScreen):
-    pass
+
 
 class Update_trading_partner_Screen(MDScreen):
     def on_pre_enter(self, *args):
