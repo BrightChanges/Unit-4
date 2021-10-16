@@ -25,22 +25,19 @@ According to these requirements, I decided to make the program in Python, Kivy, 
 7. A Python, Kivy, Kivymd program could be compiled into one .exe file and used as a desktop application, which suits the program type my client wants
 
 
-### Stating Success Criteria 
-1. Being able to input/edit/remove/clear any or all data columns or each row of each invoice and save those data in the program
-2. Being able to view all data columns of each invoices save in the column
+### Stating Success Criteria (checked and agreed upon by the client) 
+1. Being able to view all data columns of each invoices save in the column
+2. Let the client view/add/edit/remove invoices.
 3. Program lets the client to input fixed data columns about the Trading Partner and pre-stored data in these fixed data columns for every subsequent invoices added to the program after the first time
-4. Program will show error messages and ask the client to re-input data about the invoices when there exist data entry errors (such as wrong data type for the data column)
-5. Program will show warning/confirmation message asking the client if he is sure before making a change to the program
-6. Each of data columns contains the required data format by the clients (some are number, string, date)
-7. Let the client filtered/search invoices based on required data columns such as Invoice Number, Payment information, the Actual Payment time, Priority rank, Paid, Sector, Supplier Name into tables that are viewable on the screen
-8. Let the client create 2 main types of reports: Overdue Invoice Report and Invoice Payment Schedule Report and export them to reports in Excel and PDF formats.
-9. Let the client view and edit/remove all data columns of each invoices shown on the filtered/searched tables
-10. Let the client export the filtered/search invoices tables to reports in Excel and PDF formats.
-11. Let the client export the whole database of invoices to reports in Excel and PDF formats.
-12. Each of the 2 main types of reports will need to be structured in the way that the client want (including headers, report generated time, font type)
-13. The program will have a login and logout screen
-14. The program will let multiple user creates their account and passwords, storing those passwords in hashed
-15. The program will show a message each time the client exported a report saying that he should back it up by putting it into the hard drive or hard disk
+4. Each of data columns contains the required data format by the clients (some are number, string, date)
+5. Let the client filtered/search invoices based on required data columns such as Invoice Number, Payment information, the Actual Payment time, Priority rank, Paid, Sector, Supplier Name into tables that are viewable on the screen
+6. Let the client create 2 main types of reports: Overdue Invoice Report and Invoice Payment Schedule Report and export them to reports in Excel and PDF formats.
+7. Let the client export the filtered/search invoices tables to reports in Excel and PDF formats.
+8. Let the client export the whole database of invoices to reports in Excel and PDF formats.
+9. Each of the 2 main types of reports will need to be structured in the way that the client want (including headers, report generated time, font type)
+10. The program will have a login and logout screen
+11. The program will let multiple user creates their account and passwords, storing those passwords in hashed
+
 
 ## Criterion B: Solution Overview
 
