@@ -6,6 +6,7 @@ from datetime import datetime
 from datetime import timedelta
 from datetime import date
 
+import xlsxwriter
 from kivy.lang import Builder
 from sqlalchemy import Column, DateTime, String, Integer, ForeignKey, Float, Date, and_
 from sqlalchemy.ext.declarative import declarative_base
@@ -287,6 +288,77 @@ class DoubleClickableLabel(Label):
 
     def on_double_press(self, *args):
         pass
+
+class Export_excel_filtered_table_Screen(MDScreen):
+
+    def back_to_menu(self):
+        print("Back to menu")
+        self.parent.current = "HomeScreen"
+
+    def export(self):
+        workbook_name = self.ids.excel_filename_input.text+".xlsx"
+        workbook = xlsxwriter.Workbook(workbook_name)
+        worksheet = workbook.add_worksheet()
+
+        all_data = Filtered_searched_display_Screen.query_variable
+        data_list = [to_dict(item) for item in all_data]
+        print(data_list)
+
+        worksheet.write(0, 0, "ID")
+        worksheet.write(0, 1, "Trading partner ID")
+        worksheet.write(0, 2, "Invoice number")
+        worksheet.write(0, 3, "Invoice date")
+        worksheet.write(0, 4, "Invoice amount")
+        worksheet.write(0, 5, "Invoice currency")
+        worksheet.write(0, 6, "Invoice added date")
+        worksheet.write(0, 7, "Tax")
+        worksheet.write(0, 8, "Description")
+        worksheet.write(0, 9, "Expired contract date")
+        worksheet.write(0, 10, "Actual payment date")
+        worksheet.write(0, 11, "Actual payment date accepted by")
+        worksheet.write(0, 12, "Overdue period")
+        worksheet.write(0, 13, "Notes for penalty overdue")
+        worksheet.write(0, 14, "Paid")
+        worksheet.write(0, 15, "Paid amount")
+        worksheet.write(0, 16, "Payment unpaid amount")
+        worksheet.write(0, 17, "Payment date 1")
+        worksheet.write(0, 18, "Payment date 2")
+        worksheet.write(0, 19, "Occurent")
+        worksheet.write(0, 20, "Invoice added by user")
+
+
+        # I can basically manipuulate the whole area where I should place the table
+        # from the database. I can then use worksheet.write() to manually
+        # write a few other value in the excel file.
+        row_index = 0
+
+        for i in range(len(data_list)):
+            row_index += 1
+            column_index = 0
+            for key in data_list[i]:
+                worksheet.write(row_index, column_index, data_list[i][key])
+                column_index += 1
+
+        workbook.close()
+
+
+        ##the code below help make all item in all_data from the table iterable:
+
+    def to_dict(row):
+        if row is None:
+            return None
+
+        # creates a dictionary:
+        rtn_dict = dict()
+        # converts the column headers of the table into the keys of the dictionary
+        keys = row.__table__.columns.keys()
+
+        for key in keys:
+            rtn_dict[key] = getattr(row, key)
+        return rtn_dict
+
+class Export_pdf_filtered_table_Screen(MDScreen):
+    pass
 
 class Update_trading_partner_Screen(MDScreen):
     def on_pre_enter(self, *args):
@@ -1050,7 +1122,7 @@ class Filtered_searched_display_Screen(MDScreen):
         self.parent.current = "FilterSearchInvoiceScreen"
 
     def export_excel(self):
-        pass
+        self.parent.current = "Export_excel_filtered_table_Screen"
 
     def export_pdf(self):
         pass
@@ -1084,6 +1156,7 @@ class Filtered_searched_display_Screen(MDScreen):
             # Getting data from the database
             s = session()
             query_all = s.query(Invoice).all()
+            Filtered_searched_display_Screen.query_variable = query_all
             print(query_all)
 
             Filtered_searched_display_Screen.query_variable = query_all
