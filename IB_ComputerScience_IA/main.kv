@@ -45,8 +45,8 @@ ScreenManager:
     Export_excel_filtered_table_Screen:
         name: "Export_excel_filtered_table_Screen"
 
-    Export_pdf_filtered_table_Screen:
-        name: "Export_pdf_filtered_table_Screen"
+
+
 
 
 
@@ -818,13 +818,6 @@ ScreenManager:
                 on_release:
                     root.export_excel()
 
-            MDRectangleFlatIconButton:
-        #           icon: "food"
-                pos_hint: {'x': .305}
-                text: "Export to PDF"
-                on_release:
-                    root.export_pdf()
-
 
         MDLabel:
 
@@ -1437,11 +1430,6 @@ ScreenManager:
             text: "<-Back to menu"
             on_release:
                 root.back_to_menu()
-
-
-
-#<Export_pdf_filtered_table_Screen>:
-
 
 
 
