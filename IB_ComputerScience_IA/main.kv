@@ -45,6 +45,8 @@ ScreenManager:
     Export_excel_filtered_table_Screen:
         name: "Export_excel_filtered_table_Screen"
 
+    Generate_reports_Screen:
+        name: "Generate_reports_Screen"
 
 
 
@@ -1432,4 +1434,36 @@ ScreenManager:
                 root.back_to_menu()
 
 
+
+<Generate_reports_Screen>:
+    BoxLayout:
+        orientation: 'vertical'
+        size: root.height, root.width
+
+        MDLabel:
+            text: "Financiaz"
+            font_style: "H6"
+            halign:"left"
+
+        MDLabel:
+
+        MDLabel:
+            text: "GENERATE REPORTS"
+            font_style: "H6"
+            halign:"left"
+
+        MDRectangleFlatIconButton:
+            text: "Generate OVERDUE INVOICE REPORT"
+            on_release:
+                root.generate_overdue_invoice_report()
+
+        MDRectangleFlatIconButton:
+            text: "Generate INVOICE PAYMENT SCHEDULE REPORT"
+            on_release:
+                root.generate_invoice_payment_schedule_report()
+
+        MDRectangleFlatIconButton:
+            text: "<-Back to menu"
+            on_release:
+                root.back_to_menu()
 
