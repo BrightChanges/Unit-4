@@ -27,7 +27,7 @@ According to these requirements, I decided to make the program in Python, Kivy, 
 
 ### Stating Success Criteria (checked and agreed upon by the client) 
 1. Being able to view all data columns of each invoices save in the column
-2. Let the client view/add/edit/remove invoices.
+2. Let the client add/edit/remove invoices.
 3. Program lets the client to input fixed data columns about the Trading Partner and pre-stored data in these fixed data columns for every subsequent invoices added to the program after the first time
 4. Each of data columns contains the required data format by the clients (some are number, string, date)
 5. Let the client filtered/search invoices based on required data columns such as Invoice Number, Payment information, the Actual Payment time, Priority rank, Paid, Sector, Supplier Name into tables that are viewable on the screen
