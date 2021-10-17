@@ -87,6 +87,13 @@ Explanation: This diagram shows the general processes an user could carry out wi
 
 ### Need to add 2~3 flow diagram of some "complicated" algorithms with explanations in!!!
 
+### Diagram 1: a diagram showing the algorithm that receives certain values from the Filter/Search Screen and uses certain conditions (only 3 conditions in this diagram) to query/shows  appropriate invoices on to the Filtered/Seacrhed Screen:
+![](https://github.com/BrightChanges/Unit-4/blob/main/IB_ComputerScience_IA/CS%20IA-Algorithm%20Diagram%201.png)
+Explanation: ......
+
+
+
+
 ### Database normalization:
 1. For the User class:
 
