@@ -105,11 +105,11 @@ Explanation: This table shows the User data table/class in the database. The tab
 
 2. For the Trading partner class:
 
-| id | trading_partner_name | supplier_name | sector        | contract_days | remit_to_bank_account_name | remit_to_bank_account_number | priority_rank |
-|----|----------------------|---------------|---------------|---------------|----------------------------|------------------------------|---------------|
-| 1  | X partner            | X             | Entertainment | 14            | Mistsubishi                | 00012                        | 3             |
-| 2  | YKJ                  | YKJ           | Financial     | 7             | Yuchou                     | 00001                        | 1             |
-| 3  | ooo.com              | ooo           | Security      | 14            | Miyazaki                   | 02200                        | 1             |
+| id | trading_partner_name | supplier_name | sector        | contract_days | remit_to_bank_account_name | remit_to_bank_account_number | priority_rank | trading_partner_added_by_user |
+|----|----------------------|---------------|---------------|---------------|----------------------------|------------------------------|---------------|------|  
+| 1  | X partner            | X             | Entertainment | 14            | Mistsubishi                | 00012                        | 3             | Kien |
+| 2  | YKJ                  | YKJ           | Financial     | 7             | Yuchou                     | 00001                        | 1             | Kien |
+| 3  | ooo.com              | ooo           | Security      | 14            | Miyazaki                   | 02200                        | 1             | Son  |
 
 Table 2: A data table of the Trading partner class in the database in the program with example data
 Explanation: This table shows the Trading partner class in the database. The table will contain the primary key attribute "id", the unique attribute "trading_partner_name", and various other normal attributes such as "supplier_name", "sector".
