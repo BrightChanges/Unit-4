@@ -41,7 +41,6 @@ According to these requirements, I decided to make the program in Python, Kivy, 
 
 ## Criterion B: Solution Overview
 
-### For each diagram, adds a short explanation of why I created it!
 
 ### System diagram 
 ![](https://github.com/BrightChanges/Unit-4/blob/main/IB_ComputerScience_IA/CSIA_System%20diagram.png)
@@ -56,7 +55,6 @@ Explanation: The Login Screen (Screen no.1) lets the user to login and use the p
 
 ![](https://github.com/BrightChanges/Unit-4/blob/main/IB_ComputerScience_IA/CSIA_Screens(5-6)%20(1).png)
 Image 3: Design of Add fixed data about trading partner Screen, Add non-fixed data about Invoice screen
-## Forgot to add the column Invoice number and Occurent into the Invoice class database. Need to add this in to the designs later.
 Explanation: Once in the Add fixed data about trading partners Screen (Screen no.5), the user can add information about a Trading Partner by filling out all the text fields of “Trading partner name”, “Supplier name”, “Sector”, “Contract days”, “Priority rank”, “Remit-To Bank Account Name”, “Remit-To Bank Account Number”. The user can activate this adding trading partner information action by clicking the “Add to database +” button. Once in the Add non-fixed data about invoices Screen (Screen no.6), the user can add information about an Invoice by filling out all the text fields, choosing from choice fields such as “Trading Partner”, “Invoice date”, “Invoice number”, “Invoice currency”, “Invoice amount”, “Tax%”, “Actual payment date accepted by”, “Description”, “Overdue period (days)”, “Notes for penalty overdue”, “Occurrent”. If the invoice is paid, or paid twice, the user can input optional text fields such as the paid amount, payment date, and 2nd payment date. The user can activate this adding invoice information action by cycling the “Add to database +” button.
 
 ![](https://github.com/BrightChanges/Unit-4/blob/main/IB_ComputerScience_IA/CSIA_Screens(7-8)%20(1).png)
@@ -80,7 +78,6 @@ Explanation: This diagram shows how a method can be carried out through the 3 da
 ### ER diagram 
 ![](https://github.com/BrightChanges/Unit-4/blob/main/IB_ComputerScience_IA/ER%20diagram%20for%20CS%20IA%20(2).png)
 Image 8: ER diagram of the program
-## Forgot to add the column Invoice number and Occurent into the Invoice class database. Need to add this in to the designs later.
 Explanation: This diagram shows the UML diagram/Class diagram (Image 6) in a way that is easier to see the various attributes (orange circles) in each data table (white rectangles). Also, each primary key attribute is in a red circle.
 
 ### Flow diagram of general processes 
@@ -116,7 +113,6 @@ Explanation: This table shows the Trading partner class in the database. The tab
 
 
 3. For the Invoice class:
-## Forgot to add the column Invoice number and Occurent into the Invoice class database. Need to add this in to the designs later.
 
 | id | trading_partner_id | trading_partner_name | invoice_number | invoice_date | invoice_amount | invoice_currency | invoice_added_date | tax | description              | expired_contract_date | actual_payment_date | actual_payment_accepted_by | overdue_period | notes_for_penalty_overdue | paid | paid_amount | payment_unpaid_amount | payment_date1 | payment_date2 | occurent | invoice_added_by_user |
 |----|--------------------|----------------------|----------------|--------------|----------------|------------------|--------------------|-----|--------------------------|-----------------------|---------------------|----------------------------|----------------|---------------------------|------|-------------|-----------------------|---------------|---------------|----------|-----------------------|
@@ -254,80 +250,6 @@ Table 6: Record of tasks's table
 
 ```
 
-
-
-##### 2.Codes to convert data in an sqlite database's table to PDF using safe query with SQLAlchemy ORM:
-
-(Snack in the codes below is an sqlite database table)
-(the PDF file will be stored in CoinSnack2.pdf)
-
-```.py
-
-    def export_pdf(self):
-        s = session()
-        all_data = s.query(Snack).all()
-
-        data_list = [to_dict(item) for item in all_data]
-        print(data_list)
-
-
-        pdf = FPDF()
-        pdf.add_page()
-
-        page_width = pdf.w - 2 * pdf.l_margin
-
-        pdf.set_font('Times', 'B', 14.0)
-        pdf.cell(page_width, 0.0, 'CoinSnack Data', align='C')
-        pdf.ln(10)
-
-        pdf.set_font('Courier', '', 12)
-
-        col_width = page_width / 5
-
-        pdf.ln(1)
-
-        th = pdf.font_size
-
-
-        for x in range(1):
-            pdf.cell(col_width, th, txt="id", border=1)
-            pdf.cell(col_width, th,  txt="name", border=1)
-            pdf.cell(col_width, th,  txt="amount", border=1)
-            pdf.cell(col_width, th,  txt="price", border=1)
-            pdf.cell(col_width, th,  txt="user_id", border=1)
-            pdf.ln(th)
-
-        pdf.ln(1)
-
-        for i in range(len(data_list)):
-            pdf.cell(col_width, th, str(data_list[i]["id"]), border=1)
-            pdf.cell(col_width, th, str(data_list[i]["name"]), border=1)
-            pdf.cell(col_width, th, str(data_list[i]["amount"]), border=1)
-            pdf.cell(col_width, th, str(data_list[i]["price"]), border=1)
-            pdf.cell(col_width, th, str(data_list[i]["user_id"]), border=1)
-            pdf.ln(th)
-
-        s.close()
-        pdf.output("Coinsnack2.pdf")
-        
-    ##Magic code below:
-    ##the code below help make all item in all_data from the table iterable:
-    def to_dict(row):
-        if row is None:
-            return None
-
-        #creates a dictionary:
-        rtn_dict = dict()
-        #converts the column headers of the table into the keys of the dictionary
-        keys = row.__table__.columns.keys()
-
-
-        for key in keys:
-            rtn_dict[key] = getattr(row, key)
-        return rtn_dict
-
-
-```
 
 ##### 3.Codes to package the Kivy-Python-Kivy project into exe, dmg file:
 Step 1: create a spec file "something.spec" in the same directory with main.py and main.py
