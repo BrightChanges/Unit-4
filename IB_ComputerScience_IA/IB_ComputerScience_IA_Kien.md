@@ -85,14 +85,14 @@ Explanation: This diagram shows the UML diagram/Class diagram (Image 6) in a way
 Image 9: Flow diagram of general processes of the program
 Explanation: This diagram shows the general processes an user could carry out with the program.
 
-### Need to add 2~3 flow diagram of some "complicated" algorithms with explanations in!!!
 
 ### Diagram 1: a diagram showing the algorithm that receives certain values from the Filter/Search Screen and uses certain conditions (only 3 conditions in this diagram) to query/shows  appropriate invoices on to the Filtered/Seacrhed Screen:
 ![](https://github.com/BrightChanges/Unit-4/blob/main/IB_ComputerScience_IA/CS%20IA-Algorithm%20Diagram%201%20(1).png)
 Explanation: this diagram shows an algorithm that receives certain values from the Filter/Search Screen and uses certain conditions (only 3 conditions in this diagram) to query/shows appropriate invoices on to the Filtered/Search Screen. The nice thing about this algorithm lies in the codes of the 3 conditions. By creating one query variable in the beginning of the 3 conditions, it removes the need for me (the developer) to code multiple same lengthy front-end codes.
 
-
-
+### Diagram 2: a diagram showing the algorithm that update information about the Trading Partner and for the 2 critical information of multiple individual Invoices and 1 critical automatic information of the Trading Partner (this algorithm belongs to a larger algorithm):
+![](https://github.com/BrightChanges/Unit-4/blob/main/IB_ComputerScience_IA/CS%20IA-Algorithm%20Diagram%202.png)
+Explanation: this diagrams shows an algorithm that update information about the Trading Partner and for the 2 critical information of multiple individual Invoices and 1 critical automatic information of the Trading Partner. As you can see from the diagram, not only does it update information of the Trading Partner, but it can also update all trading partner name, contract day, expired contract date of all Invoices with the Trading Partner that is updated, and  automatically update the user who added the Trading Partner. This algorithm is critical to maintain data intergrity and conenction between Invoices and their Trading Partners.
 
 
 
