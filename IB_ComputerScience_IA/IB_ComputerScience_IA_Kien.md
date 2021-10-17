@@ -78,7 +78,7 @@ Image 7: UML diagram/Sequence diagram of a method in the program
 Explanation: This diagram shows how a method can be carried out through the 3 data tables “User”, “Trading Partner”, “Invoice”. In this diagram, the get_info() method in the User table is being carried out. First, it needs to request wanted information (all_info) from the Trading Partner data table; the Trading Partner data table then needs to request wanted information (all_info) from the Invoice data table. This method demonstrates the filter/search invoices function the user could carry out in the program.
 
 ### ER diagram 
-![](https://github.com/BrightChanges/Unit-4/blob/main/IB_ComputerScience_IA/ER%20diagram%20for%20CS%20IA%20(1).png)
+![](https://github.com/BrightChanges/Unit-4/blob/main/IB_ComputerScience_IA/ER%20diagram%20for%20CS%20IA%20(2).png)
 Image 8: ER diagram of the program
 ## Forgot to add the column Invoice number and Occurent into the Invoice class database. Need to add this in to the designs later.
 Explanation: This diagram shows the UML diagram/Class diagram (Image 6) in a way that is easier to see the various attributes (orange circles) in each data table (white rectangles). Also, each primary key attribute is in a red circle.
@@ -112,7 +112,7 @@ Explanation: This table shows the User data table/class in the database. The tab
 | 3  | ooo.com              | ooo           | Security      | 14            | Miyazaki                   | 02200                        | 1             | Son  |
 
 Table 2: A data table of the Trading partner class in the database in the program with example data
-Explanation: This table shows the Trading partner class in the database. The table will contain the primary key attribute "id", the unique attribute "trading_partner_name", and various other normal attributes such as "supplier_name", "sector".
+Explanation: This table shows the Trading partner class in the database. The table will contain the primary key attribute "id", the foreign key attribute "trading_partner_added_by_user", the unique attribute "trading_partner_name", and various other normal attributes such as "supplier_name", "sector".
 
 
 3. For the Invoice class:
