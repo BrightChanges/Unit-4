@@ -62,15 +62,12 @@ ScreenManager:
         orientation: 'vertical'
         size: root.height, root.width
 
-        FitImage:
-            source: resource_path("coke_snack.jpeg")
 
     MDCard:
         size_hint: 0.5, 0.75
         elevation: 10
         pos_hint: {"center_x": 0.5, "center_y": 0.5}
         orientation: "vertical"
-
 
 
         MDBoxLayout:
@@ -85,9 +82,22 @@ ScreenManager:
                 adaptive_height: True
                 orientation: "vertical"
 
+            MDLabel:
 
-                Image:
-                    source: resource_path("CoinSnack_Logo.png")
+            MDLabel:
+
+            MDLabel:
+                text: "Financiaz"
+                font_style: "H6"
+                halign:"left"
+
+            MDLabel:
+
+
+            MDLabel:
+                text: "HOME"
+                font_style: "H6"
+                halign: "left"
 
             MDLabel:
 
@@ -152,8 +162,6 @@ ScreenManager:
         orientation: 'vertical'
         size: root.height, root.width
 
-        FitImage:
-            source: resource_path("coke_snack.jpeg")
 
     MDCard:
         size_hint: 0.5, 1
@@ -177,9 +185,6 @@ ScreenManager:
                 adaptive_height: True
                 orientation: "vertical"
 
-
-                Image:
-                    source: resource_path("CoinSnack_Logo.png")
 
 
             MDLabel:
@@ -243,19 +248,17 @@ ScreenManager:
         orientation: 'vertical'
         size: root.height, root.width
 
-    MDCard:
-        size_hint: 0.5, 0.75
-        elevation: 10
-        pos_hint: {"center_x": 0.5, "center_y": 0.5}
-        orientation: "vertical"
+        MDLabel:
+            text: "Financiaz"
+            font_style: "H6"
+            halign:"left"
 
+        MDLabel:
 
-        MDBoxLayout:
-            id: content #id or name
-            adaptive_height: True
-            orientation: "vertical"
-            padding: dp(30)
-            spacing: dp(20)
+        MDLabel:
+            text: "ADD INVOICES/TRADING PARTNERS"
+            font_style: "H6"
+            halign:"left"
 
         MDRectangleFlatIconButton:
 #           icon: "account-circle"
@@ -278,14 +281,14 @@ ScreenManager:
             on_release:
                 root.back_to_menu()
 
+
+
 <InvoiceScreen>
 
     BoxLayout:
         orientation: 'vertical'
         size: root.height, root.width
 
-        FitImage:
-            source: resource_path("coke_snack.jpeg")
 
         MDLabel:
             text: "Financiaz"
@@ -439,8 +442,6 @@ ScreenManager:
         orientation: 'vertical'
         size: root.height, root.width
 
-        FitImage:
-            source: resource_path("coke_snack.jpeg")
 
         MDLabel:
             text: "Financiaz"
@@ -556,8 +557,6 @@ ScreenManager:
         orientation: 'vertical'
         size: root.height, root.width
 
-        FitImage:
-            source: resource_path("coke_snack.jpeg")
 
     MDCard:
         size_hint: 0.5, 0.75
@@ -629,9 +628,6 @@ ScreenManager:
     BoxLayout:
         orientation: 'vertical'
         size: root.height, root.width
-
-        FitImage:
-            source: resource_path("coke_snack.jpeg")
 
         MDLabel:
             text: "Financiaz"
@@ -754,8 +750,6 @@ ScreenManager:
         orientation: 'vertical'
         size: root.height, root.width
 
-        FitImage:
-            source: resource_path("coke_snack.jpeg")
 
         MDLabel:
             text: "Financiaz"
@@ -940,8 +934,6 @@ ScreenManager:
         orientation: 'vertical'
         size: root.height, root.width
 
-        FitImage:
-            source: resource_path("coke_snack.jpeg")
 
         MDLabel:
             text: "Financiaz"
@@ -1018,8 +1010,6 @@ ScreenManager:
         orientation: 'vertical'
         size: root.height, root.width
 
-        FitImage:
-            source: resource_path("coke_snack.jpeg")
 
         MDLabel:
             text: "Financiaz"
@@ -1157,8 +1147,6 @@ ScreenManager:
         orientation: 'vertical'
         size: root.height, root.width
 
-        FitImage:
-            source: resource_path("coke_snack.jpeg")
 
         MDLabel:
             text: "Financiaz"
@@ -1397,8 +1385,6 @@ ScreenManager:
         orientation: 'vertical'
         size: root.height, root.width
 
-        FitImage:
-            source: resource_path("coke_snack.jpeg")
 
         MDLabel:
             text: "Financiaz"
