@@ -10,7 +10,7 @@ from datetime import date
 
 import xlsxwriter
 from kivy.lang import Builder
-from sqlalchemy import Column, DateTime, String, Integer, ForeignKey, Float, Date, and_
+from sqlalchemy import Column, DateTime, String, Integer, ForeignKey, Float, Date, and_, or_
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship
 from kivy.app import App
@@ -302,7 +302,7 @@ class Generate_reports_Screen(MDScreen):
         report_generated_date = str(date.today())
         s = session()
         overdue_invoices = s.query(Invoice).filter(Invoice.actual_payment_date<report_generated_date,
-                                                   Invoice.paid == 0).order_by(asc(Invoice.actual_payment_date)).all()
+                                                   or_(Invoice.paid == 0,Invoice.paid == 0.5)).order_by(asc(Invoice.actual_payment_date)).all()
 
         for invoices in overdue_invoices:
             ranking_of_invoice = s.query(TradingPartner).filter(TradingPartner.trading_partner_name==invoices.trading_partner_name).first().priority_rank
@@ -320,6 +320,7 @@ class Generate_reports_Screen(MDScreen):
             ranking_sorted_list.append(to_be_ordered_by_ranking_invoice_item)
 
         print(ranking_sorted_list)
+
         for invoice_index in range(len(ranking_sorted_list)):
             # print(ranking_sorted_list[invoice_index][0:-1])
 
@@ -339,7 +340,7 @@ class Generate_reports_Screen(MDScreen):
 
         print(ranking_sorted_list)
 
-        workbook_name = str(report_generated_date) + ".xlsx"
+        workbook_name = "OVERDUE INVOICE REPORT-" +str(report_generated_date) + ".xlsx"
         workbook = xlsxwriter.Workbook(workbook_name)
         worksheet = workbook.add_worksheet()
 
@@ -444,15 +445,234 @@ class Generate_reports_Screen(MDScreen):
 
 
 
-
-
-
-
-
-
-
     def generate_invoice_payment_schedule_report(self):
         print("Generate INVOICE PAYMENT SCHEDULE REPORT now")
+        #as the difference between the Invoice Payment Schedule Report
+        #and the Overdue Invoices Report is that the Invoice Payment Schedule Report
+        #incldues all invoices that are not paid while the Overdue Invoices Report
+        #only includes all invoices that are not paid and that has an
+        #Actual Payment Date before the report generated date:
+
+        #as the client request that we keep the overdue invoices on top
+        #of the other not-paid invoices in this report,
+        #we will use the same code for the Overdue Invoices Report
+        #in the beginning:
+        ranking_sorted_list = []
+
+        report_generated_date = str(date.today())
+        s = session()
+        overdue_invoices = s.query(Invoice).filter(Invoice.actual_payment_date<report_generated_date,
+                                                   Invoice.paid != 1).order_by(asc(Invoice.actual_payment_date)).all()
+
+        for invoices in overdue_invoices:
+            ranking_of_invoice = s.query(TradingPartner).filter(TradingPartner.trading_partner_name==invoices.trading_partner_name).first().priority_rank
+
+            print(invoices.invoice_number, ranking_of_invoice)
+
+        #was able to generate all overdue invoices, now I need to also order them by ranking
+        #for those that have same actual_payment_date:
+        #I can add all of them into a list and then sort them out into order
+        #and then I would query each of the invoice using the invoice number
+        #in the list and adds it in the excel, creating a group of overdue invoices
+        #in order of most importance
+
+            to_be_ordered_by_ranking_invoice_item = str(invoices.invoice_number) + str(ranking_of_invoice)
+            ranking_sorted_list.append(to_be_ordered_by_ranking_invoice_item)
+
+        print(ranking_sorted_list)
+        for invoice_index in range(len(ranking_sorted_list)):
+            # print(ranking_sorted_list[invoice_index][0:-1])
+
+            for invoice_index in range(len(ranking_sorted_list)-1):
+
+                actual_payment_date_of_current_index_invoice = s.query(Invoice).filter_by(invoice_number = ranking_sorted_list[invoice_index][0:-1]).first().actual_payment_date
+                ranking_of__current_index_invoice = ranking_sorted_list[invoice_index][-1]
+
+                actual_payment_date_of_next_index_invoice = s.query(Invoice).filter_by(invoice_number = ranking_sorted_list[invoice_index+1][0:-1]).first().actual_payment_date
+                ranking_of__next_index_invoice = ranking_sorted_list[invoice_index+1][-1]
+
+                if actual_payment_date_of_current_index_invoice == actual_payment_date_of_next_index_invoice:
+                    if ranking_of__next_index_invoice < ranking_of__current_index_invoice:
+                        holder = ranking_sorted_list[invoice_index]
+                        ranking_sorted_list[invoice_index] = ranking_sorted_list[invoice_index+1]
+                        ranking_sorted_list[invoice_index + 1] = holder
+
+        print(ranking_sorted_list)
+
+        workbook_name = "INVOICE PAYMENT SCHEDULE REPORT-" +str(report_generated_date) + ".xlsx"
+        workbook = xlsxwriter.Workbook(workbook_name)
+        worksheet = workbook.add_worksheet()
+
+        worksheet.write(0, 0, "INVOICE PAYMENT SCHEDULE REPORT")
+        worksheet.write(1, 0, f"Report generated date: {report_generated_date}")
+
+
+        worksheet.write(2, 0, "ID")
+        worksheet.write(2, 1, "Trading partner ID")
+        worksheet.write(2, 2, "Trading partner name")
+        worksheet.write(2, 3, "Invoice number")
+        worksheet.write(2, 4, "Invoice date")
+        worksheet.write(2, 5, "Invoice amount")
+        worksheet.write(2, 6, "Invoice currency")
+        worksheet.write(2, 7, "Invoice added date")
+        worksheet.write(2, 8, "Tax")
+        worksheet.write(2, 9, "Description")
+        worksheet.write(2, 10, "Expired contract date")
+        worksheet.write(2, 11, "Actual payment date")
+        worksheet.write(2, 12, "Actual payment date accepted by")
+        worksheet.write(2, 13, "Overdue period")
+        worksheet.write(2, 14, "Notes for penalty overdue")
+        worksheet.write(2, 15, "Paid")
+        worksheet.write(2, 16, "Paid amount")
+        worksheet.write(2, 17, "Payment unpaid amount")
+        worksheet.write(2, 18, "Payment date 1")
+        worksheet.write(2, 19, "Payment date 2")
+        worksheet.write(2, 20, "Occurent")
+        worksheet.write(2, 21, "Invoice added by user")
+
+        row_index = 2
+
+        for invoice_index in range(len(ranking_sorted_list)):
+            row_index += 1
+            column_index = 0
+
+            invoice_query = s.query(Invoice).filter_by(invoice_number = ranking_sorted_list[invoice_index][0:-1]).first()
+
+
+            worksheet.write(row_index, column_index, invoice_query.id)
+            column_index += 1
+            worksheet.write(row_index, column_index, invoice_query.trading_partner_id)
+            column_index += 1
+            worksheet.write(row_index, column_index, invoice_query.trading_partner_name)
+            column_index += 1
+            worksheet.write(row_index, column_index, invoice_query.invoice_number)
+            column_index += 1
+            worksheet.write(row_index, column_index, invoice_query.invoice_date)
+            column_index += 1
+            worksheet.write(row_index, column_index, invoice_query.invoice_amount)
+            column_index += 1
+            worksheet.write(row_index, column_index, invoice_query.invoice_currency)
+            column_index += 1
+            worksheet.write(row_index, column_index, invoice_query.invoice_added_date)
+            column_index += 1
+            worksheet.write(row_index, column_index, invoice_query.tax)
+            column_index += 1
+            worksheet.write(row_index, column_index, invoice_query.description)
+            column_index += 1
+            worksheet.write(row_index, column_index, invoice_query.expired_contract_date)
+            column_index += 1
+            worksheet.write(row_index, column_index, invoice_query.actual_payment_date)
+            column_index += 1
+            worksheet.write(row_index, column_index, invoice_query.actual_payment_accepted_by)
+            column_index += 1
+            worksheet.write(row_index, column_index, invoice_query.overdue_period)
+            column_index += 1
+            worksheet.write(row_index, column_index, invoice_query.notes_for_penalty_overdue)
+            column_index += 1
+            worksheet.write(row_index, column_index, invoice_query.paid)
+            column_index += 1
+            worksheet.write(row_index, column_index, invoice_query.paid_amount)
+            column_index += 1
+            worksheet.write(row_index, column_index, invoice_query.payment_unpaid_amount)
+            column_index += 1
+            worksheet.write(row_index, column_index, invoice_query.payment_date1)
+            column_index += 1
+            worksheet.write(row_index, column_index, invoice_query.payment_date2)
+            column_index += 1
+            worksheet.write(row_index, column_index, invoice_query.occurent)
+            column_index += 1
+            worksheet.write(row_index, column_index, invoice_query.invoice_added_by_user)
+
+        #here, I am querying all invoices that are not overdue but are not paid and
+        #need to be include below the overdue invoices:
+        #WILL ALSO NEED TO ORDER THEM BY RANKING OF THEIR TRADING PARTNER (HAVEN'T DONE THIS YET)
+
+        non_overdue_but_not_fully_paid_invoices = s.query(Invoice).filter(Invoice.actual_payment_date>=report_generated_date,
+                                                   or_(Invoice.paid == 0,Invoice.paid == 0.5)).order_by(asc(Invoice.actual_payment_date)).all()
+
+        ranked_sorted_list2 = []
+        for invoices in non_overdue_but_not_fully_paid_invoices:
+            ranking_of_invoice = s.query(TradingPartner).filter(TradingPartner.trading_partner_name == invoices.trading_partner_name).first().priority_rank
+            to_be_ordered_by_ranking_invoice_item = str(invoices.invoice_number) + str(ranking_of_invoice)
+            ranked_sorted_list2.append(to_be_ordered_by_ranking_invoice_item)
+
+        print(ranked_sorted_list2)
+
+        for invoice_index in range(len(ranked_sorted_list2)):
+            # print(ranking_sorted_list[invoice_index][0:-1])
+
+            for invoice_index in range(len(ranked_sorted_list2) - 1):
+
+                actual_payment_date_of_current_index_invoice = s.query(Invoice).filter_by(
+                    invoice_number=ranked_sorted_list2[invoice_index][0:-1]).first().actual_payment_date
+                ranking_of__current_index_invoice = ranked_sorted_list2[invoice_index][-1]
+
+                actual_payment_date_of_next_index_invoice = s.query(Invoice).filter_by(
+                    invoice_number=ranked_sorted_list2[invoice_index + 1][0:-1]).first().actual_payment_date
+                ranking_of__next_index_invoice = ranked_sorted_list2[invoice_index + 1][-1]
+
+                if actual_payment_date_of_current_index_invoice == actual_payment_date_of_next_index_invoice:
+                    if ranking_of__next_index_invoice < ranking_of__current_index_invoice:
+                        holder = ranked_sorted_list2[invoice_index]
+                        ranked_sorted_list2[invoice_index] = ranked_sorted_list2[invoice_index + 1]
+                        ranked_sorted_list2[invoice_index + 1] = holder
+
+        print(ranked_sorted_list2)
+
+        for invoice_index in range(len(ranked_sorted_list2)):
+            row_index += 1
+            column_index = 0
+
+            invoice_query = s.query(Invoice).filter_by(invoice_number = ranked_sorted_list2[invoice_index][0:-1]).first()
+
+            worksheet.write(row_index, column_index, invoice_query.id)
+            column_index += 1
+            worksheet.write(row_index, column_index, invoice_query.trading_partner_id)
+            column_index += 1
+            worksheet.write(row_index, column_index, invoice_query.trading_partner_name)
+            column_index += 1
+            worksheet.write(row_index, column_index, invoice_query.invoice_number)
+            column_index += 1
+            worksheet.write(row_index, column_index, invoice_query.invoice_date)
+            column_index += 1
+            worksheet.write(row_index, column_index, invoice_query.invoice_amount)
+            column_index += 1
+            worksheet.write(row_index, column_index, invoice_query.invoice_currency)
+            column_index += 1
+            worksheet.write(row_index, column_index, invoice_query.invoice_added_date)
+            column_index += 1
+            worksheet.write(row_index, column_index, invoice_query.tax)
+            column_index += 1
+            worksheet.write(row_index, column_index, invoice_query.description)
+            column_index += 1
+            worksheet.write(row_index, column_index, invoice_query.expired_contract_date)
+            column_index += 1
+            worksheet.write(row_index, column_index, invoice_query.actual_payment_date)
+            column_index += 1
+            worksheet.write(row_index, column_index, invoice_query.actual_payment_accepted_by)
+            column_index += 1
+            worksheet.write(row_index, column_index, invoice_query.overdue_period)
+            column_index += 1
+            worksheet.write(row_index, column_index, invoice_query.notes_for_penalty_overdue)
+            column_index += 1
+            worksheet.write(row_index, column_index, invoice_query.paid)
+            column_index += 1
+            worksheet.write(row_index, column_index, invoice_query.paid_amount)
+            column_index += 1
+            worksheet.write(row_index, column_index, invoice_query.payment_unpaid_amount)
+            column_index += 1
+            worksheet.write(row_index, column_index, invoice_query.payment_date1)
+            column_index += 1
+            worksheet.write(row_index, column_index, invoice_query.payment_date2)
+            column_index += 1
+            worksheet.write(row_index, column_index, invoice_query.occurent)
+            column_index += 1
+            worksheet.write(row_index, column_index, invoice_query.invoice_added_by_user)
+
+
+        workbook.close()
+
+
 
     def back_to_menu(self):
         print("Back to menu")
