@@ -89,7 +89,9 @@ Explanation: This diagram shows the general processes an user could carry out wi
 
 ### Diagram 1: a diagram showing the algorithm that receives certain values from the Filter/Search Screen and uses certain conditions (only 3 conditions in this diagram) to query/shows  appropriate invoices on to the Filtered/Seacrhed Screen:
 ![](https://github.com/BrightChanges/Unit-4/blob/main/IB_ComputerScience_IA/CS%20IA-Algorithm%20Diagram%201%20(1).png)
-Explanation: ......
+Explanation: this diagram shows an algorithm that receives certain values from the Filter/Search Screen and uses certain conditions (only 3 conditions in this diagram) to query/shows appropriate invoices on to the Filtered/Search Screen. The nice thing about this algorithm lies in the codes of the 3 conditions. By creating one query variable in the beginning of the 3 conditions, it removes the need for me (the developer) to code multiple same lengthy front-end codes.
+
+
 
 
 
